@@ -1,5 +1,5 @@
 const operations = require('./operations.js');
 const objects = require('./objects.js');
-const parse = require('./parser.js');
+const serialize = require('./serialize.js');
 
-module.exports = { ...operations, ...objects, parse };
+module.exports = { ...objects, ...operations, serialize };
