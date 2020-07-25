@@ -1,10 +1,23 @@
 {
-  "name": "scad-js",
-  "version": "0.0.1",
+  "name": "@dotcore64/scad-js",
+  "version": "0.0.2",
   "description": "Generate OpenSCAD solid models with javascript",
   "main": "./src/index.js",
-  "repository": "git@github.com:20lives/scad-js.git",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/20lives/scad-js.git"
+  },
   "author": "20lives",
   "license": "MIT",
-  "private": false
+  "private": false,
+  "bugs": {
+    "url": "https://github.com/20lives/scad-js/issues"
+  },
+  "homepage": "https://github.com/20lives/scad-js#readme",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
 }
