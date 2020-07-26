@@ -1,9 +1,9 @@
 const S = require('../src/index.js');
 
-const wall = p => S.cylinder({ h: 20, r: 1 })
-  .rotate({ a: [p, 0, 0]})
-  .translate({v: [0, 40, 0]})
-  .rotate({ a: [0, 0, 2 * p] });
+const wall = p => S.cylinder(20, 1)
+  .rotate([p, 0, 0])
+  .translate([0, 40, 0])
+  .rotate([0, 0, 2 * p]);
 
 const walls = [];
 
