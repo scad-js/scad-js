@@ -11,12 +11,12 @@ const object = type => params => ({
   serialize,
 });
 
-const circle = r => object('circle')({ r, center });
-const square = size => object('square')({size, center });
+const circle = (r = 1) => object('circle')({ r });
+const square = (size = [1, 1]) => object('square')({ size, center });
 const polygon = (points = undef, paths = undef, convexity = 1) => object('polygon')({ points, paths, convexity });
 
 const sphere = r => object('sphere')({ r });
-const cube = size => object('cube')({ size, center});
+const cube = (size = [1, 1, 1]) => object('cube')({ size, center});
 const cylinder = (h, r) => object('cylinder')({ h, ...(Array.isArray(r) ? { r1: r[0], r2: r[1] } : { r }), center});
 const polyhedron = (points = undef, faces = undef, convexity = 1) => object('polyhedron')({ points, faces, convexity });
 
