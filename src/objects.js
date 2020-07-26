@@ -1,24 +1,23 @@
 const transformations = require('./transformations.js');
 const serialize = require('./serialize.js');
 
-const object = function(type) {
-  return function(params) {
-    return {
-      type,
-      params,
-      ...transformations,
-      serialize,
-    };
-  }
-};
+const center = true;
+const undef = 'undef';
 
-const circle = object('circle'); // params: r, d
-const square = object('square'); // params: size, center
-const polygon = object('polygon'); // params: points, paths
+const object = type => params => ({
+    type,
+    params,
+    ...transformations,
+    serialize,
+});
 
-const sphere = object('sphere'); // params: r, d;
-const cube = object('cube'); // params: size, center;
-const cylinder = object('cylinder'); // params: h, r, r1, r2, d, d1, d2, center
-const polyhedron = object('polyhedron'); // params: points, faces, convexity
+const circle = r => object('circle')({ r, center });
+const square = size => object('square')({size, center });
+const polygon = (points = undef, paths = undef, convexity = 1) => object('polygon')({ points, paths, convexity });
+
+const sphere = r => object('sphere')({ r });
+const cube = size => object('cube')({ size, center});
+const cylinder = (h, r) => object('cylinder')({ h, ...(Array.isArray(r) ? { r1: r[0], r2: r[1] } : { r }), center});
+const polyhedron = (points = undef, faces = undef, convexity = 1) => object('polyhedron')({ points, faces, convexity });
 
 module.exports = { circle, square, polygon, sphere, cube, cylinder, polyhedron };
