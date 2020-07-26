@@ -5,10 +5,10 @@ const center = true;
 const undef = 'undef';
 
 const object = type => params => ({
-    type,
-    params,
-    ...transformations,
-    serialize,
+  type,
+  params,
+  ...transformations,
+  serialize,
 });
 
 const circle = r => object('circle')({ r, center });

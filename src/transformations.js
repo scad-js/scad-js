@@ -1,6 +1,8 @@
 const serialize = require('./serialize.js');
 
-const transformation = (type) => function(params) {
+const undef = 'undef';
+
+const transformation = type => function(params) {
   return {
     type,
     params,
@@ -10,16 +12,38 @@ const transformation = (type) => function(params) {
   }
 }
 
-const translate = transformation('translate'); // params: v
-const scale = transformation('scale'); // params: v
-const resize = transformation('resize'); // params: v
-const mirror = transformation('mirror'); // params: v
-const color = transformation('color'); // params: c
-const rotate = transformation('rotate'); // params: a, v
-const offset = transformation('offset'); // params: r, delda, chamfer
-const projection = transformation('projection'); // params: cut = false
-const linear_extrude = transformation('linear_extrude'); // params: height, center, convexity, twist, slices, scale
-const rotate_extrude = transformation('rotate_extrude'); // params: angle, convexity
+const translate = function(v) {
+  return transformation('translate').call(this, { v });
+};
+const scale = function(v) {
+  return transformation('scale').call(this, { v });
+}
+const resize = function(v) {
+  return transformation('resize').call(this, { v });
+}
+const mirror = function(v) {
+  return transformation('mirror').call(this, { v });
+}
+const color = function(c) {
+  transformation('color').call(this, { c });
+}
+const rotate = function(a, v = undef) {
+  return transformation('rotate').call(this, { a, v });
+}
+const offset = function(r = undef, delta = undef, chamfer = undef) {
+  return transformation('offset').call(this, { r, delta, chamfer });
+}
+const projection = function(cut = false) {
+  return transformation('projection').call(this, { cut });
+}
+
+const linear_extrude = function(height, center, convexity, twist, slice, scale) {
+  return transformation('linear_extrude').call(this, { height, center, convexity, twist, slice, scale });
+}
+
+const rotate_extrude = function(convexity = 2, angle = 360) {
+  return transformation('rotate_extrude');
+}
 
 const transformations = {
   translate,
