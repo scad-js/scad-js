@@ -18,10 +18,14 @@
     "example": "examples"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "lint": "eslint src/."
   },
   "devDependencies": {
     "chai": "^4.2.0",
     "mocha": "^8.0.1"
+  },
+  "dependencies": {
+    "eslint": "^7.5.0"
   }
 }
