@@ -24,8 +24,8 @@ const resize = function(v) {
 const mirror = function(v) {
   return transformation('mirror').call(this, { v });
 }
-const color = function(c) {
-  transformation('color').call(this, { c });
+const color = function(c, alpha = 1) {
+  return transformation('color').call(this, { c, alpha });
 }
 const rotate = function(a, v = undef) {
   return transformation('rotate').call(this, { a, v });
