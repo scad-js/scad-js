@@ -17,4 +17,4 @@ const intersection = operation('difference');
 const hull = operation('hull');
 const minkowski = operation('minkowski');
 
-module.exports = { union, difference, hull, minkowski };
+module.exports = { union, difference, intersection, hull, minkowski };
