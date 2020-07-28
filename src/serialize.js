@@ -1,6 +1,8 @@
 const indent = n => ' '.repeat(2 * n);
 
-const parseValue = value => Array.isArray(value) ? JSON.stringify(value).split(',').join(', ') : value;
+const stringify = x => JSON.stringify(x).split(',').join(', ');
+
+const parseValue = value => Array.isArray(value) || typeof(value) == 'string' ? value == 'undef' ? 'undef' : stringify(value) : value;
 
 const paramsStr = params => Object.entries(params).map(x => `${x[0]} = ${parseValue(x[1])}`).join(', ');
 
