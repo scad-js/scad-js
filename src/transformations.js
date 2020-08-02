@@ -37,8 +37,8 @@ const projection = function(cut = false) {
   return transformation('projection').call(this, { cut });
 };
 
-const linear_extrude = function(height, center, convexity, twist, slice, scale) {
-  return transformation('linear_extrude').call(this, { height, center, convexity, twist, slice, scale });
+const linear_extrude = function(height = undef, center = undef, convexity = undef, twist = undef, slices = undef, scale = undef) {
+  return transformation('linear_extrude').call(this, { height, center, convexity, twist, slices, scale });
 };
 
 const rotate_extrude = function(convexity = 2, angle = 360) {

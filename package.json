@@ -1,6 +1,6 @@
 {
   "name": "@dotcore64/scad-js",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "Generate OpenSCAD solid models with javascript",
   "main": "./src/index.js",
   "repository": {
