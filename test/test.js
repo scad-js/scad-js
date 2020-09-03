@@ -97,3 +97,18 @@ describe('Color', () => {
     assert.equal(S.circle().color('blue').serialize(), 'color(c = "blue", alpha = 1)\n{\n  circle(r = 1);\n}\n');
   });
 });
+
+describe('Radius offset', () => {
+  it('should add and offset transformation to existing object', () => {
+    assert.equal(S.square([4, 5]).radius_offset(8).serialize(), 'offset(r = 8, delta = undef, chamfer = undef)\n{\n  square(size = [4, 5], center = true);\n}\n');
+  });
+});
+
+describe('Delta offset', () => {
+  it('should add and offset transformation to existing object', () => {
+    assert.equal(S.square([4, 5]).delta_offset(10).serialize(), 'offset(r = undef, delta = 10, chamfer = false)\n{\n  square(size = [4, 5], center = true);\n}\n');
+  });
+  it('should add and offset transformation to existing object, with chamfer', () => {
+    assert.equal(S.square([2, 2]).delta_offset(10, true).serialize(), 'offset(r = undef, delta = 10, chamfer = true)\n{\n  square(size = [2, 2], center = true);\n}\n');
+  });
+});

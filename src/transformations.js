@@ -30,8 +30,11 @@ const color = function(c, alpha = 1) {
 const rotate = function(a, v = undef) {
   return transformation('rotate').call(this, { a, v });
 };
-const offset = function(r = undef, delta = undef, chamfer = undef) {
-  return transformation('offset').call(this, { r, delta, chamfer });
+const radius_offset = function(r = undef) {
+  return transformation('offset').call(this, { r, delta: undef, chamfer: undef });
+};
+const delta_offset = function(delta, chamfer = false) {
+  return transformation('offset').call(this, { r: undef, delta, chamfer });
 };
 const projection = function(cut = false) {
   return transformation('projection').call(this, { cut });
@@ -52,7 +55,8 @@ const transformations = {
   resize,
   mirror,
   color,
-  offset,
+  radius_offset,
+  delta_offset,
   projection,
   linear_extrude,
   rotate_extrude,
