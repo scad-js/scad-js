@@ -1,6 +1,12 @@
 # scad-js
 > **scad-js** transpile your Javascript to **OpenSCAD** letting you create programmatic 3d solid models with the familiar javascript syntax.
 
+<p align="center">
+  <a href="https://www.npmjs.com/package/@dotcore64/scad-js">
+    <img alt="Latest release" src="https://img.shields.io/npm/v/@dotcore64/scad-js?style=for-the-badge">
+  </a>
+</p>
+
 **OpenSCAD** is an amazing software for creating solid 3D CAD objects, but modeling with the **OpenSCAD** language can be really cumbersome and limited.
 
 **scad-js** overcomes these limitations with the power of Javascript.
