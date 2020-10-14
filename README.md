@@ -228,3 +228,19 @@ returns the convex hull of all arguments objects
 
 ### minkowski
 returns the minkowski sum of all arguments objects
+
+## Modifiers
+Modifier are used to change the appearance of objects, they are mostly used while debugging to include, exclude or highlight certain objects.
+
+### disable
+Disable will ignore the object applied to, just like commenting it out.
+
+### show_only (Root)
+Root will ignore all objects execpt the object applied to.
+
+### debug
+Debug will change the color of the applied object to transparent pink but will not effect the model rendering.
+
+### background
+Disable will ignore the object applied to when rendering, but will draw it as transparent gray
+
