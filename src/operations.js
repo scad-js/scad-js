@@ -1,4 +1,5 @@
 const transformations = require('./transformations.js');
+const modifiers = require('./modifiers.js');
 const serialize = require('./serialize.js');
 
 const operation = (type) => function(...children) {
@@ -7,6 +8,7 @@ const operation = (type) => function(...children) {
     params: {},
     children,
     ...transformations,
+    ...modifiers,
     serialize,
   };
 };

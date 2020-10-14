@@ -1,4 +1,5 @@
 const transformations = require('./transformations.js');
+const modifiers = require('./modifiers.js');
 const serialize = require('./serialize.js');
 
 const center = true;
@@ -8,6 +9,7 @@ const object = type => params => ({
   type,
   params,
   ...transformations,
+  ...modifiers,
   serialize,
 });
 
