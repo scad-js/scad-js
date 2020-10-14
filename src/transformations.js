@@ -1,4 +1,5 @@
 const serialize = require('./serialize.js');
+const modifiers = require('./modifiers.js');
 
 const undef = 'undef';
 
@@ -8,6 +9,7 @@ const transformation = type => function(params) {
     params,
     children: [ this ],
     ...transformations,
+    ...modifiers,
     serialize,
   };
 };
