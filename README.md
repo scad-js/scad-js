@@ -1,8 +1,12 @@
-# scad-js
+<h1 align="center">
+  scad-js
+</h1>
+
 > **scad-js** transpile your Javascript to **OpenSCAD** letting you create programmatic 3d solid models with the familiar javascript syntax.
 
 <p align="center">
   <a href="https://www.npmjs.com/package/@dotcore64/scad-js">
+    <img alt="scad-js demo" src="https://i.imgur.com/ksWVuYO.gif">
     <img alt="Latest release" src="https://img.shields.io/npm/v/@dotcore64/scad-js?style=for-the-badge">
   </a>
 </p>
@@ -12,9 +16,23 @@
 **scad-js** overcomes these limitations with the power of Javascript.
 
 ## Getting started
-First make sure you have **OpenSCAD** installed on your system, we will use it to visualize the model.
+First make sure you have [OpenSCAD](https://www.openscad.org/downloads.html) installed on your system, we will use it to visualize the model.
 
-create a new file and copy the following sample to see how it works:
+clone [scad-js-starter](https://github.com/20lives/scad-js-starter):
+
+```
+git clone https://github.com/20lives/scad-js-starter.git my-scad-js-project
+cd my-scad-js-project
+```
+
+install dependencies and run develpment script:
+
+```
+yarn # or npm install
+yarn dev # or npm run dev
+```
+
+Now open `index.js` in your favourite text editor and start tinkering.
 
 
 ## Objects
