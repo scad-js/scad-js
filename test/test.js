@@ -4,10 +4,10 @@ const S = require('../src/index.js');
 
 describe('Circle', () => {
   it('should create circle with default radius', () => {
-    assert.equal(S.circle().serialize(),'circle(r = 1);\n');
+    assert.equal(S.circle().serialize(),'circle(r = 1, $fn = 0, $fa = 12, $fs = 2);\n');
   });
   it('should create circle with defined radius', () => {
-    assert.equal(S.circle(4).serialize(), 'circle(r = 4);\n');
+    assert.equal(S.circle(4).serialize(), 'circle(r = 4, $fn = 0, $fa = 12, $fs = 2);\n');
   });
 });
 
@@ -37,10 +37,10 @@ describe('Polygon', () => {
 
 describe('Sphere', () => {
   it('should create a sphere with default radius', () => {
-    assert.equal(S.sphere().serialize(), 'sphere(r = 1);\n');
+    assert.equal(S.sphere().serialize(), 'sphere(r = 1, $fn = 0, $fa = 12, $fs = 2);\n');
   });
   it('should create a sphere with defined radius', () => {
-    assert.equal(S.sphere(6).serialize(), 'sphere(r = 6);\n');
+    assert.equal(S.sphere(6).serialize(), 'sphere(r = 6, $fn = 0, $fa = 12, $fs = 2);\n');
   });
 });
 
@@ -58,43 +58,43 @@ describe('Cube', () => {
 
 describe('Cylinder', () => {
   it('should create a cylinder with default values', () => {
-    assert.equal(S.cylinder().serialize(), 'cylinder(h = 1, r = 1, center = true);\n');
+    assert.equal(S.cylinder().serialize(), 'cylinder(h = 1, r = 1, center = true, $fn = 0, $fa = 12, $fs = 2);\n');
   });
-  it('should create a cylinder with defined values', () => {
-    assert.equal(S.cylinder(6, 3).serialize(), 'cylinder(h = 6, r = 3, center = true);\n');
+  it('should create a cylinder with defined values: single radius', () => {
+    assert.equal(S.cylinder(6, 3).serialize(), 'cylinder(h = 6, r = 3, center = true, $fn = 0, $fa = 12, $fs = 2);\n');
   });
-  it('should create a cylinder with defined values', () => {
-    assert.equal(S.cylinder(6, [2, 4]).serialize(), 'cylinder(h = 6, r1 = 2, r2 = 4, center = true);\n');
+  it('should create a cylinder with defined values: differenrt start/end radius', () => {
+    assert.equal(S.cylinder(6, [2, 4]).serialize(), 'cylinder(h = 6, r1 = 2, r2 = 4, center = true, $fn = 0, $fa = 12, $fs = 2);\n');
   });
 });
 
 describe('Translate', () => {
   it('should add translate transformation to existing object', () => {
-    assert.equal(S.circle().translate([2, 4, 8]).serialize(), 'translate(v = [2, 4, 8])\n{\n  circle(r = 1);\n}\n');
+    assert.equal(S.circle().translate([2, 4, 8]).serialize(), 'translate(v = [2, 4, 8])\n{\n  circle(r = 1, $fn = 0, $fa = 12, $fs = 2);\n}\n');
   });
 });
 
 describe('Scale', () => {
   it('should add scale transformation to existing object', () => {
-    assert.equal(S.circle().scale([0, 4, 0]).serialize(), 'scale(v = [0, 4, 0])\n{\n  circle(r = 1);\n}\n');
+    assert.equal(S.circle().scale([0, 4, 0]).serialize(), 'scale(v = [0, 4, 0])\n{\n  circle(r = 1, $fn = 0, $fa = 12, $fs = 2);\n}\n');
   });
 });
 
 describe('Resize', () => {
   it('should add resize transformation to existing object', () => {
-    assert.equal(S.circle().resize([5, 5, 5]).serialize(), 'resize(v = [5, 5, 5])\n{\n  circle(r = 1);\n}\n');
+    assert.equal(S.circle().resize([5, 5, 5]).serialize(), 'resize(v = [5, 5, 5])\n{\n  circle(r = 1, $fn = 0, $fa = 12, $fs = 2);\n}\n');
   });
 });
 
 describe('Mirror', () => {
   it('should add mirror transformation to existing object', () => {
-    assert.equal(S.circle().mirror([1, 0, 0]).serialize(), 'mirror(v = [1, 0, 0])\n{\n  circle(r = 1);\n}\n');
+    assert.equal(S.circle().mirror([1, 0, 0]).serialize(), 'mirror(v = [1, 0, 0])\n{\n  circle(r = 1, $fn = 0, $fa = 12, $fs = 2);\n}\n');
   });
 });
 
 describe('Color', () => {
   it('should add color transformation to existing object', () => {
-    assert.equal(S.circle().color('blue').serialize(), 'color(c = "blue", alpha = 1)\n{\n  circle(r = 1);\n}\n');
+    assert.equal(S.circle().color('blue').serialize(), 'color(c = "blue", alpha = 1)\n{\n  circle(r = 1, $fn = 0, $fa = 12, $fs = 2);\n}\n');
   });
 });
 
