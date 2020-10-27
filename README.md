@@ -20,14 +20,14 @@ First make sure you have [OpenSCAD](https://www.openscad.org/downloads.html) ins
 
 clone [scad-js-starter](https://github.com/20lives/scad-js-starter):
 
-```
+```bash
 git clone https://github.com/20lives/scad-js-starter.git my-scad-js-project
 cd my-scad-js-project
 ```
 
 install dependencies and run develpment script:
 
-```
+```bash
 yarn # or npm install
 yarn dev # or npm run dev
 ```
@@ -36,235 +36,472 @@ Now open `index.js` in your favourite text editor and start tinkering.
 
 
 ## Objects
+
 The following will create a new primitive object with the specified parameters.
 
-### Circle
-**Arguments**
-*r (Number)*: the radius of the circle (default: r = 1)
-**Returns**
-A circle object at the origin.
-**Examples**
-```
-R.circle();
-R.circle(10);
+## `circle(radius[, options])`
+
+| Parameter | Type   | Default   | Description        |
+|-----------|--------|-----------|--------------------|
+| radius    | Number | 1         | The circle radius. |
+| options   | Object | see below |                    |
+
+### options
+
+```javascript
+{
+  $fn: 0, \\ minimum angle (in degrees) of each fragment.
+  $fa: 12, \\ minimum circumferential length of each fragment.
+  $fs: 2, \\ fixed number of fragments in 360 degrees. Values of 3 or more override $fa and $fs.
+}
 ```
 
-### Square
-**Arguments**
-*size (Array)*: two elements vector array: [x,y]  (default: size = [1, 1])
 **Returns**
-A rectangle object with dimensions of x and y at the origin.
+
+A new circle object.
+
 **Examples**
-```
-R.square();
-R.square([5, 10]);
+
+```javascript
+circle();
+circle(10);
+circle(6, { $fn: 20 });
 ```
 
-### Sphere
-**Arguments**
-*r (Number)*: the radius of the sphere (default: r = 1)
+## `square(size)`
+
+| Parameter | Type            | Default | Description                                                        |
+|-----------|-----------------|---------|--------------------------------------------------------------------|
+| size      | Array \| Number | [1, 1]  | size of the rectangle, as a single Number or as two elements array |
+
 **Returns**
-A sphere object at the origin.
+
+A new rectangle object.
+
 **Examples**
-```
-R.sphere();
-R.sphere(10);
+
+```javascript
+square();
+square(6);
+square([5, 10]);
 ```
 
-### Cube
-**Arguments**
-*size (Array)*: three elements vector array: [x, y, z]  (default: size = [1, 1, 1])
-**Returns**
-A cube object with dimensions of x, y and z at the origin.
-**Examples**
-```
-R.cube();
-R.cube([2, 4, 10]);
+## `sphere(radius[, options])`
+
+| Parameter | Type   | Default   | Description        |
+|-----------|--------|-----------|--------------------|
+| radius    | Number | 1         | The sphere radius. |
+| options   | Object | see below |                    |
+
+### options
+
+```javascript
+{
+  $fn: 0, \\ minimum angle (in degrees) of each fragment.
+  $fa: 12, \\ minimum circumferential length of each fragment.
+  $fs: 2, \\ fixed number of fragments in 360 degrees. Values of 3 or more override $fa and $fs.
+}
 ```
 
-### Cylinder(Number, Number)
-**Arguments**
-*h(Number)*: the height of the cylinder (default: h = 1)
-*r(Number)*: the radius of the cylinder (default: r = 1)
 **Returns**
-A cylinder object with height of h and the specified radius.
+
+A new sphere object.
+
 **Examples**
-```
-R.cylinder();
-R.cube(6);
-R.cube(10, 3);
+
+```javascript
+sphere();
+sphere(10);
+sphere(10, { $fs: 4 });
 ```
 
-### Cylinder(Number, Array)
-**Arguments**
-*h(Number)*: the height of the cylinder (default: r = 1)
-*r(Array)*: twe elements vectory array specifing top and bottom radii: [r1, r2]
+## `cube(size)`
+
+
+| Parameter | Type            | Default ---| Description                                                          |
+|-----------|-----------------|------------|----------------------------------------------------------------------|
+| size      | Array \| Number | [1, 1, 1]  | size of the rectangle, as a single Number or as three elements array |
+
 **Returns**
-A cylinder object with height of h and the specified top and bottom radii.
+
+A cube object with the provided dimensions at the origin.
+
 **Examples**
-```
-R.cylinder();
-R.cube(6);
-R.cube(10, [4, 8]);
+
+```javascript
+cube();
+cube(6);
+cube([2, 4, 10]);
 ```
 
-## Transformations
-Transformations are functions that apply on existing objects and returns a new modified object, transformations can be applied on all objects (not only premitives) and can be chained together.
+## `cylinder(height, radius[, options])`
 
-### translate
-**Arguments**
-*v (Array)*: Number type three elements vector array: [x, y, z]
-**Returns**
-A new object translated (moved) with the specified values.
-**Examples**
-```
-R.cylinder().translate([1, 2, 5]);
-```
+| Parameter | Type            | Default   | Description                                                                                |
+|-----------|-----------------|-----------|--------------------------------------------------------------------------------------------|
+| height    | Number          | 1         | height of the cylinder (or cone)                                                           |
+| radius    | Number \| Array | 1         | radius of top and bottom of the cylinder, as number or as two element array: [bottom, top] |
+| options   | Object          | see below |                                                                                            |
 
-### scale
-**Arguments**
-*v (Array)*: Number type three elements vector array: [x, y, z]
-**Returns**
-A new object scaled relatively with the specified values.
-**Examples**
-```
-R.cube().scale([1, 0.5, 2]);
+### options
+
+```javascript
+{
+  $fn: 0, \\ minimum angle (in degrees) of each fragment.
+  $fa: 12, \\ minimum circumferential length of each fragment.
+  $fs: 2, \\ fixed number of fragments in 360 degrees. Values of 3 or more override $fa and $fs.
+}
 ```
 
-### resize
-**Arguments**
-*v (Array)*: Number type three elements vector array: [x, y, z]
 **Returns**
-A new object sized with the specified values.
+
+A cylinder (or a cone) object with the provided dimensions.
+
 **Examples**
-```
-R.cube([2, 4, 10]).resize([4, 8, 10]);
+
+```javascript
+cube();
+cube(6);
+cube([2, 4, 10]);
 ```
 
-### mirror
-**Arguments**
-*v (Array)*: Number type three elements vector array: [x, y, z]
-**Returns**
-A new object mirrored on a plane through the origin on each axis that value isn't equal to 0 (act as boolean).
-**Examples**
-```
-R.sphere().mirror([1, 0, 0]);
-R.cylinder().mirror([0, 1, 1]);
-```
+## `polygon(point[, paths, convexity])`
 
-### color
-**Arguments**
-*c (String)*: color name or hexvalue.
-*alpha(Number)*: Number between 0 and 1.0 (default: 1.0)
-**Returns**
-A new object with the specified color.
-**Examples**
-```
-R.square().color("darkblue");
-R.square().color("#FF5733");
-```
+| Parameter | Type   | Default | Description                                                                                                                          |
+|-----------|--------|---------|--------------------------------------------------------------------------------------------------------------------------------------|
+| points    | Array  | undef   | the list of points as an Array of two elements arrays [ [x1, y1], [x2, y2] ]                                                         |
+| paths     | Array  | undef   | The order to traverse the points. Uses indices from 0 to n-1. May be in a different order and use all or part, of the points listed. |
+| convexity | Number | 1       | Integer number of "inward" curves.                                                                                                   |
 
-### rotate(v)
-**Arguments**
-*v(Array)*: array with 3 Number type elements with degree of rotation.
-**Returns**
-A new object with the specified rotations
-**Examples**
-```
-R.cube().rotate([45, 90, 0]);
-```
 
-### rotate(a, v)
-**Arguments**
-*a(Number)*: a rotation factor that will multiply all axes.
-*v(Array)*: three elements vertor array  will be [a * vx, a * vy, a * vz]
 **Returns**
-A new object with the specified rotations.
-**Examples**
-```
-R.cylinder().rotate(45, [1, 0, 2]);
-```
 
-### radius_offset
-**Arguments**
-*r (Number)*: the value of the radius offset.
-**Returns**
-A new object with the specified radius offset.
-**Examples**
-```
-R.square().radius_offset(8);
-```
+A 2D shape from a the list of points.
 
-### delta_offset
-**Arguments**
-*r (Number)*: the value of the radius offset.
-*chamfer (Boolean)*: this flag defines if edges should be chamfered (cut off with a straight line) or not (extended to their intersection).
-**Returns**
-A new object with the specified delta offset.
 **Examples**
-```
-R.square().delta_offset(8);
-R.square().delta_offset(8, true);
-```
 
-### projection
-**Arguments**
-*cut  (boolean)*: when true points above and below the plane are considered as well (creating a proper projection) (default: false)
-**Returns**
-A new 2D object representing the projection of the base object
-**Examples**
-```
-R.cube().projection();
-R.cube().projection(true);
-```
-
-### linear_extrude
-**Arguments**
-*height  (Number)*: 
-*center (Boolean)*:
-*convexity (Number)*:
-*twist (Number)*:
-*slices (Number)*:
-*scale (Number/Array) :
-**Returns**
-A new 2D object representing the projection of the base object
-**Examples**
-```
-R.circle().linear_extrude(10);
-R.circle().linear_extrude(10, false);
-R.circle().linear_extrude(10, true, 10);
-R.circle().linear_extrude(10, true, 10, 360);
+```javascript
+polygon([0,0],[100,0],[130,50]);
+polygon([0,0],[40,20],[80,10], [0, 1, 2]);
+polygon([0,0],[5,10],[25,40], [2, 0, 1, 2, 3]);
+polygon([0,0],[5,10],[25,40], [2, 0, 1, 2, 3], 2);
 ```
 
 ## Operations
+Operations are the results of interactions between two or more objects, specified below:
 
-### union
-return all argument objects as a signle object.
+## `union([obj1, obj2, ...obj])`
 
-### difference
+**Returns**
+
+Returns all arguments objects as a unified single new object.
+
+**Examples**
+
+```javascript
+union(cube(), sphere());
+union(cube(4), cylinder(3, 4));
+union(cube(4), cylinder(3, 4), sphere());
+```
+
+## `difference([obj1, obj2, ...obj])`
+
+**Returns**
+
 returns a new object which is the subtraction of the second argument object and all the rest argumnet objects from the first argument object.
 
-### interserction
+**Examples**
+
+```javascript
+difference(cube(), sphere());
+difference(cube(2), sphere(3, 4));
+difference(cube(4), cylinder(3, 4), sphere());
+```
+
+## `intersection([obj1, obj2, ...obj])`
+
+**Returns**
+
 returns a new object which is only the overlapping parts of all argument objects, only the area which is shared by all argument objects is retained.
 
-### hull
-returns the convex hull of all arguments objects
+**Examples**
 
-### minkowski
+```javascript
+intersection(cube(), sphere());
+intersection(cube(2), sphere(3, 4));
+intersection(cube(4), cylinder(3, 4), sphere());
+```
+
+## `intersection([obj1, obj2, ...obj])`
+
+**Returns**
+
+returns a new object which is only the overlapping parts of all argument objects, only the area which is shared by all argument objects is retained.
+
+**Examples**
+
+```javascript
+intersection(cube(), sphere());
+intersection(cube(2), sphere(3, 4));
+intersection(cube(4), cylinder(3, 4), sphere());
+```
+
+## `hull([obj1, obj2, ...obj])`
+
+**Returns**
+
+returns the convex hull of all arguments objects.
+
+**Examples**
+
+```javascript
+hull(cube(), sphere());
+hull(cube(2), sphere(3, 4));
+hull(cube(4), cylinder(3, 4), sphere());
+```
+
+## `minkowski([obj1, obj2, ...obj])`
+
+**Returns**
+
 returns the minkowski sum of all arguments objects
 
+**Examples**
+
+```javascript
+minkowski(cube(), sphere());
+minkowski(cube(2), sphere(3, 4));
+minkowski(cube(4), cylinder(3, 4), sphere());
+```
+
+## Transformations
+
+Transformations are functions that apply on existing objects and returns a new modified object, transformations can be applied on all objects (not only premitives) and can be chained together.
+
+## `translate(vector)`
+
+| Parameter | Type  | Default   | Description                            |
+|-----------|-------|-----------|----------------------------------------|
+| vector    | Array | [0, 0, 0] | vector as a 3 elements array [x, y, z] |
+
+**Returns**
+
+A new object translated (moved) with the specified x, y, z values.
+
+**Examples**
+
+```javascript
+object.translate([1, 2, 5]);
+```
+
+## `scale(vector)`
+
+| Parameter | Type  | Default   | Description                            |
+|-----------|-------|-----------|----------------------------------------|
+| vector    | Array | [0, 0, 0] | vector as a 3 elements array [x, y, z] |
+
+**Returns**
+
+A new object scaled relatively with the specified x,y,z values.
+
+**Examples**
+
+```javascript
+object.scale([1, 2, 5]);
+```
+
+## `resize(vector[, auto])`
+
+| Parameter | Type    | Default   | Description                            |
+|-----------|---------|-----------|----------------------------------------|
+| vector    | Array   | [0, 0, 0] | vector as a 3 elements array [x, y, z] |
+| auto      | Boolean | false     | auto-scales any 0-dimensions to match  |
+
+**Returns**
+
+A new object ith the specified x,y,z values as his size.
+
+**Examples**
+
+```javascript
+object.resize([1, 2, 0]);
+```
+
+## `mirror(vector)`
+
+| Parameter | Type    | Default   | Description                            |
+|-----------|---------|-----------|----------------------------------------|
+| vector    | Array   | [0, 0, 0] | vector as a 3 elements array [x, y, z] |
+
+**Returns**
+
+A new object mirrored on a plane through the origin on each axis that value isn't equal to 0 (act as boolean)
+
+**Examples**
+
+```javascript
+object.mirror([1, 0, 0]);
+```
+
+## `color(color[, alpha])`
+
+| Parameter | Type    | Default   | Description                            |
+|-----------|---------|-----------|----------------------------------------|
+| color     | String  |           | color name or hex value string         |
+| alpha     | Number  |           | Alpha value between 0 to 1             |
+
+**Returns**
+
+A new object with the specified color.
+
+**Examples**
+
+```javascript
+object.color('LightSkyBlue');
+object.color('HotPink', 0.6);
+object.color('#ff69b4');
+```
+
+## `rotate(vector)` | `rotate(factor, vector)`
+
+| Parameter | Type    | Default   | Description                                              |
+|-----------|---------|-----------|----------------------------------------------------------|
+| vector    | Array   | [0, 0, 0] | vector as a 3 elements array [x, y, z]                   |
+| factor    | Number  | 1         | if provided each element will be multiplide by the factor|
+
+**Returns**
+
+A new object rotated by the specified vector.
+
+**Examples**
+
+```javascript
+object.rotate([45, 90, 0]);
+object.rotate(45, [1, 0, 2]);
+```
+
+## `radius_offset(radius)`
+
+| Parameter | Type   | Default   | Description                                                                         |
+|-----------|--------|-----------|-------------------------------------------------------------------------------------|
+| radius    | Number | 0         | the value to radius offset the polygon. When negative, the polygon is offset inward |
+
+**Returns**
+
+a new polygon with an offset as the specified radius.
+
+**Examples**
+
+```javascript
+polygon.radius_offset(4);
+polygon.radius_offset(-1);
+```
+
+## `delta_offset(delta[, chamfer])`
+
+| Parameter | Type    | Default   | Description                                                                                                 |
+|-----------|---------|-----------|-------------------------------------------------------------------------------------------------------------|
+| delta     | Number  | 0         | the value to offset the polygon. When negative, the polygon is offset inward                                |
+| chamfer   | Boolean | false     | defines if edges should be chamfered (cut off with a straight line) or not (extended to their intersection) |
+
+**Returns**
+
+a new polygon with an offset as the specified radius.
+
+**Examples**
+
+```javascript
+polygon.delta_offset(4);
+polygon.delta_offset(-2);
+polygon.deltas_offset(5, true);
+```
+
+## `projection([cut])`
+
+| Parameter | Type    | Default   | Description                                                       |
+|-----------|---------|-----------|-------------------------------------------------------------------|
+| cut       | Boolean | false     | when true points above and below the plane are considered as well |
+
+**Returns**
+
+a new polygon projected representing the base of the object.
+
+**Examples**
+
+```javascript
+object.projection();
+object.projection(true);
+```
+
+## `linear_extrude(height[, center, convexity, twist, slices, scale])`
+
+| Parameter | Type            | Default | Description                                                                                                                     |
+|-----------|-----------------|---------|---------------------------------------------------------------------------------------------------------------------------------|
+| height    | Number          | 0       | extrusion                                                                                                                       |
+| center    | boolean         | false   |  is false the linear extrusion Z range is from 0 to height; if it is true, the range is from -height/2 to height/2. |
+| convexity | Number          |         |                                                                                                                                 |
+| twist     | Number          |         | Number of degrees of through which the shape is extruded. twist = 360 extrudes through one revolution.                          |
+| slices    | Number          | undef   | defines the number of intermediate points along the Z axis of the extrusion                                                     |
+| scale     | Array \| Number | 1       | Scales the 2D shape by this value over the height of the extrusion. Scale can be a scalar or a vector:                          |
+
+**Returns**
+
+a new object extruded from the polygon.
+
+**Examples**
+
+```javascript
+polygon.linear_extrude(10);
+polygon.linear_extrude(5, true);
+polygon.linear_extrude(10, true, 10);
+```
+
+## `rotate_extrude([convexity, angle])`
+
+| Parameter | Type   | Default | Description                                                      |
+|-----------|--------|---------|------------------------------------------------------------------|
+| angle     | Number | 360     | the number of degrees to sweep, starting at the positive X axis. |
+| convexity | Number |         |                                                                  |
+
+**Returns**
+
+a new object extruded from rotating the polygon aronud Z-axis.
+
+**Examples**
+
+```javascript
+polygon.rotate_extrude();
+polygon.rotate_extrude(270);
+polygon.rotate_extrude(360, true);
+```
+
 ## Modifiers
+
 Modifier are used to change the appearance of objects, they are mostly used while debugging to include, exclude or highlight certain objects.
 
-### disable
+## `disable()`
 Disable will ignore the object applied to, just like commenting it out.
 
-### show_only (Root)
-Root will ignore all objects execpt the object applied to.
+```
+object.disable();
+```
 
-### debug
+## `show_only()`
+show_only (Root) will ignore all objects execpt the object applied to.
+
+```
+object.show_only();
+```
+
+## `debug()`
 Debug will change the color of the applied object to transparent pink but will not effect the model rendering.
 
-### background
+```
+object.debug();
+```
+
+## `background()`
 Disable will ignore the object applied to when rendering, but will draw it as transparent gray
 
+```
+object.background();
+```
