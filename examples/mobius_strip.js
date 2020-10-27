@@ -11,4 +11,4 @@ for (let i = 0; i <= 360; i += 5) {
   walls.push(hull(wall(i), wall(i + 5)));
 }
 
-console.log(union(...walls).serialize());
+console.log(union(...walls).serialize({ $fa: 200 }));
