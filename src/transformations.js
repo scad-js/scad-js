@@ -41,13 +41,24 @@ const delta_offset = function(delta, chamfer = false) {
 const projection = function(cut = false) {
   return transformation('projection').call(this, { cut });
 };
-
-const linear_extrude = function(height = undef, center = undef, convexity = undef, twist = undef, slices = undef, scale = undef) {
-  return transformation('linear_extrude').call(this, { height, center, convexity, twist, slices, scale });
+const linear_extrude = function(height = 0, params = {}) {
+  return transformation('linear_extrude').call(this, {
+    height,
+    center: params.center ?? false,
+    convexity: params.convexity ?? undef,
+    twist: params.twist ?? undef,
+    slices: params.slices ?? undef,
+    scale: params.scale ?? 1,
+    $fn: params?.$fn ?? 20 ,
+  });
 };
 
-const rotate_extrude = function(convexity = 2, angle = 360) {
-  return transformation('rotate_extrude').call(this, { convexity, angle });
+const rotate_extrude = function(angle = 360, params = {}) {
+  return transformation('rotate_extrude').call(this, {
+    angle,
+    convexity: params?.convexity ?? 2,
+    $fn: params?.$fn ?? 10,
+  });
 };
 
 const transformations = {
