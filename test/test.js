@@ -82,7 +82,10 @@ describe('Scale', () => {
 
 describe('Resize', () => {
   it('should add resize transformation to existing object', () => {
-    assert.equal(S.circle().resize([5, 5, 5]).serialize(), 'resize(v = [5, 5, 5])\n{\n  circle(r = 1, $fn = 0, $fa = 12, $fs = 2);\n}\n');
+    assert.equal(S.circle().resize([5, 5, 5]).serialize(), 'resize(v = [5, 5, 5], auto = false)\n{\n  circle(r = 1, $fn = 0, $fa = 12, $fs = 2);\n}\n');
+  });
+  it('should add resize transformation to existing object', () => {
+    assert.equal(S.circle().resize([5, 5, 5], true).serialize(), 'resize(v = [5, 5, 5], auto = true)\n{\n  circle(r = 1, $fn = 0, $fa = 12, $fs = 2);\n}\n');
   });
 });
 

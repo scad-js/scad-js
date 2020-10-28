@@ -20,8 +20,8 @@ const translate = function(v) {
 const scale = function(v) {
   return transformation('scale').call(this, { v });
 };
-const resize = function(v) {
-  return transformation('resize').call(this, { v });
+const resize = function(v, auto = false) {
+  return transformation('resize').call(this, { v, auto });
 };
 const mirror = function(v) {
   return transformation('mirror').call(this, { v });
