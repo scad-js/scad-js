@@ -2,21 +2,13 @@ const transformations = require('./transformations.js');
 const modifiers = require('./modifiers.js');
 const serialize = require('./serialize.js');
 
-const operation = (type) => function(...children) {
-  return {
-    type,
-    params: {},
-    children,
-    ...transformations,
-    ...modifiers,
-    serialize,
-  };
+const operation = type => (...children) =>
+  Object.assign(Object.create({ ...transformations, ...modifiers, serialize }), { type, children });
+
+module.exports = {
+  union: operation('union'),
+  difference: operation('difference'),
+  intersection: operation('intersection'),
+  hull: operation('hull'),
+  minkowski: operation('minkowski'),
 };
-
-const union = operation('union');
-const difference = operation('difference');
-const intersection = operation('difference');
-const hull = operation('hull');
-const minkowski = operation('minkowski');
-
-module.exports = { union, difference, intersection, hull, minkowski };

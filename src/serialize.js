@@ -2,9 +2,11 @@ const indent = n => ' '.repeat(2 * n);
 
 const stringify = x => JSON.stringify(x).split(',').join(', ');
 
-const parseValue = value => Array.isArray(value) || typeof(value) == 'string' ? value == 'undef' ? 'undef' : stringify(value) : value;
+const parseValue = value =>
+  Array.isArray(value) || typeof(value) == 'string' ? value == 'undef' ? 'undef' : stringify(value) : value;
 
-const paramsStr = params => Object.entries(params).map(x => `${x[0]} = ${parseValue(x[1])}`).join(', ');
+const paramsStr = params =>
+  Object.entries(params).map(x => `${x[0]} = ${parseValue(x[1])}`).join(', ');
 
 const serialize = function (vars = {}, depth = 0) {
   const {type, params = {}, children} = this;
