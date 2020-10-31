@@ -6,3 +6,4 @@ node_js:
 script:
   - yarn
   - yarn test
+  - yarn lint
