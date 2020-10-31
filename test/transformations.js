@@ -106,6 +106,16 @@ describe('rotate', () => {
 describe('Radius offset', () => {
   it('should add radius_offset transformation to existing object', () => {
     assert.deepEqual(
+      S.square().radius_offset(),
+      {
+        type: 'offset',
+        params: { r: 'undef', delta: 'undef', chamfer: 'undef' },
+        children: [ S.square() ],
+      },
+    );
+  });
+  it('should add radius_offset transformation to existing object', () => {
+    assert.deepEqual(
       S.square().radius_offset(5), 
       {
         type: 'offset',
@@ -169,6 +179,22 @@ describe('Projection', () => {
 
 describe('Linear extrude', () => {
   it('should add linear_extrude transformation to existing object', () => {
+    assert.deepEqual(
+      S.square().linear_extrude(),
+      {
+        type: 'linear_extrude',
+        params: {
+          height: 'undef',
+          center: false,
+          convexity: 'undef',
+          twist: 'undef',
+          slices: 'undef',
+          scale: 1,
+          $fn: 20,
+        },
+        children: [ S.square() ],
+      },
+    );
     assert.deepEqual(
       S.square().linear_extrude(5),
       {

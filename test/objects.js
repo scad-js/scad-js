@@ -77,7 +77,6 @@ describe('Polygon', () => {
   });
 });
 
-
 describe('Sphere', () => {
   it('should create a sphere with default radius', () => {
     assert.deepEqual(
@@ -145,6 +144,33 @@ describe('Cylinder', () => {
     assert.deepEqual(
       S.cylinder(5, [3, 5], { $fa: 4 }), 
       { type: 'cylinder', params: { h: 5, r1: 3, r2: 5, center: true, $fa: 4, $fn: 0, $fs: 2   } },
+    );
+  });
+});
+
+describe('Polyhedron', () => {
+  it('should create a polyhedron with default values', () => {
+    assert.deepEqual(
+      S.polyhedron(),
+      { type: 'polyhedron', params: { points: 'undef', paths: 'undef', convexity: 1 } },
+    );
+  });
+  it('should create a polyhedron with defined points', () => {
+    assert.deepEqual(
+      S.polyhedron([[0, 0, 0], [4, 5, 6], [6, 8, 7] ]),
+      { type: 'polyhedron', params: { points: [[0,0, 0], [4, 5, 6], [6, 8, 7]] , paths: 'undef', convexity: 1 } },
+    );
+  });
+  it('should create a polyhedron with defined points and paths', () => {
+    assert.deepEqual(
+      S.polyhedron([[0, 0, 0], [4, 5, 6], [6, 8, 7] ], [ 0, 2, 1, 2, 0 ]),
+      { type: 'polyhedron', params: { points: [[0,0, 0], [4, 5, 6], [6, 8, 7]] , paths: [0, 2, 1, 2, 0], convexity: 1 } },
+    );
+  });
+  it('should create a polyhedron with defined points and paths', () => {
+    assert.deepEqual(
+      S.polyhedron([[0, 0, 0], [4, 5, 0], [6, 8, 0] ], [ 0, 2, 1, 2, 0 ], 4),
+      { type: 'polyhedron', params: { points: [[0,0, 0], [4, 5, 0], [6, 8, 0]] , paths: [0, 2, 1, 2, 0], convexity: 4 } },
     );
   });
 });
