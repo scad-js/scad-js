@@ -1,6 +1,7 @@
 const transformations = require('./transformations.js');
 const modifiers = require('./modifiers.js');
 const serialize = require('./serialize.js');
+const { create } = require('./utils.js');
 
 const fn = 0;
 const fa = 12;
@@ -10,8 +11,7 @@ const undef = 'undef';
 
 const center = true;
 
-const object = type => params =>
-  Object.assign(Object.create({ ...transformations, ...modifiers, serialize }), { type, params });
+const object = type => params => create({ ...transformations, ...modifiers, serialize }, { type, params });
 
 module.exports = {
   circle: (r = 1, params = {}) => object('circle')({

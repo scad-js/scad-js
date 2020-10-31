@@ -1,9 +1,10 @@
 const modifiers = require('./modifiers.js');
 const serialize = require('./serialize.js');
+const { create } = require('./utils.js');
+
 const undef = 'undef';
 
-const transformation = type => (obj, params) =>
-  Object.assign(Object.create({ ...transformations, ...modifiers, serialize }), { type, params, children: [ obj ] });
+const transformation = type => (obj, params) => create({ ...transformations, ...modifiers, serialize }, { type, params, children: [ obj ] });
 
 const transformations = {
   translate (v) {

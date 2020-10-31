@@ -1,9 +1,9 @@
 const transformations = require('./transformations.js');
 const modifiers = require('./modifiers.js');
 const serialize = require('./serialize.js');
+const { create } = require('./utils.js');
 
-const operation = type => (...children) =>
-  Object.assign(Object.create({ ...transformations, ...modifiers, serialize }), { type, children });
+const operation = type => (...children) => create({ ...transformations, ...modifiers, serialize }, { type, children });
 
 module.exports = {
   union: operation('union'),

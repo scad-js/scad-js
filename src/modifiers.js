@@ -1,7 +1,8 @@
 const transformations = require('./transformations.js');
 const serialize = require('./serialize.js');
+const { create } = require('./utils.js');
 
-const modifier = (type, ...children) => Object.assign(Object.create({ ...transformations, ...modifiers, serialize }), {
+const modifier = (type, ...children) => create({ ...transformations, ...modifiers, serialize }, {
   type: type + 'union',
   children,
 });
