@@ -204,3 +204,23 @@ describe('Linear extrude', () => {
   });
 });
 
+describe('Rotate extrude', () => {
+  it('should add linear_extrude transformation to existing object', () => {
+    assert.deepEqual(
+      S.square().rotate_extrude(),
+      {
+        type: 'rotate_extrude',
+        params: { angle: 360, convexity: 2, $fn: 10 },
+        children: [ S.square() ],
+      },
+    );
+    assert.deepEqual(
+      S.square().rotate_extrude(180, { convexity: 4, $fn: 20 }),
+      {
+        type: 'rotate_extrude',
+        params: { angle: 180, convexity: 4, $fn: 20 },
+        children: [ S.square() ],
+      },
+    );
+  });
+});
