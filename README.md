@@ -1,5 +1,5 @@
 <h1 align="center">
-  scad-js
+  scad-js ha ha ha
 </h1>
 
 > **scad-js** transpile your Javascript to **OpenSCAD** letting you create programmatic 3d solid models with the familiar javascript syntax.
