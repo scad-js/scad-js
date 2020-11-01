@@ -6,8 +6,12 @@
 
 <p align="center">
   <a href="https://www.npmjs.com/package/@dotcore64/scad-js">
-    <img alt="scad-js demo" src="https://i.imgur.com/ksWVuYO.gif">
     <img alt="Latest release" src="https://img.shields.io/npm/v/@dotcore64/scad-js?style=for-the-badge">
+    <img alt="Codecov coverage" src="https://img.shields.io/codecov/c/github/scad-js/scad-js?style=for-the-badge">
+    <img alt="Build passing" src="https://img.shields.io/travis/scad-js/scad-js?style=for-the-badge">
+  </a>
+  <a href="https://www.npmjs.com/package/@dotcore64/scad-js">
+    <img alt="scad-js demo" src="https://i.imgur.com/ksWVuYO.gif">
   </a>
 </p>
 
@@ -18,7 +22,7 @@
 ## Getting started
 First make sure you have [OpenSCAD](https://www.openscad.org/downloads.html) installed on your system, we will use it to visualize the model.
 
-clone [scad-js-starter](https://github.com/20lives/scad-js-starter):
+clone [scad-js-starter](https://github.com/scad-js/scad-js-starter):
 
 ```bash
 git clone https://github.com/20lives/scad-js-starter.git my-scad-js-project
