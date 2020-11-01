@@ -16,10 +16,12 @@
   "homepage": "https://github.com/20lives/scad-js#readme",
   "scripts": {
     "test": "nyc mocha",
+    "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
     "lint": "eslint src/."
   },
   "devDependencies": {
     "chai": "^4.2.0",
+    "codecov": "^3.8.0",
     "eslint": "^7.12.1",
     "mocha": "^8.0.1",
     "nyc": "^15.1.0"
