@@ -12,13 +12,13 @@ const modifiers = {
     return modifier('*', this);
   },
   show_only() {
-    return modifier('!');
+    return modifier('!', this);
   },
   debug() {
-    return modifier('#');
+    return modifier('#', this);
   },
   background() {
-    return modifier('%');
+    return modifier('%', this);
   },
 };
 
