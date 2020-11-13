@@ -33,7 +33,7 @@ describe('Resize', () => {
       S.square().resize([5, 2, 3]), 
       {
         type: 'resize',
-        params: { v: [ 5, 2, 3 ], auto: false },
+        params: { newsize: [ 5, 2, 3 ], auto: false },
         children: [ S.square() ],
       },
     );
@@ -41,7 +41,7 @@ describe('Resize', () => {
       S.square().resize([5, 2, 3], true), 
       {
         type: 'resize',
-        params: { v: [ 5, 2, 3 ], auto: true },
+        params: { newsize: [ 5, 2, 3 ], auto: true },
         children: [ S.square() ],
       },
     );
