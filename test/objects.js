@@ -6,23 +6,23 @@ describe('Circle', () => {
   it('should create circle with default radius', () => {
     assert.deepEqual(
       S.circle(), 
-      { type: 'circle', params: { r: 1, '$fa': 12, '$fn': 0, '$fs': 2 } },
+      { type: 'circle', params: { r: 1 } },
     );
   });
   it('should create circle with defined radius', () => {
     assert.deepEqual(
       S.circle(16), 
-      { type: 'circle', params: { r: 16, '$fa': 12, '$fn': 0, '$fs': 2 } },
+      { type: 'circle', params: { r: 16 } },
     );
   });
   it('should create circle with defined radius and optional params', () => {
     assert.deepEqual(
       S.circle(4, { $fn: 6 }), 
-      { type: 'circle', params: { r: 4, '$fa': 12, '$fn': 6, '$fs': 2 } },
+      { type: 'circle', params: { r: 4, '$fn': 6 } },
     );
     assert.deepEqual(
       S.circle(2, { $fn: 6, $fa: 5}), 
-      { type: 'circle', params: { r: 2, '$fa': 5, '$fn': 6, '$fs': 2 } },
+      { type: 'circle', params: { r: 2, '$fa': 5, '$fn': 6 } },
     );
     assert.deepEqual(
       S.circle(1, { $fn: 6, $fa: 5, $fs: 4}), 
@@ -81,35 +81,35 @@ describe('Sphere', () => {
   it('should create a sphere with default radius', () => {
     assert.deepEqual(
       S.sphere(), 
-      { type: 'sphere', params: { r: 1, '$fa': 12, '$fn': 0, '$fs': 2 } },
+      { type: 'sphere', params: { r: 1 } },
     );
   });
   it('should create a sphere with a defined radius', () => {
     assert.deepEqual(
       S.sphere(8), 
-      { type: 'sphere', params: { r: 8, '$fa': 12, '$fn': 0, '$fs': 2 } },
+      { type: 'sphere', params: { r: 8 } },
     );
     assert.deepEqual(
       S.sphere(8, { $fn: 4 }), 
-      { type: 'sphere', params: { r: 8, '$fa': 12, '$fn': 4, '$fs': 2 } },
+      { type: 'sphere', params: { r: 8, $fn: 4 } },
     );
   });
   it('should create a sphere with a defined radius', () => {
     assert.deepEqual(
       S.sphere(8, { $fn: 4 }), 
-      { type: 'sphere', params: { r: 8, '$fa': 12, '$fn': 4, '$fs': 2 } },
+      { type: 'sphere', params: { r: 8, $fn: 4 } },
     );
     assert.deepEqual(
       S.sphere(8, { $fn: 4, $fa: 10 }), 
-      { type: 'sphere', params: { r: 8, '$fa': 10, '$fn': 4, '$fs': 2 } },
+      { type: 'sphere', params: { r: 8, $fa: 10, $fn: 4 } },
     );
     assert.deepEqual(
       S.sphere(8, { $fn: 4, $fa: 10, $fs: 2 }),
-      { type: 'sphere', params: { r: 8, '$fa': 10, '$fn': 4, '$fs': 2 } },
+      { type: 'sphere', params: { r: 8, $fa: 10, $fn: 4, $fs: 2 } },
     );
     assert.deepEqual(
       S.sphere(8, { $fn: 0, $fa: 0, $fs: 0 }),
-      { type: 'sphere', params: { r: 8, '$fa': 0, '$fn': 0, '$fs': 0 } },
+      { type: 'sphere', params: { r: 8, $fa: 0, $fn: 0, $fs: 0 } },
     );
   });
 });
@@ -137,25 +137,25 @@ describe('Cylinder', () => {
   it('should create a cylinder with default size', () => {
     assert.deepEqual(
       S.cylinder(), 
-      { type: 'cylinder', params: { r: 1, h: 1, center: true, $fa: 12, $fn: 0, $fs: 2   } },
+      { type: 'cylinder', params: { r: 1, h: 1, center: true } },
     );
   });
   it('should create a cylinder with defined size', () => {
     assert.deepEqual(
       S.cylinder(5, 4),
-      { type: 'cylinder', params: { h: 5, r: 4, center: true, $fa: 12, $fn: 0, $fs: 2   } },
+      { type: 'cylinder', params: { h: 5, r: 4, center: true } },
     );
     assert.deepEqual(
       S.cylinder(5, [3, 5]),
-      { type: 'cylinder', params: { h: 5, r1: 3, r2: 5, center: true, $fa: 12, $fn: 0, $fs: 2   } },
+      { type: 'cylinder', params: { h: 5, r1: 3, r2: 5, center: true } },
     );
     assert.deepEqual(
       S.cylinder(5, [3, 5], { $fa: 4 }),
-      { type: 'cylinder', params: { h: 5, r1: 3, r2: 5, center: true, $fa: 4, $fn: 0, $fs: 2   } },
+      { type: 'cylinder', params: { h: 5, r1: 3, r2: 5, center: true, $fa: 4 } },
     );
     assert.deepEqual(
       S.cylinder(5, [3, 5], { $fa: 3, $fn: 4, $fs: 5 }),
-      { type: 'cylinder', params: { h: 5, r1: 3, r2: 5, center: true, $fa: 3, $fn: 4, $fs: 5   } },
+      { type: 'cylinder', params: { h: 5, r1: 3, r2: 5, center: true, $fa: 3, $fn: 4, $fs: 5  } },
     );
     assert.deepEqual(
       S.cylinder(5, [3, 5], { $fa: 0, $fn: 0, $fs: 0 }),

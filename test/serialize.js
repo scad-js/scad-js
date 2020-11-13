@@ -40,7 +40,7 @@ describe('Serialize', () => {
       S.union(S.sphere(), S.cube()).serialize(),
       'union()\n' +
       '{\n' +
-      '  sphere(r = 1, $fn = 0, $fa = 12, $fs = 2);\n' +
+      '  sphere(r = 1);\n' +
       '  cube(size = [1, 1, 1], center = true);\n' +
       '}\n',
     );
