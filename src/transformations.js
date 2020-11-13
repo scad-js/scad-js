@@ -14,7 +14,7 @@ const transformations = {
     return transformation('scale')(this, { v });
   },
   resize (v, auto = false) {
-    return transformation('resize')(this, { v, auto });
+    return transformation('resize')(this, { newsize: v, auto });
   },
   mirror (v) {
     return transformation('mirror')(this, { v });
