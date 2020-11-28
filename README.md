@@ -1,5 +1,5 @@
 <h1 align="center">
-  scad-js
+  <img src="https://i.imgur.com/IiI57LR.png" alt="scad-js" height="128">
 </h1>
 
 > **scad-js** transpile your Javascript to **OpenSCAD** letting you create programmatic 3d solid models with the familiar javascript syntax.
@@ -11,7 +11,7 @@
     <img alt="Build passing" src="https://img.shields.io/travis/scad-js/scad-js?style=for-the-badge">
   </a>
   <a href="https://www.npmjs.com/package/@dotcore64/scad-js">
-    <img alt="scad-js demo" src="https://i.imgur.com/ksWVuYO.gif">
+    <img alt="scad-js demo" src="https://i.imgur.com/GhjNUxM.gif">
   </a>
 </p>
 
@@ -68,9 +68,13 @@ A new circle object.
 
 ```javascript
 circle();
-circle(10);
+circle(4);
 circle(6, { $fn: 20 });
 ```
+
+<p align="center">
+  <img alt="circle demo" src="https://i.imgur.com/z00dMHG.gif">
+</p>
 
 ## `square(size)`
 
@@ -89,6 +93,10 @@ square();
 square(6);
 square([5, 10]);
 ```
+
+<p align="center">
+  <img alt="square demo" src="https://i.imgur.com/ix7jdGa.gif">
+</p>
 
 ## `sphere(radius[, options])`
 
@@ -119,6 +127,10 @@ sphere(10);
 sphere(10, { $fs: 4 });
 ```
 
+<p align="center">
+  <img alt="sphere demo" src="https://i.imgur.com/AQvcgjE.gif">
+</p>
+
 ## `cube(size)`
 
 
@@ -137,6 +149,11 @@ cube();
 cube(6);
 cube([2, 4, 10]);
 ```
+
+<p align="center">
+  <img alt="cube demo" src="https://i.imgur.com/DWw4RtC.gif">
+</p>
+
 
 ## `cylinder(height, radius[, options])`
 
@@ -163,10 +180,15 @@ A cylinder (or a cone) object with the provided dimensions.
 **Examples**
 
 ```javascript
-cube();
-cube(6);
-cube([2, 4, 10]);
+cylinder();
+cylinder(4);
+cylinder(4, [6, 2]);
+cylinder(4, [6, 2], { $fn: 8 });
 ```
+
+<p align="center">
+  <img alt="cylinder demo" src="https://i.imgur.com/9LKbwZ6.gif">
+</p>
 
 ## `polygon(point[, paths, convexity])`
 
@@ -190,6 +212,10 @@ polygon([0,0],[5,10],[25,40], [2, 0, 1, 2, 3]);
 polygon([0,0],[5,10],[25,40], [2, 0, 1, 2, 3], 2);
 ```
 
+<p align="center">
+  <img alt="polygon demo" src="https://i.imgur.com/OqeWhUD.gif">
+</p>
+
 ## Operations
 Operations are the results of interactions between two or more objects, specified below:
 
@@ -207,6 +233,10 @@ union(cube(4), cylinder(3, 4));
 union(cube(4), cylinder(3, 4), sphere());
 ```
 
+<p align="center">
+  <img alt="union demo" src="https://i.imgur.com/G2e0hkd.gif">
+</p>
+
 ## `difference([obj1, obj2, ...obj])`
 
 **Returns**
@@ -221,19 +251,9 @@ difference(cube(2), sphere(3, 4));
 difference(cube(4), cylinder(3, 4), sphere());
 ```
 
-## `intersection([obj1, obj2, ...obj])`
-
-**Returns**
-
-returns a new object which is only the overlapping parts of all argument objects, only the area which is shared by all argument objects is retained.
-
-**Examples**
-
-```javascript
-intersection(cube(), sphere());
-intersection(cube(2), sphere(3, 4));
-intersection(cube(4), cylinder(3, 4), sphere());
-```
+<p align="center">
+  <img alt="difference demo" src="https://i.imgur.com/YiSwkfy.gif">
+</p>
 
 ## `intersection([obj1, obj2, ...obj])`
 
@@ -248,6 +268,10 @@ intersection(cube(), sphere());
 intersection(cube(2), sphere(3, 4));
 intersection(cube(4), cylinder(3, 4), sphere());
 ```
+
+<p align="center">
+  <img alt="intersection demo" src="https://i.imgur.com/Y5oZCp1.gif">
+</p>
 
 ## `hull([obj1, obj2, ...obj])`
 
@@ -263,6 +287,10 @@ hull(cube(2), sphere(3, 4));
 hull(cube(4), cylinder(3, 4), sphere());
 ```
 
+<p align="center">
+  <img alt="hull demo" src="https://i.imgur.com/iiCWlUn.gif">
+</p>
+
 ## `minkowski([obj1, obj2, ...obj])`
 
 **Returns**
@@ -276,6 +304,10 @@ minkowski(cube(), sphere());
 minkowski(cube(2), sphere(3, 4));
 minkowski(cube(4), cylinder(3, 4), sphere());
 ```
+
+<p align="center">
+  <img alt="minkowski demo" src="https://i.imgur.com/zOK2XDx.gif">
+</p>
 
 ## Transformations
 
@@ -297,6 +329,10 @@ A new object translated (moved) with the specified x, y, z values.
 object.translate([1, 2, 5]);
 ```
 
+<p align="center">
+  <img alt="translate demo" src="https://i.imgur.com/yWUJnwA.gif">
+</p>
+
 ## `scale(vector)`
 
 | Parameter | Type  | Default   | Description                            |
@@ -312,6 +348,10 @@ A new object scaled relatively with the specified x,y,z values.
 ```javascript
 object.scale([1, 2, 5]);
 ```
+
+<p align="center">
+  <img alt="scale demo" src="https://i.imgur.com/vZbJ306.gif">
+<
 
 ## `resize(vector[, auto])`
 
@@ -329,6 +369,10 @@ A new object ith the specified x,y,z values as his size.
 ```javascript
 object.resize([1, 2, 0]);
 ```
+
+<p align="center">
+  <img alt="resize demo" src="https://i.imgur.com/AFIrfO0.gif">
+<
 
 ## `mirror(vector)`
 
