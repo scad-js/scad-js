@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img src="https://i.imgur.com/IiI57LR.png" alt="scad-js" height="128">
+  <img src="https://i.imgur.com/IiI57LR.png" alt="scad-js" height="128"> SCAD-JS
 </h1>
 
 > **scad-js** transpile your Javascript to **OpenSCAD** letting you create programmatic 3d solid models with the familiar javascript syntax.
