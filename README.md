@@ -37,3 +37,7 @@ yarn dev # or npm run dev
 ```
 
 Now open `index.js` in your favourite text editor and start tinkering.
+
+## License
+
+This project is open source and available under the [MIT License](LICENSE).
