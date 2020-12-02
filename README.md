@@ -38,6 +38,18 @@ yarn dev # or npm run dev
 
 Now open `index.js` in your favourite text editor and start tinkering.
 
+## Documentation
+
+For detailed documentation on how to use scad-js visit [scad-js-docs](https://github.com/scad-js/scad-js-docs), you can also look at the official [OpenSCAD Documentation](https://www.openscad.org/documentation.html) page.
+
+## Examples
+
+A good way for learning scad-js and OpenSCAD is throught examples: [scad-js-examples](https://github.com/scad-js/scad-js-examples)
+
+## Acknowledgements
+
+This project was inspired by many other projects: [farrellm/scad-clj](https://github.com/farrellm/scad-clj), [OpenJSCAD.org](https://openjscad.org/), [tasn/scadjs](https://github.com/tasn/scadjs) and more... And of course it would not even exist without [OpenSCAD](https://www.openscad.org) itself.
+
 ## License
 
 This project is open source and available under the [MIT License](LICENSE).
