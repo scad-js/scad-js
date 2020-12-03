@@ -48,6 +48,12 @@ describe('Square', () => {
       { type: 'square', params: { size: [8, 3], center: true } },
     );
   });
+  it('should create a square with defined size and not centered', () => {
+    assert.deepEqual(
+      S.square(8, { center: false }),
+      { type: 'square', params: { size: 8, center: false } },
+    );
+  });
 });
 
 describe('Polygon', () => {
@@ -131,6 +137,12 @@ describe('Cube', () => {
       { type: 'cube', params: { size: [4, 5, 6], center: true } },
     );
   });
+  it('should create a cube with defined size not centered', () => {
+    assert.deepEqual(
+      S.cube(4, { center: false }), 
+      { type: 'cube', params: { size: 4, center: false } },
+    );
+  });
 });
 
 describe('Cylinder', () => {
@@ -160,6 +172,12 @@ describe('Cylinder', () => {
     assert.deepEqual(
       S.cylinder(5, [3, 5], { $fa: 0, $fn: 0, $fs: 0 }),
       { type: 'cylinder', params: { h: 5, r1: 3, r2: 5, center: true, $fa: 0, $fn: 0, $fs: 0   } },
+    );
+  });
+  it('should create a cylinder with defined size and not centered', () => {
+    assert.deepEqual(
+      S.cylinder(5, 4, { center: false }),
+      { type: 'cylinder', params: { h: 5, r: 4, center: false } },
     );
   });
 });
