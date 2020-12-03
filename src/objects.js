@@ -14,9 +14,10 @@ module.exports = {
     r,
     ...params,
   }),
-  square: (size = [1, 1]) => object('square')({
+  square: (size = [1, 1], params = {}) => object('square')({
     size,
     center,
+    ...params,
   }),
   polygon: (points = undef, paths = undef, convexity = 1) => object('polygon')({
     points,
@@ -27,9 +28,10 @@ module.exports = {
     r,
     ...params,
   }),
-  cube: (size = [1, 1, 1]) => object('cube')({
+  cube: (size = [1, 1, 1], params = {}) => object('cube')({
     size,
     center,
+    ...params,
   }),
   cylinder: (h = 1, r = 1, params = {}) => object('cylinder')({
     h,
