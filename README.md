@@ -5,12 +5,12 @@
 > **scad-js** transpile your Javascript to **OpenSCAD** letting you create programmatic 3d solid models with the familiar javascript syntax.
 
 <p align="center">
-  <a href="https://www.npmjs.com/package/@dotcore64/scad-js">
-    <img alt="Latest release" src="https://img.shields.io/npm/v/@dotcore64/scad-js?style=for-the-badge">
+  <a href="https://www.npmjs.com/package/scad-js">
+    <img alt="Latest release" src="https://img.shields.io/npm/v/scad-js?style=for-the-badge">
     <img alt="Codecov coverage" src="https://img.shields.io/codecov/c/github/scad-js/scad-js?style=for-the-badge">
     <img alt="Build passing" src="https://img.shields.io/travis/scad-js/scad-js?style=for-the-badge">
   </a>
-  <a href="https://www.npmjs.com/package/@dotcore64/scad-js">
+  <a href="https://www.npmjs.com/package/scad-js">
     <img alt="scad-js demo" src="https://i.imgur.com/GhjNUxM.gif">
   </a>
 </p>
