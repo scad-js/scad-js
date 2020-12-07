@@ -8,6 +8,18 @@ describe('Serialize', () => {
       '$fn = 6;\nsquare(size = [1, 1], center = true);\n',
     );
   });
+  it('should serialize an object with animation value', () => {
+    assert.equal(
+      S.square('$t').serialize(),
+      'square(size = $t, center = true);\n',
+    );
+  });
+  it('should serialize an object with array animation value', () => {
+    assert.equal(
+      S.cube(['$t', '2 * $t', 5]).serialize(),
+      'cube(size = [$t, 2 * $t, 5], center = true);\n',
+    );
+  });
   it('should serialize an object number value', () => {
     assert.equal(
       S.square().radius_offset(5).serialize(),
