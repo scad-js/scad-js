@@ -4,11 +4,35 @@ const S = require('../src/index.js');
 describe('Translate', () => {
   it('should add translate transformation to existing object', () => {
     assert.deepEqual(
-      S.square().translate([1, 2, 3]), 
+      S.square().translate([1, 2, 3]),
       {
         type: 'translate',
         params: { v: [ 1, 2, 3 ] },
         children: [ S.square() ],
+      },
+    );
+    assert.deepEqual(
+      S.square().trans_x(8),
+      {
+        type: 'translate',
+        params: { v: [ 8, 0, 0 ] },
+        children: [ S.square() ],
+      },
+    );
+    assert.deepEqual(
+      S.square().trans_y(4),
+      {
+        type: 'translate',
+        params: { v: [ 0, 4, 0 ] },
+        children: [ S.square() ],
+      },
+    );
+    assert.deepEqual(
+      S.cube().trans_z(6),
+      {
+        type: 'translate',
+        params: { v: [ 0, 0, 6 ] },
+        children: [ S.cube() ],
       },
     );
   });
@@ -17,10 +41,34 @@ describe('Translate', () => {
 describe('Scale', () => {
   it('should add scale transformation to existing object', () => {
     assert.deepEqual(
-      S.square().scale([5, 2, 3]), 
+      S.square().scale([5, 2, 3]),
       {
         type: 'scale',
         params: { v: [ 5, 2, 3 ] },
+        children: [ S.square() ],
+      },
+    );
+    assert.deepEqual(
+      S.square().scale_x(1.5),
+      {
+        type: 'scale',
+        params: { v: [ 1.5, 1, 1 ] },
+        children: [ S.square() ],
+      },
+    );
+    assert.deepEqual(
+      S.square().scale_y(2),
+      {
+        type: 'scale',
+        params: { v: [ 1, 2, 1 ] },
+        children: [ S.square() ],
+      },
+    );
+    assert.deepEqual(
+      S.square().scale_z(0.5),
+      {
+        type: 'scale',
+        params: { v: [ 1, 1, 0.5 ] },
         children: [ S.square() ],
       },
     );
@@ -30,7 +78,7 @@ describe('Scale', () => {
 describe('Resize', () => {
   it('should add resie transformation to existing object', () => {
     assert.deepEqual(
-      S.square().resize([5, 2, 3]), 
+      S.square().resize([5, 2, 3]),
       {
         type: 'resize',
         params: { newsize: [ 5, 2, 3 ], auto: false },
@@ -38,7 +86,7 @@ describe('Resize', () => {
       },
     );
     assert.deepEqual(
-      S.square().resize([5, 2, 3], true), 
+      S.square().resize([5, 2, 3], true),
       {
         type: 'resize',
         params: { newsize: [ 5, 2, 3 ], auto: true },
@@ -51,10 +99,34 @@ describe('Resize', () => {
 describe('Mirror', () => {
   it('should add mirror transformation to existing object', () => {
     assert.deepEqual(
-      S.square().mirror([1, 0, 0]), 
+      S.square().mirror([1, 0, 0]),
       {
         type: 'mirror',
         params: { v: [ 1, 0, 0 ] },
+        children: [ S.square() ],
+      },
+    );
+    assert.deepEqual(
+      S.square().mirror_x(),
+      {
+        type: 'mirror',
+        params: { v: [ 1, 0, 0 ] },
+        children: [ S.square() ],
+      },
+    );
+    assert.deepEqual(
+      S.square().mirror_y(),
+      {
+        type: 'mirror',
+        params: { v: [ 0, 1, 0 ] },
+        children: [ S.square() ],
+      },
+    );
+    assert.deepEqual(
+      S.square().mirror_z(),
+      {
+        type: 'mirror',
+        params: { v: [ 0, 0, 1 ] },
         children: [ S.square() ],
       },
     );
@@ -64,7 +136,7 @@ describe('Mirror', () => {
 describe('Color', () => {
   it('should add color transformation to existing object', () => {
     assert.deepEqual(
-      S.square().color('cerulean'), 
+      S.square().color('cerulean'),
       {
         type: 'color',
         params: { c: 'cerulean', alpha: 1 },
@@ -72,7 +144,7 @@ describe('Color', () => {
       },
     );
     assert.deepEqual(
-      S.square().color('cerulean', 0.6), 
+      S.square().color('cerulean', 0.6),
       {
         type: 'color',
         params: { c: 'cerulean', alpha: 0.6 },
@@ -85,7 +157,7 @@ describe('Color', () => {
 describe('rotate', () => {
   it('should add rotate transformation to existing object', () => {
     assert.deepEqual(
-      S.square().rotate([1, 0, 0]), 
+      S.square().rotate([1, 0, 0]),
       {
         type: 'rotate',
         params: { a: [ 1, 0, 0 ], v: 'undef' },
@@ -93,10 +165,34 @@ describe('rotate', () => {
       },
     );
     assert.deepEqual(
-      S.square().rotate(90, [1, 0, 0]), 
+      S.square().rotate(90, [1, 0, 0]),
       {
         type: 'rotate',
         params: { a: 90, v: [ 1, 0, 0 ] },
+        children: [ S.square() ],
+      },
+    );
+    assert.deepEqual(
+      S.square().rot_x(45),
+      {
+        type: 'rotate',
+        params: { a: 45, v: [ 1, 0, 0 ] },
+        children: [ S.square() ],
+      },
+    );
+    assert.deepEqual(
+      S.square().rot_y(90),
+      {
+        type: 'rotate',
+        params: { a: 90, v: [ 0, 1, 0 ] },
+        children: [ S.square() ],
+      },
+    );
+    assert.deepEqual(
+      S.square().rot_z(180),
+      {
+        type: 'rotate',
+        params: { a: 180, v: [ 0, 0, 1 ] },
         children: [ S.square() ],
       },
     );
@@ -116,7 +212,7 @@ describe('Radius offset', () => {
   });
   it('should add radius_offset transformation to existing object', () => {
     assert.deepEqual(
-      S.square().radius_offset(5), 
+      S.square().radius_offset(5),
       {
         type: 'offset',
         params: { r: 5, delta: 'undef', chamfer: 'undef' },
@@ -129,7 +225,7 @@ describe('Radius offset', () => {
 describe('Delta offset', () => {
   it('should add delta_offset transformation to existing object', () => {
     assert.deepEqual(
-      S.square().delta_offset(8), 
+      S.square().delta_offset(8),
       {
         type: 'offset',
         params: { r: 'undef', delta: 8, chamfer: false },
@@ -137,7 +233,7 @@ describe('Delta offset', () => {
       },
     );
     assert.deepEqual(
-      S.square().delta_offset(8), 
+      S.square().delta_offset(8),
       {
         type: 'offset',
         params: { r: 'undef', delta: 8, chamfer: false },
@@ -145,7 +241,7 @@ describe('Delta offset', () => {
       },
     );
     assert.deepEqual(
-      S.square().delta_offset(8, true), 
+      S.square().delta_offset(8, true),
       {
         type: 'offset',
         params: { r: 'undef', delta: 8, chamfer: true },
