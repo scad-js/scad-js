@@ -20,6 +20,15 @@ describe('Serialize', () => {
       'cube(size = [$t, 2 * $t, 5], center = true);\n',
     );
   });
+  it('should serialize an object with color transformation', () => {
+    assert.equal(
+      S.cube(8).color('green', 0.6).serialize(),
+      'color(c = "green", alpha = 0.6)\n' +
+      '{\n' +
+      '  cube(size = 8, center = true);\n' +
+      '}\n',
+    );
+  });
   it('should serialize an object number value', () => {
     assert.equal(
       S.square().radius_offset(5).serialize(),
