@@ -44,7 +44,7 @@ For detailed documentation on how to use scad-js visit [scad-js-docs](https://gi
 
 ## Examples
 
-A good way for learning scad-js and OpenSCAD is throught examples: [scad-js-examples](https://github.com/scad-js/scad-js-examples)
+A good way for learning scad-js and OpenSCAD is throught examples: [examples](https://github.com/scad-js/examples)
 
 ## Acknowledgements
 
