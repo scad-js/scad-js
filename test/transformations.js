@@ -12,7 +12,7 @@ describe('Translate', () => {
       },
     );
     assert.deepEqual(
-      S.square().trans_x(8),
+      S.square().translate_x(8),
       {
         type: 'translate',
         params: { v: [ 8, 0, 0 ] },
@@ -20,7 +20,7 @@ describe('Translate', () => {
       },
     );
     assert.deepEqual(
-      S.square().trans_y(4),
+      S.square().translate_y(4),
       {
         type: 'translate',
         params: { v: [ 0, 4, 0 ] },
@@ -28,7 +28,7 @@ describe('Translate', () => {
       },
     );
     assert.deepEqual(
-      S.cube().trans_z(6),
+      S.cube().translate_z(6),
       {
         type: 'translate',
         params: { v: [ 0, 0, 6 ] },
@@ -173,7 +173,7 @@ describe('rotate', () => {
       },
     );
     assert.deepEqual(
-      S.square().rot_x(45),
+      S.square().rotate_x(45),
       {
         type: 'rotate',
         params: { a: 45, v: [ 1, 0, 0 ] },
@@ -181,7 +181,7 @@ describe('rotate', () => {
       },
     );
     assert.deepEqual(
-      S.square().rot_y(90),
+      S.square().rotate_y(90),
       {
         type: 'rotate',
         params: { a: 90, v: [ 0, 1, 0 ] },
@@ -189,7 +189,7 @@ describe('rotate', () => {
       },
     );
     assert.deepEqual(
-      S.square().rot_z(180),
+      S.square().rotate_z(180),
       {
         type: 'rotate',
         params: { a: 180, v: [ 0, 0, 1 ] },
