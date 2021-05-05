@@ -10,15 +10,15 @@ const translate = function (v) {
   return transformation('translate')(this, { v });
 };
 
-const trans_x = function (x) {
+const translate_x = function (x) {
   return transformation('translate')(this, { v: [ x, 0, 0 ] });
 };
 
-const trans_y = function (y) {
+const translate_y = function (y) {
   return transformation('translate')(this, { v: [ 0, y, 0 ] });
 };
 
-const trans_z = function (z) {
+const translate_z = function (z) {
   return transformation('translate')(this, { v: [ 0, 0, z ] });
 };
 
@@ -66,15 +66,15 @@ const rotate = function (a, v = undef) {
   return transformation('rotate')(this, { a, v });
 };
 
-const rot_x = function (a) {
+const rotate_x = function (a) {
   return transformation('rotate')(this, { a, v: [ 1, 0, 0] });
 };
 
-const rot_y = function (a) {
+const rotate_y = function (a) {
   return transformation('rotate')(this, { a, v: [ 0, 1, 0] });
 };
 
-const rot_z = function (a) {
+const rotate_z = function (a) {
   return transformation('rotate')(this, { a, v: [ 0, 0, 1] });
 };
 
@@ -112,9 +112,9 @@ const rotate_extrude = function (angle = 360, params = {}) {
 
 const transformations = {
   translate,
-  trans_x,
-  trans_y,
-  trans_z,
+  translate_x,
+  translate_y,
+  translate_z,
   scale,
   scale_x,
   scale_y,
@@ -125,9 +125,9 @@ const transformations = {
   mirror_y,
   mirror_z,
   rotate,
-  rot_x,
-  rot_y,
-  rot_z,
+  rotate_x,
+  rotate_y,
+  rotate_z,
   color,
   radius_offset,
   delta_offset,
