@@ -20,5 +20,6 @@ export * from './cube';
 export * from './cylinder';
 export * from './polygon';
 export * from './polyhedron';
+export * from './rounded';
 export * from './sphere';
 export * from './square';

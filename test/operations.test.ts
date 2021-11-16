@@ -1,53 +1,60 @@
 import assert from 'assert';
-import * as S from '../src/index';
+import {
+  chain_hull,
+  cube,
+  cylinder,
+  difference,
+  hull,
+  intersection,
+  minkowski,
+  sphere,
+  union,
+} from '../src';
 
 describe('Union', () => {
   it('Union all aruments together', () => {
-    assert.deepEqual(S.union(), { type: 'union', children: [] });
-    assert.deepEqual(S.union(S.cube()), {
+    assert.deepEqual(union(), { type: 'union', children: [] });
+    assert.deepEqual(union(cube()), {
       type: 'union',
-      children: [S.cube()],
+      children: [cube()],
     });
-    assert.deepEqual(S.union(S.cube(), S.sphere(), S.cylinder()), {
+    assert.deepEqual(union(cube(), sphere(), cylinder()), {
       type: 'union',
-      children: [S.cube(), S.sphere(), S.cylinder()],
+      children: [cube(), sphere(), cylinder()],
     });
   });
   it('difference all aruments together', () => {
-    assert.deepEqual(S.difference(S.cube(), S.sphere(), S.cylinder()), {
+    assert.deepEqual(difference(cube(), sphere(), cylinder()), {
       type: 'difference',
-      children: [S.cube(), S.sphere(), S.cylinder()],
+      children: [cube(), sphere(), cylinder()],
     });
   });
   it('intersection all aruments together', () => {
-    assert.deepEqual(S.intersection(S.cube(), S.sphere(), S.cylinder()), {
+    assert.deepEqual(intersection(cube(), sphere(), cylinder()), {
       type: 'intersection',
-      children: [S.cube(), S.sphere(), S.cylinder()],
+      children: [cube(), sphere(), cylinder()],
     });
   });
   it('hull all aruments together', () => {
-    assert.deepEqual(S.hull(S.cube(), S.sphere(), S.cylinder()), {
+    assert.deepEqual(hull(cube(), sphere(), cylinder()), {
       type: 'hull',
-      children: [S.cube(), S.sphere(), S.cylinder()],
+      children: [cube(), sphere(), cylinder()],
     });
   });
-  // it('chain_hull all aruments together', () => {
-  //   assert.deepEqual(
-  //     S.chain_hull(S.cube(), S.sphere(), S.cylinder(), S.cube()),
-  //     {
-  //       type: 'union',
-  //       children: [
-  //         { type: 'hull', children: [S.cube(), S.sphere()] },
-  //         { type: 'hull', children: [S.sphere(), S.cylinder()] },
-  //         { type: 'hull', children: [S.cylinder(), S.cube()] },
-  //       ],
-  //     }
-  //   );
-  // });
+  it('chain_hull all aruments together', () => {
+    assert.deepEqual(chain_hull(cube(), sphere(), cylinder(), cube()), {
+      type: 'union',
+      children: [
+        { type: 'hull', children: [cube(), sphere()] },
+        { type: 'hull', children: [sphere(), cylinder()] },
+        { type: 'hull', children: [cylinder(), cube()] },
+      ],
+    });
+  });
   it('minkowski all aruments together', () => {
-    assert.deepEqual(S.minkowski(S.cube(), S.sphere(), S.cylinder()), {
+    assert.deepEqual(minkowski(cube(), sphere(), cylinder()), {
       type: 'minkowski',
-      children: [S.cube(), S.sphere(), S.cylinder()],
+      children: [cube(), sphere(), cylinder()],
     });
   });
 });

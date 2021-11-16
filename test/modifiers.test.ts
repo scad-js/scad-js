@@ -1,29 +1,29 @@
 import assert from 'assert';
-import * as S from '../src/index';
+import { square } from '../src';
 
 describe('disable', () => {
   it('should add disable modifier existing object', () => {
-    assert.deepEqual(S.square().disable(), {
+    assert.deepEqual(square().disable(), {
       type: '*union',
-      children: [S.square()],
+      children: [square()],
     });
   });
   it('should add show_only modifier existing object', () => {
-    assert.deepEqual(S.square().show_only(), {
+    assert.deepEqual(square().show_only(), {
       type: '!union',
-      children: [S.square()],
+      children: [square()],
     });
   });
   it('should add debug modifier existing object', () => {
-    assert.deepEqual(S.square().debug(), {
+    assert.deepEqual(square().debug(), {
       type: '#union',
-      children: [S.square()],
+      children: [square()],
     });
   });
   it('should add background modifier existing object', () => {
-    assert.deepEqual(S.square().background(), {
+    assert.deepEqual(square().background(), {
       type: '%union',
-      children: [S.square()],
+      children: [square()],
     });
   });
 });

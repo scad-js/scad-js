@@ -11,10 +11,15 @@ export type Difference = IOperation<'difference'>;
 export type Intersection = IOperation<'intersection'>;
 export type Hull = IOperation<'hull'>;
 export type Minkowski = IOperation<'minkowski'>;
-// export type ChainHull = IOperation<'chain_hull'>;
+export type ChainHull = IOperation<'chain_hull'>;
 
-export type Operation = Union | Difference | Intersection | Hull | Minkowski;
-// | ChainHull
+export type Operation =
+  | Union
+  | Difference
+  | Intersection
+  | Hull
+  | Minkowski
+  | ChainHull;
 
 const operation =
   (type: Operation['type']) =>
@@ -26,5 +31,6 @@ export const difference = operation('difference');
 export const intersection = operation('intersection');
 export const hull = operation('hull');
 export const minkowski = operation('minkowski');
-// export const chain_hull = (...items) =>
-//   union(...items.map((cur, i, arr) => hull(cur, arr[i + 1])).slice(0, -1));
+
+export const chain_hull = (...items: ScadCommand[]) =>
+  union(...items.map((cur, i, arr) => hull(cur, arr[i + 1])).slice(0, -1));
