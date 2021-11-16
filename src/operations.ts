@@ -1,5 +1,4 @@
-import { chain } from './chain';
-import type { Chainable } from './Chainable';
+import { chain, Chainable } from './Chainable';
 
 interface IOperation<Name extends string> {
   type: Name;

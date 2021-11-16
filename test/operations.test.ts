@@ -9,7 +9,7 @@ import {
   minkowski,
   sphere,
   union,
-} from '../src';
+} from '../src/index';
 
 describe('Union', () => {
   it('Union all aruments together', () => {

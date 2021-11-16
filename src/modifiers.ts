@@ -1,4 +1,5 @@
 import type { Chainable } from './Chainable';
+import { serializable } from './Serializable';
 
 interface IModified<Name extends string> {
   type: Name;
@@ -16,7 +17,7 @@ const modifier = <Name extends Modifier['type']>(type: Name) => {
   type Result = Extract<Modifier, { type: Name }>;
 
   return function (this: Chainable, ...children: Chainable[]) {
-    return { type, children: [this, ...children] } as Result;
+    return serializable({ type, children: [this, ...children] } as Result);
   };
 };
 

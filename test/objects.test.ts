@@ -7,7 +7,7 @@ import {
   polyhedron,
   sphere,
   square,
-} from '../src';
+} from '../src/index';
 
 describe('Circle', () => {
   it('should create circle with default radius', () => {

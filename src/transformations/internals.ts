@@ -1,5 +1,4 @@
-import { chain } from '../chain';
-import type { Chainable } from '../Chainable';
+import { chain, Chainable } from '../Chainable';
 import { Transformation } from './index';
 
 export interface ITransformation<Name extends string, Params extends {}> {

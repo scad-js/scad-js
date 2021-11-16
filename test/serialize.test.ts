@@ -1,5 +1,5 @@
 import assert from 'assert';
-import { cube, sphere, square, union } from '../src';
+import { cube, sphere, square, union } from '../src/index';
 
 describe('Serialize', () => {
   it('should serialize an object number value', () => {

@@ -1,4 +1,4 @@
-import { chain } from '../chain';
+import { chain } from '../Chainable';
 import type { Shape } from './index';
 
 export const center = true;
