@@ -1,4 +1,4 @@
-import type { Chainable } from '../Chainable';
+import type { ChainTarget } from '../Chainable';
 import { ITransformation, transformation } from './internals';
 
 type Params = {
@@ -10,7 +10,7 @@ type Params = {
 export type RotateExtrude = ITransformation<'rotate_extrude', Params>;
 
 export function rotate_extrude(
-  this: Chainable,
+  this: ChainTarget,
   angle: Params['angle'] = 360,
   { convexity = 2, $fn = 10 }: Partial<Omit<Params, 'angle'>> = {}
 ) {

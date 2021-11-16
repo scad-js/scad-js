@@ -4,10 +4,14 @@ import { serialize } from './serialize';
 import type { Shape } from './shapes/index';
 import type { Transformation } from './transformations/index';
 
-export type Serializable = Modifier | Operation | Shape | Transformation;
+export type SerTarget = Modifier | Operation | Shape | Transformation;
 
-const proto = { serialize };
+export interface Serializable {
+  serialize: typeof serialize;
+}
 
-export function serializable<T>(x: T): T & typeof proto {
+const proto: Serializable = { serialize };
+
+export function serializable<T>(x: T): T & Serializable {
   return { ...x, __proto__: proto } as any;
 }

@@ -1,4 +1,4 @@
-import { Serializable } from './Serializable';
+import { SerTarget } from './Serializable';
 import { Shape } from './shapes/index';
 import { Transformation } from './transformations/index';
 import { $t, undef } from './types';
@@ -8,7 +8,7 @@ type ParamValue = Params[keyof Params];
 
 const indent = (n: number) => ' '.repeat(2 * n);
 
-export function serialize(this: Serializable, vars = {}, depth = 0): string {
+export function serialize(this: SerTarget, vars = {}, depth = 0): string {
   const params = 'params' in this ? this.params : null;
 
   const start = Object.entries(vars)

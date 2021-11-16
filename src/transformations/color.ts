@@ -1,4 +1,4 @@
-import type { Chainable } from '../Chainable';
+import type { ChainTarget } from '../Chainable';
 import { ITransformation, transformation } from './internals';
 
 type Params = {
@@ -9,7 +9,7 @@ type Params = {
 export type Color = ITransformation<'color', Params>;
 
 export function color(
-  this: Chainable,
+  this: ChainTarget,
   c: Params['c'],
   alpha: Params['alpha'] = 1
 ) {

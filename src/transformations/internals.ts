@@ -1,10 +1,10 @@
-import { chain, Chainable } from '../Chainable';
+import { chain, ChainTarget } from '../Chainable';
 import { Transformation } from './index';
 
 export interface ITransformation<Name extends string, Params extends {}> {
   type: Name;
   params: Params;
-  children: [Chainable];
+  children: [ChainTarget];
 }
 
 export const transformation = <
@@ -13,6 +13,6 @@ export const transformation = <
   Params extends Type['params']
 >(
   type: Name,
-  target: Chainable,
+  target: ChainTarget,
   params: Params
 ) => chain({ type, params, children: [target] } as Type);

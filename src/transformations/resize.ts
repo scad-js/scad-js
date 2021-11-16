@@ -1,4 +1,4 @@
-import type { Chainable } from '../Chainable';
+import type { ChainTarget } from '../Chainable';
 import { Vector } from '../types';
 import { ITransformation, transformation } from './internals';
 
@@ -10,7 +10,7 @@ type Params = {
 export type Resize = ITransformation<'resize', Params>;
 
 export function resize(
-  this: Chainable,
+  this: ChainTarget,
   v: Params['newsize'],
   auto: Params['auto'] = false
 ) {
