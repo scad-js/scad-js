@@ -1,4 +1,4 @@
-import { ScadCommand } from '../ScadCommand';
+import type { Chainable } from '../Chainable';
 import { ITransformation, transformation } from './internals';
 
 type Params = {
@@ -8,8 +8,10 @@ type Params = {
 
 export type Color = ITransformation<'color', Params>;
 
-export const color = (
-  target: ScadCommand,
+export function color(
+  this: Chainable,
   c: Params['c'],
   alpha: Params['alpha'] = 1
-) => transformation('color', target, { c, alpha });
+) {
+  return transformation('color', this, { c, alpha });
+}

@@ -1,4 +1,4 @@
-import { ScadCommand } from '../ScadCommand';
+import type { Chainable } from '../Chainable';
 import { Vector } from '../types';
 import { ITransformation, transformation } from './internals';
 
@@ -8,14 +8,18 @@ type Params = {
 
 export type Mirror = ITransformation<'mirror', Params>;
 
-export const mirror = (target: ScadCommand, v: Params['v']) =>
-  transformation('mirror', target, { v });
+export function mirror(this: Chainable, v: Params['v']) {
+  return transformation('mirror', this, { v });
+}
 
-export const mirror_x = (target: ScadCommand) =>
-  transformation('mirror', target, { v: [1, 0, 0] });
+export function mirror_x(this: Chainable) {
+  return transformation('mirror', this, { v: [1, 0, 0] });
+}
 
-export const mirror_y = (target: ScadCommand) =>
-  transformation('mirror', target, { v: [0, 1, 0] });
+export function mirror_y(this: Chainable) {
+  return transformation('mirror', this, { v: [0, 1, 0] });
+}
 
-export const mirror_z = (target: ScadCommand) =>
-  transformation('mirror', target, { v: [0, 0, 1] });
+export function mirror_z(this: Chainable) {
+  return transformation('mirror', this, { v: [0, 0, 1] });
+}

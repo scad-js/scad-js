@@ -1,4 +1,4 @@
-import { ScadCommand } from '../ScadCommand';
+import type { Chainable } from '../Chainable';
 import { Vector } from '../types';
 import { ITransformation, transformation } from './internals';
 
@@ -9,10 +9,10 @@ type Params = {
 
 export type Resize = ITransformation<'resize', Params>;
 
-export const resize = function (
-  target: ScadCommand,
+export function resize(
+  this: Chainable,
   v: Params['newsize'],
   auto: Params['auto'] = false
 ) {
-  return transformation('resize', target, { newsize: v, auto });
-};
+  return transformation('resize', this, { newsize: v, auto });
+}

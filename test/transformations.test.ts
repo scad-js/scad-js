@@ -246,3 +246,9 @@ describe('Rotate extrude', () => {
     });
   });
 });
+
+describe('Multiple transformations', () => {
+  it('should allow to chain multiple transformations', () => {
+    square().translate_x(2).rotate(3);
+  });
+});

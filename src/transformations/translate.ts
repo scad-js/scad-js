@@ -1,4 +1,4 @@
-import { ScadCommand } from '../ScadCommand';
+import type { Chainable } from '../Chainable';
 import { Vector } from '../types';
 import { ITransformation, transformation } from './internals';
 
@@ -8,14 +8,18 @@ type Params = {
 
 export type Translate = ITransformation<'translate', Params>;
 
-export const translate = (target: ScadCommand, v: Params['v']) =>
-  transformation('translate', target, { v });
+export function translate(this: Chainable, v: Params['v']) {
+  return transformation('translate', this, { v });
+}
 
-export const translate_x = (target: ScadCommand, x: number) =>
-  transformation('translate', target, { v: [x, 0, 0] });
+export function translate_x(this: Chainable, x: number) {
+  return transformation('translate', this, { v: [x, 0, 0] });
+}
 
-export const translate_y = (target: ScadCommand, y: number) =>
-  transformation('translate', target, { v: [0, y, 0] });
+export function translate_y(this: Chainable, y: number) {
+  return transformation('translate', this, { v: [0, y, 0] });
+}
 
-export const translate_z = (target: ScadCommand, z: number) =>
-  transformation('translate', target, { v: [0, 0, z] });
+export function translate_z(this: Chainable, z: number) {
+  return transformation('translate', this, { v: [0, 0, z] });
+}

@@ -1,4 +1,4 @@
-import { ScadCommand } from '../ScadCommand';
+import type { Chainable } from '../Chainable';
 import { undef } from '../types';
 import { ITransformation, transformation } from './internals';
 
@@ -10,11 +10,14 @@ type Params = {
 
 export type Offset = ITransformation<'offset', Params>;
 
-export const radius_offset = (target: ScadCommand, r: Params['r'] = undef) =>
-  transformation('offset', target, { r, delta: undef, chamfer: undef });
+export function radius_offset(this: Chainable, r: Params['r'] = undef) {
+  return transformation('offset', this, { r, delta: undef, chamfer: undef });
+}
 
-export const delta_offset = (
-  target: ScadCommand,
+export function delta_offset(
+  this: Chainable,
   delta: Params['delta'],
   chamfer: Params['chamfer'] = false
-) => transformation('offset', target, { r: undef, delta, chamfer });
+) {
+  return transformation('offset', this, { r: undef, delta, chamfer });
+}

@@ -1,18 +1,19 @@
-import create from '../create';
-import { ScadCommand } from '../ScadCommand';
+import { chain } from '../chain';
+import type { Chainable } from '../Chainable';
 import { Transformation } from './index';
 
 export interface ITransformation<Name extends string, Params extends {}> {
   type: Name;
   params: Params;
-  children: [ScadCommand];
+  children: [Chainable];
 }
 
 export const transformation = <
   Name extends Transformation['type'],
-  Params extends Extract<Transformation, { type: Name }>['params']
+  Type extends Extract<Transformation, { type: Name }>,
+  Params extends Type['params']
 >(
   type: Name,
-  target: ScadCommand,
+  target: Chainable,
   params: Params
-): Transformation => create(type, { params, children: [target] });
+) => chain({ type, params, children: [target] } as Type);

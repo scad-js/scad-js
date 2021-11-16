@@ -1,4 +1,4 @@
-import { ScadCommand } from './ScadCommand';
+import type { Chainable } from './Chainable';
 import { Shape } from './shapes/index';
 import { Transformation } from './transformations/index';
 import { $t, undef } from './types';
@@ -8,27 +8,23 @@ type ParamValue = Params[keyof Params];
 
 const indent = (n: number) => ' '.repeat(2 * n);
 
-export default function serialize(
-  target: ScadCommand,
-  vars = {},
-  depth = 0
-): string {
-  const params = 'params' in target ? target.params : null;
+export function serialize(this: Chainable, vars = {}, depth = 0): string {
+  const params = 'params' in this ? this.params : null;
 
   const start = Object.entries(vars)
     .map(([a, b]) => `${a} = ${b};\n`)
     .join('');
 
-  const output = `${start}${indent(depth)}${target.type}(${stringifyParams(
+  const output = `${start}${indent(depth)}${this.type}(${stringifyParams(
     params || {}
   )})`;
 
-  if (!('children' in target)) {
+  if (!('children' in this)) {
     return `${output};\n`;
   }
 
-  const children = target.children
-    .map((child) => serialize(child, {}, depth + 1))
+  const children = this.children
+    .map((child) => serialize.call(child, {}, depth + 1))
     .join('');
 
   return `${output}\n${indent(depth)}{\n${children}${indent(depth)}}\n`;

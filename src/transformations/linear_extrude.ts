@@ -1,4 +1,4 @@
-import { ScadCommand } from '../ScadCommand';
+import type { Chainable } from '../Chainable';
 import { undef } from '../types';
 import { ITransformation, transformation } from './internals';
 
@@ -14,8 +14,8 @@ type Params = {
 
 export type LinearExtrude = ITransformation<'linear_extrude', Params>;
 
-export const linear_extrude = (
-  target: ScadCommand,
+export function linear_extrude(
+  this: Chainable,
   height: Params['height'] = undef,
   {
     center = false,
@@ -25,8 +25,8 @@ export const linear_extrude = (
     scale = 1,
     $fn = 20,
   }: Partial<Omit<Params, 'height'>> = {}
-) =>
-  transformation('linear_extrude', target, {
+) {
+  return transformation('linear_extrude', this, {
     height,
     center,
     convexity,
@@ -35,3 +35,4 @@ export const linear_extrude = (
     scale,
     $fn,
   });
+}

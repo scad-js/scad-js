@@ -1,4 +1,4 @@
-import { ScadCommand } from '../ScadCommand';
+import type { Chainable } from '../Chainable';
 import { ITransformation, transformation } from './internals';
 
 type Params = {
@@ -9,8 +9,10 @@ type Params = {
 
 export type RotateExtrude = ITransformation<'rotate_extrude', Params>;
 
-export const rotate_extrude = (
-  target: ScadCommand,
+export function rotate_extrude(
+  this: Chainable,
   angle: Params['angle'] = 360,
   { convexity = 2, $fn = 10 }: Partial<Omit<Params, 'angle'>> = {}
-) => transformation('rotate_extrude', target, { angle, convexity, $fn });
+) {
+  return transformation('rotate_extrude', this, { angle, convexity, $fn });
+}
