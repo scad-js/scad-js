@@ -1,8 +1,8 @@
-const transformations = require('./transformations.js');
-const modifiers = require('./modifiers.js');
-const { hull } = require('./operations.js');
-const serialize = require('./serialize.js');
-const { create } = require('./utils.js');
+import * as modifiers from './modifiers';
+import { hull } from './operations';
+import serialize from './serialize';
+import * as transformations from './transformations';
+import { create } from './utils';
 
 const undef = 'undef';
 
@@ -11,20 +11,20 @@ const center = true;
 const object = (type) => (params) =>
   create({ ...transformations, ...modifiers, serialize }, { type, params });
 
-const circle = (r = 1, params = {}) =>
+export const circle = (r = 1, params = {}) =>
   object('circle')({
     r,
     ...params,
   });
 
-const square = (size = [1, 1], params = {}) =>
+export const square = (size = [1, 1], params = {}) =>
   object('square')({
     size,
     center,
     ...params,
   });
 
-const rounded_square = (size = 1, radius = 0.125, _params = {}) => {
+export const rounded_square = (size = 1, radius = 0.125, _params = {}) => {
   const { center: _center, ...params } = _params;
   const [x, y] = typeof size == 'number' ? [size, size] : size;
   const maxRadius = Math.min(x, y) / 2;
@@ -40,27 +40,27 @@ const rounded_square = (size = 1, radius = 0.125, _params = {}) => {
     : square;
 };
 
-const polygon = (points = undef, paths = undef, convexity = 1) =>
+export const polygon = (points = undef, paths = undef, convexity = 1) =>
   object('polygon')({
     points,
     paths,
     convexity,
   });
 
-const sphere = (r = 1, params = {}) =>
+export const sphere = (r = 1, params = {}) =>
   object('sphere')({
     r,
     ...params,
   });
 
-const cube = (size = [1, 1, 1], params = {}) =>
+export const cube = (size = [1, 1, 1], params = {}) =>
   object('cube')({
     size,
     center,
     ...params,
   });
 
-const cylinder = (h = 1, r = 1, params = {}) =>
+export const cylinder = (h = 1, r = 1, params = {}) =>
   object('cylinder')({
     h,
     ...(Array.isArray(r) ? { r1: r[0], r2: r[1] } : { r }),
@@ -68,14 +68,14 @@ const cylinder = (h = 1, r = 1, params = {}) =>
     ...params,
   });
 
-const polyhedron = (points = undef, paths = undef, convexity = 1) =>
+export const polyhedron = (points = undef, paths = undef, convexity = 1) =>
   object('polyhedron')({
     points,
     paths,
     convexity,
   });
 
-const rounded_cube = (size = 1, radius = 0.125, _params = {}) => {
+export const rounded_cube = (size = 1, radius = 0.125, _params = {}) => {
   const { center: _center, ...params } = _params;
   const [x, y, z] = typeof size == 'number' ? [size, size, size] : size;
   const maxRadius = Math.min(x, y, z) / 2;
@@ -93,16 +93,4 @@ const rounded_cube = (size = 1, radius = 0.125, _params = {}) => {
   return (_center == undefined ? center : _center)
     ? cube.translate([-x / 2, -y / 2, -z / 2])
     : cube;
-};
-
-module.exports = {
-  circle,
-  square,
-  polygon,
-  cube,
-  cylinder,
-  polyhedron,
-  sphere,
-  rounded_cube,
-  rounded_square,
 };

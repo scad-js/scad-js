@@ -1,6 +1,5 @@
-const assert = require('assert');
-
-const S = require('../src/index.js');
+import assert from 'assert';
+import S from '../src/index';
 
 describe('Circle', () => {
   it('should create circle with default radius', () => {

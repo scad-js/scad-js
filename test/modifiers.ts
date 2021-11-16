@@ -1,5 +1,5 @@
-const assert = require('assert');
-const S = require('../src/index.js');
+import assert from 'assert';
+import S from '../src/index';
 
 describe('disable', () => {
   it('should add disable modifier existing object', () => {

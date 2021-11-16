@@ -12,7 +12,7 @@ const paramsStr = (params) =>
     .map((x) => `${x[0]} = ${stringify(x[1])}`)
     .join(', ');
 
-const serialize = function (vars = {}, depth = 0) {
+export default function serialize(vars = {}, depth = 0) {
   const { type, params = {}, children } = this;
   let output = Object.entries(vars)
     .map(([a, b]) => `${a} = ${b};\n`)
@@ -27,6 +27,4 @@ const serialize = function (vars = {}, depth = 0) {
     output += ';\n';
   }
   return output;
-};
-
-module.exports = serialize;
+}

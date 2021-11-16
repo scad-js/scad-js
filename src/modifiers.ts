@@ -1,6 +1,6 @@
-const transformations = require('./transformations.js');
-const serialize = require('./serialize.js');
-const { create } = require('./utils.js');
+import serialize from './serialize';
+import * as transformations from './transformations';
+import { create } from './utils';
 
 const modifier = (type, ...children) =>
   create(
@@ -11,19 +11,7 @@ const modifier = (type, ...children) =>
     }
   );
 
-const modifiers = {
-  disable() {
-    return modifier('*', this);
-  },
-  show_only() {
-    return modifier('!', this);
-  },
-  debug() {
-    return modifier('#', this);
-  },
-  background() {
-    return modifier('%', this);
-  },
-};
-
-module.exports = modifiers;
+export const disable = (target) => modifier('*', target);
+export const show_only = (target) => modifier('!', target);
+export const debug = (target) => modifier('#', target);
+export const background = (target) => modifier('%', target);
