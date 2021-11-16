@@ -2,8 +2,9 @@ import type { ChainTarget } from '../Chainable';
 import { undef } from '../types';
 import { ITransformation, transformation } from './internals';
 
-type Params = {
-  height: number | undef;
+type ExtrusionHeight = number | undef;
+
+type Extra = {
   center: boolean;
   convexity: undef;
   twist: undef;
@@ -12,11 +13,14 @@ type Params = {
   $fn: number;
 };
 
-export type LinearExtrude = ITransformation<'linear_extrude', Params>;
+export type LinearExtrude = ITransformation<
+  'linear_extrude',
+  { height: ExtrusionHeight } & Extra
+>;
 
 export function linear_extrude(
   this: ChainTarget,
-  height: Params['height'] = undef,
+  height: ExtrusionHeight = undef,
   {
     center = false,
     convexity = undef,
@@ -24,7 +28,7 @@ export function linear_extrude(
     slices = undef,
     scale = 1,
     $fn = 20,
-  }: Partial<Omit<Params, 'height'>> = {}
+  }: Partial<Extra> = {}
 ) {
   return transformation('linear_extrude', this, {
     height,

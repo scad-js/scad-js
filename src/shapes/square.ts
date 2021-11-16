@@ -1,12 +1,13 @@
 import { $t, Vector2 } from '../types';
 import { center, IShape, shape } from './internals';
 
-type Params = {
-  size: Vector2 | number | $t;
+type SquareSize = Vector2 | number | $t;
+
+type Extra = {
   center: boolean;
 };
 
-export type Square = IShape<'square', Params>;
+export type Square = IShape<'square', { size: SquareSize } & Extra>;
 
-export const square = (size: Params['size'] = [1, 1], other = {}) =>
+export const square = (size: SquareSize = [1, 1], other: Partial<Extra> = {}) =>
   shape('square', { size, center, ...other });

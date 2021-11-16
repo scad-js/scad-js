@@ -1,16 +1,20 @@
 import { undef, Vector3 } from '../types';
 import { IShape, shape } from './internals';
 
-type Params = {
-  points: Vector3[] | undef;
-  paths: number[] | undef;
-  convexity: number;
-};
+type PolyhedronPoints = Vector3[] | undef;
+type PolyhedronPaths = number[] | undef;
 
-export type Polyhedron = IShape<'polyhedron', Params>;
+export type Polyhedron = IShape<
+  'polyhedron',
+  {
+    points: PolyhedronPoints;
+    paths: PolyhedronPaths;
+    convexity: number;
+  }
+>;
 
 export const polyhedron = (
-  points: Params['points'] = undef,
-  paths: Params['paths'] = undef,
-  convexity: Params['convexity'] = 1
+  points: PolyhedronPoints = undef,
+  paths: PolyhedronPaths = undef,
+  convexity = 1
 ) => shape('polyhedron', { points, paths, convexity });

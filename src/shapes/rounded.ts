@@ -10,7 +10,7 @@ interface RoundedParams {
 export function rounded_square(
   size = 1,
   radius = 0.125,
-  params: Partial<RoundedParams> = {}
+  params: RoundedParams = {}
 ) {
   const [x, y] = typeof size == 'number' ? [size, size] : size;
   const maxRadius = Math.min(x, y) / 2;
@@ -30,7 +30,7 @@ export function rounded_square(
 export const rounded_cube = (
   size = 1,
   radius = 0.125,
-  params: Partial<RoundedParams> = {}
+  params: RoundedParams = {}
 ) => {
   const [x, y, z] = typeof size == 'number' ? [size, size, size] : size;
   const maxRadius = Math.min(x, y, z) / 2;

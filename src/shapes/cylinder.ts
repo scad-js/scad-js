@@ -8,11 +8,7 @@ type Params = { h: number; center: boolean } & (
 
 export type Cylinder = IShape<'cylinder', Params>;
 
-export const cylinder = (
-  h: Params['h'] = 1,
-  r: number | Vector2 = 1,
-  other = {}
-) =>
+export const cylinder = (h = 1, r: number | Vector2 = 1, other = {}) =>
   shape('cylinder', {
     h,
     ...(Array.isArray(r) ? { r1: r[0], r2: r[1] } : { r }),

@@ -2,13 +2,9 @@ import type { ChainTarget } from '../Chainable';
 import { Vector } from '../types';
 import { ITransformation, transformation } from './internals';
 
-type Params = {
-  v: Vector;
-};
+export type Scale = ITransformation<'scale', { v: Vector }>;
 
-export type Scale = ITransformation<'scale', Params>;
-
-export function scale(this: ChainTarget, v: Params['v']) {
+export function scale(this: ChainTarget, v: Vector) {
   return transformation('scale', this, { v });
 }
 

@@ -2,13 +2,9 @@ import type { ChainTarget } from '../Chainable';
 import { Vector } from '../types';
 import { ITransformation, transformation } from './internals';
 
-type Params = {
-  v: Vector;
-};
+export type Mirror = ITransformation<'mirror', { v: Vector }>;
 
-export type Mirror = ITransformation<'mirror', Params>;
-
-export function mirror(this: ChainTarget, v: Params['v']) {
+export function mirror(this: ChainTarget, v: Vector) {
   return transformation('mirror', this, { v });
 }
 
