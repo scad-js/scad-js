@@ -2,9 +2,9 @@ import { ScadCommand } from '../ScadCommand';
 import { Vector } from '../types';
 import { ITransformation, transformation } from './internals';
 
-interface Params {
+type Params = {
   v: Vector;
-}
+};
 
 export type Translate = ITransformation<'translate', Params>;
 

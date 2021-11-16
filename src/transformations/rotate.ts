@@ -2,10 +2,10 @@ import { ScadCommand } from '../ScadCommand';
 import { undef, Vector } from '../types';
 import { ITransformation, transformation } from './internals';
 
-interface Params {
+type Params = {
   a: Vector | number;
   v: Vector | undef;
-}
+};
 
 export type Rotate = ITransformation<'rotate', Params>;
 

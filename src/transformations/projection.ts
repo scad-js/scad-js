@@ -1,9 +1,9 @@
 import { ScadCommand } from '../ScadCommand';
 import { ITransformation, transformation } from './internals';
 
-interface Params {
+type Params = {
   cut: boolean;
-}
+};
 
 export type Projection = ITransformation<'projection', Params>;
 

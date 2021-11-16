@@ -1,11 +1,11 @@
 import { ScadCommand } from '../ScadCommand';
 import { ITransformation, transformation } from './internals';
 
-interface Params {
+type Params = {
   angle: number;
   convexity: number;
   $fn: number;
-}
+};
 
 export type RotateExtrude = ITransformation<'rotate_extrude', Params>;
 

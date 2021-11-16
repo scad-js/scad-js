@@ -1,6 +1,6 @@
 import { ScadCommand } from './ScadCommand';
-import { Shape } from './shapes';
-import { Transformation } from './transformations';
+import { Shape } from './shapes/index';
+import { Transformation } from './transformations/index';
 import { $t, undef } from './types';
 
 type Params = (Shape | Transformation)['params'] | {};

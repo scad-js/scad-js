@@ -1,10 +1,10 @@
 import { ScadCommand } from '../ScadCommand';
 import { ITransformation, transformation } from './internals';
 
-interface Params {
+type Params = {
   c: unknown;
   alpha: number;
-}
+};
 
 export type Color = ITransformation<'color', Params>;
 

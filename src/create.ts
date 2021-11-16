@@ -1,7 +1,7 @@
 import * as modifiers from './modifiers';
 import { ScadCommand } from './ScadCommand';
 import serialize from './serialize';
-import * as transformations from './transformations';
+import * as transformations from './transformations/index';
 
 type Method = (x: ScadCommand, ...args: any[]) => any;
 type Prototype = Record<string, Method>;
@@ -21,24 +21,22 @@ export default function create<Name extends string, Params extends {}>(
   return Object.assign(Object.create(proto), { type, ...params });
 }
 
-type Thisify<T extends Prototype> = {
-  [P in keyof T]: ThisifyFunction<T[P]>;
-};
-
-function thisify<T extends Prototype>(target: T): Thisify<T> {
+function thisify<T extends Prototype>(target: T) {
   const converted = Object.entries(target).map(([key, fn]) => [
     key,
     thisifyFunction(fn),
   ]);
 
-  return Object.fromEntries(converted) as Thisify<T>;
+  return Object.fromEntries(converted) as {
+    [Prop in keyof T]: ThisifyFunction<T[Prop]>;
+  };
 }
 
-type ThisifyFunction<F extends Method> = F extends (
+type ThisifyFunction<Fn extends Method> = Fn extends (
   x: ScadCommand,
-  ...args: infer P
-) => infer R
-  ? (...args: P) => R & ScadMethods
+  ...args: infer Args
+) => infer ReturnType
+  ? (...args: Args) => ReturnType
   : never;
 
 function thisifyFunction<F extends Method>(fn: F) {

@@ -32,5 +32,5 @@ export const intersection = operation('intersection');
 export const hull = operation('hull');
 export const minkowski = operation('minkowski');
 
-export const chain_hull = (...items: ScadCommand[]) =>
+export const chain_hull = (...items: ScadCommand[]): Operation & ScadMethods =>
   union(...items.map((cur, i, arr) => hull(cur, arr[i + 1])).slice(0, -1));

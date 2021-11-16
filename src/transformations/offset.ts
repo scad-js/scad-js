@@ -2,11 +2,11 @@ import { ScadCommand } from '../ScadCommand';
 import { undef } from '../types';
 import { ITransformation, transformation } from './internals';
 
-interface Params {
+type Params = {
   r: number | undef;
   delta: number | undef;
   chamfer: boolean | undef;
-}
+};
 
 export type Offset = ITransformation<'offset', Params>;
 

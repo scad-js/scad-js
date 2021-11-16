@@ -2,7 +2,7 @@ import { ScadCommand } from '../ScadCommand';
 import { undef } from '../types';
 import { ITransformation, transformation } from './internals';
 
-interface Params {
+type Params = {
   height: number | undef;
   center: boolean;
   convexity: undef;
@@ -10,7 +10,7 @@ interface Params {
   slices: undef;
   scale: number;
   $fn: number;
-}
+};
 
 export type LinearExtrude = ITransformation<'linear_extrude', Params>;
 

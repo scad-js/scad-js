@@ -2,10 +2,10 @@ import { ScadCommand } from '../ScadCommand';
 import { Vector } from '../types';
 import { ITransformation, transformation } from './internals';
 
-interface Params {
+type Params = {
   newsize: Vector;
   auto: boolean;
-}
+};
 
 export type Resize = ITransformation<'resize', Params>;
 

@@ -1,11 +1,11 @@
 import { undef, Vector3 } from '../types';
 import { IShape, shape } from './internals';
 
-interface Params {
+type Params = {
   points: Vector3[] | undef;
   paths: number[] | undef;
   convexity: number;
-}
+};
 
 export type Polyhedron = IShape<'polyhedron', Params>;
 

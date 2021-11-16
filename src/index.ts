@@ -1,3 +1,3 @@
 export * from './operations';
 export * from './ScadCommand';
-export * from './shapes';
+export * from './shapes/index';

@@ -1,8 +1,8 @@
 import { IShape, shape } from './internals';
 
-interface Params {
+type Params = {
   r: number;
-}
+};
 
 export type Sphere = IShape<'sphere', Params>;
 

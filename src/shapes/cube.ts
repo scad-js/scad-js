@@ -1,10 +1,10 @@
 import { $t, Vector3 } from '../types';
 import { center, IShape, shape } from './internals';
 
-interface Params {
+type Params = {
   size: Vector3<number | $t> | number;
   center: boolean;
-}
+};
 
 export type Cube = IShape<'cube', Params>;
 
