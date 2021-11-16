@@ -2,13 +2,17 @@ const transformations = require('./transformations.js');
 const serialize = require('./serialize.js');
 const { create } = require('./utils.js');
 
-const modifier = (type, ...children) => create({ ...transformations, ...modifiers, serialize }, {
-  type: type + 'union',
-  children,
-});
+const modifier = (type, ...children) =>
+  create(
+    { ...transformations, ...modifiers, serialize },
+    {
+      type: type + 'union',
+      children,
+    }
+  );
 
 const modifiers = {
-  disable () {
+  disable() {
     return modifier('*', this);
   },
   show_only() {
@@ -21,6 +25,5 @@ const modifiers = {
     return modifier('%', this);
   },
 };
-
 
 module.exports = modifiers;

@@ -4,22 +4,26 @@ const { create } = require('./utils.js');
 
 const undef = 'undef';
 
-const transformation = type => (obj, params) => create({ ...transformations, ...modifiers, serialize }, { type, params, children: [ obj ] });
+const transformation = (type) => (obj, params) =>
+  create(
+    { ...transformations, ...modifiers, serialize },
+    { type, params, children: [obj] }
+  );
 
 const translate = function (v) {
   return transformation('translate')(this, { v });
 };
 
 const translate_x = function (x) {
-  return transformation('translate')(this, { v: [ x, 0, 0 ] });
+  return transformation('translate')(this, { v: [x, 0, 0] });
 };
 
 const translate_y = function (y) {
-  return transformation('translate')(this, { v: [ 0, y, 0 ] });
+  return transformation('translate')(this, { v: [0, y, 0] });
 };
 
 const translate_z = function (z) {
-  return transformation('translate')(this, { v: [ 0, 0, z ] });
+  return transformation('translate')(this, { v: [0, 0, z] });
 };
 
 const scale = function (v) {
@@ -47,15 +51,15 @@ const mirror = function (v) {
 };
 
 const mirror_x = function () {
-  return transformation('mirror')(this, { v: [ 1, 0, 0] });
+  return transformation('mirror')(this, { v: [1, 0, 0] });
 };
 
 const mirror_y = function () {
-  return transformation('mirror')(this, { v: [ 0, 1, 0] });
+  return transformation('mirror')(this, { v: [0, 1, 0] });
 };
 
 const mirror_z = function () {
-  return transformation('mirror')(this, { v: [ 0, 0, 1] });
+  return transformation('mirror')(this, { v: [0, 0, 1] });
 };
 
 const color = function (c, alpha = 1) {
@@ -67,19 +71,19 @@ const rotate = function (a, v = undef) {
 };
 
 const rotate_x = function (a) {
-  return transformation('rotate')(this, { a, v: [ 1, 0, 0] });
+  return transformation('rotate')(this, { a, v: [1, 0, 0] });
 };
 
 const rotate_y = function (a) {
-  return transformation('rotate')(this, { a, v: [ 0, 1, 0] });
+  return transformation('rotate')(this, { a, v: [0, 1, 0] });
 };
 
 const rotate_z = function (a) {
-  return transformation('rotate')(this, { a, v: [ 0, 0, 1] });
+  return transformation('rotate')(this, { a, v: [0, 0, 1] });
 };
 
 const radius_offset = function (r = undef) {
-  return transformation('offset')(this, { r, delta : undef, chamfer: undef });
+  return transformation('offset')(this, { r, delta: undef, chamfer: undef });
 };
 
 const delta_offset = function (delta, chamfer = false) {
