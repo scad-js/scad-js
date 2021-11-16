@@ -1,5 +1,5 @@
 import assert from 'assert';
-import S from '../src/index';
+import * as S from '../src/index';
 
 describe('disable', () => {
   it('should add disable modifier existing object', () => {

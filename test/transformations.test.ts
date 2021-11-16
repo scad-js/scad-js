@@ -1,5 +1,5 @@
 import assert from 'assert';
-import S from '../src/index';
+import * as S from '../src/index';
 
 describe('Translate', () => {
   it('should add translate transformation to existing object', () => {

@@ -1,5 +1,5 @@
 import assert from 'assert';
-import S from '../src/index';
+import * as S from '../src/index';
 
 describe('Circle', () => {
   it('should create circle with default radius', () => {
