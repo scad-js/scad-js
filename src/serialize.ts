@@ -1,30 +1,49 @@
-const indent = (n) => ' '.repeat(2 * n);
+import { ScadCommand } from './ScadCommand';
+import { Shape } from './shapes';
+import { Transformation } from './transformations';
+import { $t, undef } from './types';
 
-const stringify = (x) =>
-  typeof x == 'string'
-    ? x == 'undef' || x.includes('$t')
-      ? x
-      : `"${x}"`
-    : JSON.stringify(x).replace(/"/g, '').split(',').join(', ');
+type Params = (Shape | Transformation)['params'] | {};
+type ParamValue = Params[keyof Params];
 
-const paramsStr = (params) =>
-  Object.entries(params)
-    .map((x) => `${x[0]} = ${stringify(x[1])}`)
-    .join(', ');
+const indent = (n: number) => ' '.repeat(2 * n);
 
-export default function serialize(vars = {}, depth = 0) {
-  const { type, params = {}, children } = this;
-  let output = Object.entries(vars)
+export default function serialize(
+  target: ScadCommand,
+  vars = {},
+  depth = 0
+): string {
+  const params = 'params' in target ? target.params : null;
+
+  const start = Object.entries(vars)
     .map(([a, b]) => `${a} = ${b};\n`)
     .join('');
-  output += `${indent(depth)}${type}(${paramsStr(params)})`;
-  if (children) {
-    output +=
-      `\n${indent(depth)}{\n` +
-      children.map((child) => serialize.call(child, {}, depth + 1)).join('') +
-      `${indent(depth)}}\n`;
-  } else {
-    output += ';\n';
+
+  const output = `${start}${indent(depth)}${target.type}(${stringifyParams(
+    params || {}
+  )})`;
+
+  if (!('children' in target)) {
+    return `${output};\n`;
   }
-  return output;
+
+  const children = target.children
+    .map((child) => serialize(child, {}, depth + 1))
+    .join('');
+
+  return `${output}\n${indent(depth)}{\n${children}${indent(depth)}}\n`;
+}
+
+function stringify(x: string | undef | ParamValue) {
+  if (typeof x == 'string') {
+    return x === undef || x.includes($t) ? x : `"${x}"`;
+  }
+
+  return JSON.stringify(x).replace(/"/g, '').replace(/,/g, ', ');
+}
+
+function stringifyParams(params: Params) {
+  return Object.entries(params)
+    .map(([name, value]) => `${name} = ${stringify(value as ParamValue)}`)
+    .join(', ');
 }

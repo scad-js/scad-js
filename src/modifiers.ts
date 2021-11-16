@@ -1,17 +1,24 @@
-import serialize from './serialize';
-import * as transformations from './transformations';
-import { create } from './utils';
+import create from './create';
+import { ScadCommand } from './ScadCommand';
 
-const modifier = (type, ...children) =>
-  create(
-    { ...transformations, ...modifiers, serialize },
-    {
-      type: type + 'union',
-      children,
-    }
-  );
+interface IModified<Name extends string> {
+  type: Name;
+  children: ScadCommand[];
+}
 
-export const disable = (target) => modifier('*', target);
-export const show_only = (target) => modifier('!', target);
-export const debug = (target) => modifier('#', target);
-export const background = (target) => modifier('%', target);
+export type Background = IModified<'%union'>;
+export type Debugged = IModified<'#union'>;
+export type Disabled = IModified<'*union'>;
+export type OnlyShowed = IModified<'!union'>;
+
+export type Modifier = Disabled | OnlyShowed | Debugged | Background;
+
+const modifier =
+  (type: Modifier['type']) =>
+  (...children: ScadCommand[]): Modifier =>
+    create(type, { children });
+
+export const background = modifier('%union');
+export const debug = modifier('#union');
+export const disable = modifier('*union');
+export const show_only = modifier('!union');

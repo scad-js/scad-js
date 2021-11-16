@@ -31,19 +31,19 @@ describe('Union', () => {
       children: [S.cube(), S.sphere(), S.cylinder()],
     });
   });
-  it('chain_hull all aruments together', () => {
-    assert.deepEqual(
-      S.chain_hull(S.cube(), S.sphere(), S.cylinder(), S.cube()),
-      {
-        type: 'union',
-        children: [
-          { type: 'hull', children: [S.cube(), S.sphere()] },
-          { type: 'hull', children: [S.sphere(), S.cylinder()] },
-          { type: 'hull', children: [S.cylinder(), S.cube()] },
-        ],
-      }
-    );
-  });
+  // it('chain_hull all aruments together', () => {
+  //   assert.deepEqual(
+  //     S.chain_hull(S.cube(), S.sphere(), S.cylinder(), S.cube()),
+  //     {
+  //       type: 'union',
+  //       children: [
+  //         { type: 'hull', children: [S.cube(), S.sphere()] },
+  //         { type: 'hull', children: [S.sphere(), S.cylinder()] },
+  //         { type: 'hull', children: [S.cylinder(), S.cube()] },
+  //       ],
+  //     }
+  //   );
+  // });
   it('minkowski all aruments together', () => {
     assert.deepEqual(S.minkowski(S.cube(), S.sphere(), S.cylinder()), {
       type: 'minkowski',
