@@ -1,13 +1,11 @@
 import * as modifiers from './modifiers';
 import type { Operation } from './operations';
-import { Serializable, serializable } from './Serializable';
+import { HasSerialize, serializable } from './Serializable';
 import type { Shape } from './shapes/index';
 import * as transformations from './transformations/index';
 
-export type ChainTarget = Operation | Shape | transformations.Transformation;
-
 // this has to be an interface because `type` would be duplicated in .d.ts files
-export interface Chainable extends Serializable {
+export interface HasChainMethods extends HasSerialize {
   background: typeof modifiers.background;
   debug: typeof modifiers.debug;
   disable: typeof modifiers.disable;
@@ -37,19 +35,22 @@ export interface Chainable extends Serializable {
   translate_z: typeof transformations.translate_z;
 }
 
+export type Chainable = HasChainMethods &
+  (Operation | Shape | transformations.Transformation);
+
 const proto = serializable({
   ...modifiers,
   ...transformations,
 });
 
-export const isScadChainable = (x: any): x is Chainable =>
+export const isScadChainable = (x: any): x is HasChainMethods =>
   proto.isPrototypeOf(x);
 
-export function chain<T>(x: T): T & Chainable {
+export function chain<T>(x: T): T & HasChainMethods {
   return { ...x, __proto__: proto } as any;
 }
 
 // this ensures we didn't forget any method in the `Chainable` interface
-const a: Chainable = null as any;
+const a: HasChainMethods = null as any;
 const mod: typeof modifiers = a;
 const tra: typeof transformations = a;

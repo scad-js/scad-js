@@ -1,4 +1,4 @@
-import type { ChainTarget } from '../Chainable';
+import type { Chainable } from '../Chainable';
 import { undef } from '../types';
 import { ITransformation, transformation } from './internals';
 
@@ -19,7 +19,7 @@ export type LinearExtrude = ITransformation<
 >;
 
 export function linear_extrude(
-  this: ChainTarget,
+  this: Chainable,
   height: ExtrusionHeight = undef,
   {
     center = false,

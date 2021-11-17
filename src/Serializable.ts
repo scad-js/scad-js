@@ -4,15 +4,16 @@ import { serialize } from './serialize';
 import type { Shape } from './shapes/index';
 import type { Transformation } from './transformations/index';
 
-export type SerTarget = Modifier | Operation | Shape | Transformation;
-
-export interface Serializable {
+export interface HasSerialize {
   serialize: typeof serialize;
 }
 
-const proto: Serializable = { serialize };
+export type Serializable = HasSerialize &
+  (Modifier | Operation | Shape | Transformation);
 
-export const isScadSerializable = (x: any): x is Serializable =>
+const proto = { serialize };
+
+export const isScadSerializable = (x: any): x is HasSerialize =>
   proto.isPrototypeOf(x);
 
 export function serializable<T>(x: T): T & Serializable {

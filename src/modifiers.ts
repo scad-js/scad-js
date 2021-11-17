@@ -1,9 +1,8 @@
-import type { ChainTarget } from './Chainable';
-import { serializable } from './Serializable';
+import { Serializable, serializable } from './Serializable';
 
 interface IModified<Name extends string> {
   type: Name;
-  children: ChainTarget[];
+  children: Serializable[];
 }
 
 export type Background = IModified<'%union'>;
@@ -16,7 +15,7 @@ export type Modifier = Disable | ShowOnly | Debug | Background;
 const modifier = <Name extends Modifier['type']>(type: Name) => {
   type Result = Extract<Modifier, { type: Name }>;
 
-  return function (this: ChainTarget, ...children: ChainTarget[]) {
+  return function (this: Serializable, ...children: Serializable[]) {
     return serializable({ type, children: [this, ...children] } as Result);
   };
 };

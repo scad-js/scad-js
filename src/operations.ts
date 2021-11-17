@@ -1,8 +1,9 @@
-import { chain, ChainTarget } from './Chainable';
+import { chain, Chainable } from './Chainable';
+import { HasSerialize } from './Serializable';
 
 interface IOperation<Name extends string> {
   type: Name;
-  children: ChainTarget[];
+  children: Chainable[];
 }
 
 export type Union = IOperation<'union'>;
@@ -27,7 +28,7 @@ const operation =
   >(
     type: Name
   ) =>
-  (...children: ChainTarget[]) =>
+  (...children: HasSerialize[]) =>
     chain({ type, children } as Type);
 
 export const union = operation('union');
@@ -36,5 +37,5 @@ export const intersection = operation('intersection');
 export const hull = operation('hull');
 export const minkowski = operation('minkowski');
 
-export const chain_hull = (...items: ChainTarget[]) =>
+export const chain_hull = (...items: HasSerialize[]) =>
   union(...items.map((cur, i, arr) => hull(cur, arr[i + 1])).slice(0, -1));

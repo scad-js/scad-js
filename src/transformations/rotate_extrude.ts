@@ -1,4 +1,4 @@
-import type { ChainTarget } from '../Chainable';
+import type { Chainable } from '../Chainable';
 import { ITransformation, transformation } from './internals';
 
 type Extra = {
@@ -12,7 +12,7 @@ export type RotateExtrude = ITransformation<
 >;
 
 export function rotate_extrude(
-  this: ChainTarget,
+  this: Chainable,
   angle = 360,
   { convexity = 2, $fn = 10 }: Partial<Extra> = {}
 ) {
