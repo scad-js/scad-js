@@ -1,29 +1,33 @@
 {
-  "name": "scad-js",
-  "version": "0.5.0",
-  "description": "Generate OpenSCAD solid models with javascript",
-  "main": "./src/index.js",
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@github.com/20lives/scad-js.git"
-  },
+  "name": "scad-ts",
+  "version": "0.1.2",
+  "description": "Generate OpenSCAD solid models with typescript",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "author": "20lives",
   "license": "MIT",
   "private": false,
-  "bugs": {
-    "url": "https://github.com/20lives/scad-js/issues"
+  "homepage": "https://github.com/amatiasq/scad-ts#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/amatiasq/scad-ts.git"
   },
-  "homepage": "https://github.com/20lives/scad-js#readme",
+  "bugs": {
+    "url": "https://github.com/amatiasq/scad-ts/issues"
+  },
   "scripts": {
-    "test": "nyc mocha",
-    "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
-    "lint": "eslint src/."
+    "test": "jest",
+    "build": "npm run build:mjs && npm run build:js",
+    "build:js": "tsc -m commonjs",
+    "build:mjs": "tsc && npm run build:mjs:hack",
+    "build:mjs:hack": "find ./dist/ -name '*.js' -exec bash -c 'mv \"$1\" \"${1%.js}\".mjs' - '{}' \\;",
+    "prepublish": "npm run test && npm run build"
   },
   "devDependencies": {
-    "chai": "^4.3.4",
-    "codecov": "^3.8.2",
-    "eslint": "^7.25.0",
-    "mocha": "^8.3.2",
-    "nyc": "^15.1.0"
+    "@types/jest": "^27.0.2",
+    "jest": "^27.3.1",
+    "ts-jest": "^27.0.7",
+    "typescript": "^4.4.4"
   }
 }
