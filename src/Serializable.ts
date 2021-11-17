@@ -12,6 +12,9 @@ export interface Serializable {
 
 const proto: Serializable = { serialize };
 
+export const isScadSerializable = (x: any): x is Serializable =>
+  proto.isPrototypeOf(x);
+
 export function serializable<T>(x: T): T & Serializable {
   return { ...x, __proto__: proto } as any;
 }

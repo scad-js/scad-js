@@ -1,8 +1,10 @@
 {
   "name": "scad-ts",
-  "version": "0.5.0",
+  "version": "0.1.1",
   "description": "Generate OpenSCAD solid models with typescript",
-  "module": "./dist/index.js",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "author": "20lives",
   "license": "MIT",
   "private": false,
@@ -16,8 +18,11 @@
   },
   "scripts": {
     "test": "jest",
-    "build": "tsc",
-    "fix-any": "sed -i '' 's/any/ScadMethods/' dist/**/*.ts"
+    "build": "npm run build:mjs && npm run build:js",
+    "build:js": "tsc -m commonjs",
+    "build:mjs": "tsc && npm run build:mjs:hack",
+    "build:mjs:hack": "find ./dist/ -name '*.js' -exec bash -c 'mv \"$1\" \"${1%.js}\".mjs' - '{}' \\;",
+    "prepublish": "npm run test && npm run build"
   },
   "devDependencies": {
     "@types/jest": "^27.0.2",

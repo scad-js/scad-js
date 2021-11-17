@@ -42,6 +42,9 @@ const proto = serializable({
   ...transformations,
 });
 
+export const isScadChainable = (x: any): x is Chainable =>
+  proto.isPrototypeOf(x);
+
 export function chain<T>(x: T): T & Chainable {
   return { ...x, __proto__: proto } as any;
 }
