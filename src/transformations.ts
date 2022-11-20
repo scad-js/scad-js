@@ -1,96 +1,94 @@
-const modifiers = require('./modifiers.js');
-const serialize = require('./serialize.js');
-const { create } = require('./utils.js');
+import { Shape, undef, vector3d }  from './utils';
 
-const undef = 'undef';
+const transformation = (type: string) => {
+  return (obj: Shape[], params: object) => new Shape({ type, params, children: [ obj ] });
+};
 
-const transformation = type => (obj, params) => create({ ...transformations, ...modifiers, serialize }, { type, params, children: [ obj ] });
-
-const translate = function (v) {
+export function translate(v: vector3d) {
   return transformation('translate')(this, { v });
-};
+}
 
-const translate_x = function (x) {
+export function translate_x(x = 0) {
   return transformation('translate')(this, { v: [ x, 0, 0 ] });
-};
+}
 
-const translate_y = function (y) {
+export function translate_y(y = 0) {
   return transformation('translate')(this, { v: [ 0, y, 0 ] });
-};
+}
 
-const translate_z = function (z) {
+export function translate_z(z = 0) {
   return transformation('translate')(this, { v: [ 0, 0, z ] });
-};
+}
 
-const scale = function (v) {
+export function scale(v: vector3d) {
   return transformation('scale')(this, { v });
-};
+}
 
-const scale_x = function (x) {
+export function scale_x(x: number) {
   return transformation('scale')(this, { v: [x, 1, 1] });
-};
+}
 
-const scale_y = function (y) {
+export function scale_y(y: number) {
   return transformation('scale')(this, { v: [1, y, 1] });
-};
+}
 
-const scale_z = function (z) {
+export function scale_z(z: number) {
   return transformation('scale')(this, { v: [1, 1, z] });
-};
+}
 
-const resize = function (v, auto = false) {
+export function resize(v: vector3d, auto = false) {
   return transformation('resize')(this, { newsize: v, auto });
-};
+}
 
-const mirror = function (v) {
+export function mirror(v: vector3d) {
   return transformation('mirror')(this, { v });
-};
+}
 
-const mirror_x = function () {
+export function mirror_x() {
   return transformation('mirror')(this, { v: [ 1, 0, 0] });
-};
+}
 
-const mirror_y = function () {
+export function mirror_y() {
   return transformation('mirror')(this, { v: [ 0, 1, 0] });
-};
+}
 
-const mirror_z = function () {
+export function mirror_z() {
   return transformation('mirror')(this, { v: [ 0, 0, 1] });
-};
+}
 
-const color = function (c, alpha = 1) {
+export function color(c: string, alpha = 1) {
   return transformation('color')(this, { c, alpha });
-};
+}
 
-const rotate = function (a, v = undef) {
+export function rotate(a: number, v = undef) {
   return transformation('rotate')(this, { a, v });
-};
+}
 
-const rotate_x = function (a) {
+export function rotate_x(a: number) {
   return transformation('rotate')(this, { a, v: [ 1, 0, 0] });
-};
+}
 
-const rotate_y = function (a) {
+export function rotate_y(a: number) {
   return transformation('rotate')(this, { a, v: [ 0, 1, 0] });
-};
+}
 
-const rotate_z = function (a) {
+export function rotate_z(a: number) {
   return transformation('rotate')(this, { a, v: [ 0, 0, 1] });
-};
+}
 
-const radius_offset = function (r = undef) {
+export function radius_offset(r = undef) {
   return transformation('offset')(this, { r, delta : undef, chamfer: undef });
-};
+}
 
-const delta_offset = function (delta, chamfer = false) {
+export function delta_offset(delta: any, chamfer = false) {
   return transformation('offset')(this, { r: undef, delta, chamfer });
-};
+}
 
-const projection = function (cut = false) {
+export function projection(cut = false) {
   return transformation('projection')(this, { cut });
-};
+}
 
-const linear_extrude = function (height = undef, params = {}) {
+export const linear_extrude = function (height = undef, params: any = {}) {
   return transformation('linear_extrude')(this, {
     height,
     center: params.center || false,
@@ -102,38 +100,10 @@ const linear_extrude = function (height = undef, params = {}) {
   });
 };
 
-const rotate_extrude = function (angle = 360, params = {}) {
+export function rotate_extrude(angle = 360, params: any = {}) {
   return transformation('rotate_extrude')(this, {
     angle,
     convexity: params.convexity || 2,
     $fn: params.$fn || 10,
   });
-};
-
-const transformations = {
-  translate,
-  translate_x,
-  translate_y,
-  translate_z,
-  scale,
-  scale_x,
-  scale_y,
-  scale_z,
-  resize,
-  mirror,
-  mirror_x,
-  mirror_y,
-  mirror_z,
-  rotate,
-  rotate_x,
-  rotate_y,
-  rotate_z,
-  color,
-  radius_offset,
-  delta_offset,
-  projection,
-  linear_extrude,
-  rotate_extrude,
-};
-
-module.exports = transformations;
+}
