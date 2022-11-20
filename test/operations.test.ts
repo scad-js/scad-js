@@ -1,43 +1,48 @@
-const assert = require('assert');
-
-const S = require('../src/index.js');
+import S from '../src/index';
 
 describe('Union', () => {
   it('Union all aruments together', () => {
-    assert.deepEqual(
+    expect(
       S.union(),
+    ).toEqual(
       { type: 'union', children: [  ] },
     );
-    assert.deepEqual(
+    expect(
       S.union(S.cube()),
+    ).toEqual(
       { type: 'union', children: [ S.cube() ] },
     );
-    assert.deepEqual(
+    expect(
       S.union(S.cube(), S.sphere(), S.cylinder()),
+    ).toEqual(
       { type: 'union', children: [ S.cube(), S.sphere(), S.cylinder() ] },
     );
   });
   it('difference all aruments together', () => {
-    assert.deepEqual(
+    expect(
       S.difference(S.cube(), S.sphere(), S.cylinder()),
+    ).toEqual(
       { type: 'difference', children: [ S.cube(), S.sphere(), S.cylinder() ] },
     );
   });
   it('intersection all aruments together', () => {
-    assert.deepEqual(
+    expect(
       S.intersection(S.cube(), S.sphere(), S.cylinder()),
+    ).toEqual(
       { type: 'intersection', children: [ S.cube(), S.sphere(), S.cylinder() ] },
     );
   });
   it('hull all aruments together', () => {
-    assert.deepEqual(
+    expect(
       S.hull(S.cube(), S.sphere(), S.cylinder()),
+    ).toEqual(
       { type: 'hull', children: [ S.cube(), S.sphere(), S.cylinder() ] },
     );
   });
   it('chain_hull all aruments together', () => {
-    assert.deepEqual(
+    expect(
       S.chain_hull(S.cube(), S.sphere(), S.cylinder(), S.cube()),
+    ).toEqual(
       { type: 'union', children: [
         { type: 'hull', children: [ S.cube(), S.sphere() ] },
         { type: 'hull', children: [ S.sphere(), S.cylinder() ] },
@@ -46,8 +51,9 @@ describe('Union', () => {
     );
   });
   it('minkowski all aruments together', () => {
-    assert.deepEqual(
+    expect(
       S.minkowski(S.cube(), S.sphere(), S.cylinder()),
+    ).toEqual(
       { type: 'minkowski', children: [ S.cube(), S.sphere(), S.cylinder() ] },
     );
   });

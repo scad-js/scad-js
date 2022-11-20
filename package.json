@@ -1,7 +1,8 @@
 {
   "name": "scad-js",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Generate OpenSCAD solid models with javascript",
+  "type": "module",
   "main": "./src/index.js",
   "repository": {
     "type": "git",
@@ -15,15 +16,18 @@
   },
   "homepage": "https://github.com/20lives/scad-js#readme",
   "scripts": {
-    "test": "nyc mocha",
-    "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
+    "test": "jest",
     "lint": "eslint src/."
   },
   "devDependencies": {
-    "chai": "^4.3.4",
-    "codecov": "^3.8.2",
-    "eslint": "^7.25.0",
-    "mocha": "^8.3.2",
-    "nyc": "^15.1.0"
+    "@types/jest": "^29.2.3",
+    "@types/node": "^18.11.9",
+    "@typescript-eslint/eslint-plugin": "^5.43.0",
+    "@typescript-eslint/parser": "^5.43.0",
+    "eslint": "^8.28.0",
+    "jest": "^29.3.1",
+    "ts-jest": "^29.0.3",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.3"
   }
 }

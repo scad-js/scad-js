@@ -1,40 +1,35 @@
-const assert = require('assert');
-const S = require('../src/index.js');
+import { square } from '../src/index';
 
 describe('disable', () => {
   it('should add disable modifier existing object', () => {
-    assert.deepEqual(
-      S.square().disable(),
+    expect(square().disable()).toEqual(
       {
         type: '*union',
-        children: [ S.square() ],
+        children: [ square() ],
       },
     );
   });
   it('should add show_only modifier existing object', () => {
-    assert.deepEqual(
-      S.square().show_only(),
+    expect(square().show_only()).toEqual(
       {
         type: '!union',
-        children: [ S.square() ],
+        children: [ square() ],
       },
     );
   });
   it('should add debug modifier existing object', () => {
-    assert.deepEqual(
-      S.square().debug(),
+    expect(square().debug()).toEqual(
       {
         type: '#union',
-        children: [ S.square() ],
+        children: [ square() ],
       },
     );
   });
   it('should add background modifier existing object', () => {
-    assert.deepEqual(
-      S.square().background(),
+    expect(square().background()).toEqual(
       {
         type: '%union',
-        children: [ S.square() ],
+        children: [ square() ],
       },
     );
   });

@@ -1,10 +1,9 @@
 language: node_js
 node_js:
-  - '12'
-  - '14'
-  - '15'
+  - '17'
+  - '18'
+  - '19'
 script:
-  - yarn
-  - yarn test
-  - yarn coverage
+  - pnpm
+  - pnpm test
   - yarn lint
