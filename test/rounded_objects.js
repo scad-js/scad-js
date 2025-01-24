@@ -1,9 +1,9 @@
 
 import assert from 'assert';
 
-import S from '../src/index.js';
+import { rounded_square, rounded_cube } from '../src/index.js';
 
-const rounded_square = (size = 1, r = 0.125) => ({
+const expected_rounded_square = (size = 1, r = 0.125) => ({
   type: 'translate',
   params: {
     v: [-size / 2, -size / 2],
@@ -65,7 +65,7 @@ const rounded_square = (size = 1, r = 0.125) => ({
   ],
 });
 
-const rounded_cube = (size = 1, r = 0.125) => ({
+const expected_rounded_cube = (size = 1, r = 0.125) => ({
   type: 'translate',
   params: {
     v: [-size / 2, -size / 2, -size / 2],
@@ -178,32 +178,32 @@ const rounded_cube = (size = 1, r = 0.125) => ({
 describe('Rounded Cube', () => {
   it('should create a rounded cube with default size', () => {
     assert.deepEqual(
-      S.rounded_cube(),
       rounded_cube(),
+      expected_rounded_cube(),
     );
   });
   it('should create a rounded cube with defined size', () => {
     assert.deepEqual(
-      S.rounded_cube(12),
       rounded_cube(12),
+      expected_rounded_cube(12),
     );
   });
   it('should create a rounded cube with defined size and radius', () => {
     assert.deepEqual(
-      S.rounded_cube(12, 0.25),
       rounded_cube(12, 0.25),
+      expected_rounded_cube(12, 0.25),
     );
   });
   it('should create a rounded cube with defined size and oversized radius', () => {
     assert.deepEqual(
-      S.rounded_cube(8, 12),
-      rounded_cube(8, 0.5),
+      rounded_cube(8, 12),
+      expected_rounded_cube(8, 0.5),
     );
   });
   it('should create a rounded cube with defined size and undersized radius', () => {
     assert.deepEqual(
-      S.rounded_cube(8, -1),
-      rounded_cube(8, 0.5),
+      rounded_cube(8, -1),
+      expected_rounded_cube(8, 0.5),
     );
   });
 });
@@ -211,26 +211,26 @@ describe('Rounded Cube', () => {
 describe('Rounded Square', () => {
   it('should create a rounded square with default size', () => {
     assert.deepEqual(
-      S.rounded_square(),
       rounded_square(),
+      expected_rounded_square(),
     );
   });
   it('should create a rounded square with defined size and radius', () => {
     assert.deepEqual(
-      S.rounded_square(4, 0.2),
       rounded_square(4, 0.2),
+      expected_rounded_square(4, 0.2),
     );
   });
   it('should create a rounded square with defined size and oversized radius', () => {
     assert.deepEqual(
-      S.rounded_square(10, 20),
-      rounded_square(10, 0.625),
+      rounded_square(10, 20),
+      expected_rounded_square(10, 0.625),
     );
   });
   it('should create a rounded square with defined size and undersized radius', () => {
     assert.deepEqual(
-      S.rounded_square(10, 0),
-      rounded_square(10, 0.625),
+      rounded_square(10, 0),
+      expected_rounded_square(10, 0.625),
     );
   });
 });

@@ -1,56 +1,56 @@
 import assert from 'assert';
 
-import S from '../src/index.js';
+import { cube, cylinder, intersection, sphere, union, hull, minkowski, difference, chain_hull } from '../src/index.js';
 
 describe('Union', () => {
   it('Union all aruments together', () => {
     assert.deepEqual(
-      S.union(),
+      union(),
       { type: 'union', children: [] },
     );
     assert.deepEqual(
-      S.union(S.cube()),
-      { type: 'union', children: [S.cube()] },
+      union(cube()),
+      { type: 'union', children: [cube()] },
     );
     assert.deepEqual(
-      S.union(S.cube(), S.sphere(), S.cylinder()),
-      { type: 'union', children: [S.cube(), S.sphere(), S.cylinder()] },
+      union(cube(), sphere(), cylinder()),
+      { type: 'union', children: [cube(), sphere(), cylinder()] },
     );
   });
   it('difference all aruments together', () => {
     assert.deepEqual(
-      S.difference(S.cube(), S.sphere(), S.cylinder()),
-      { type: 'difference', children: [S.cube(), S.sphere(), S.cylinder()] },
+      difference(cube(), sphere(), cylinder()),
+      { type: 'difference', children: [cube(), sphere(), cylinder()] },
     );
   });
   it('intersection all aruments together', () => {
     assert.deepEqual(
-      S.intersection(S.cube(), S.sphere(), S.cylinder()),
-      { type: 'intersection', children: [S.cube(), S.sphere(), S.cylinder()] },
+      intersection(cube(), sphere(), cylinder()),
+      { type: 'intersection', children: [cube(), sphere(), cylinder()] },
     );
   });
   it('hull all aruments together', () => {
     assert.deepEqual(
-      S.hull(S.cube(), S.sphere(), S.cylinder()),
-      { type: 'hull', children: [S.cube(), S.sphere(), S.cylinder()] },
+      hull(cube(), sphere(), cylinder()),
+      { type: 'hull', children: [cube(), sphere(), cylinder()] },
     );
   });
   it('chain_hull all aruments together', () => {
     assert.deepEqual(
-      S.chain_hull(S.cube(), S.sphere(), S.cylinder(), S.cube()),
+      chain_hull(cube(), sphere(), cylinder(), cube()),
       {
         type: 'union', children: [
-          { type: 'hull', children: [S.cube(), S.sphere()] },
-          { type: 'hull', children: [S.sphere(), S.cylinder()] },
-          { type: 'hull', children: [S.cylinder(), S.cube()] },
+          { type: 'hull', children: [cube(), sphere()] },
+          { type: 'hull', children: [sphere(), cylinder()] },
+          { type: 'hull', children: [cylinder(), cube()] },
         ]
       },
     );
   });
   it('minkowski all aruments together', () => {
     assert.deepEqual(
-      S.minkowski(S.cube(), S.sphere(), S.cylinder()),
-      { type: 'minkowski', children: [S.cube(), S.sphere(), S.cylinder()] },
+      minkowski(cube(), sphere(), cylinder()),
+      { type: 'minkowski', children: [cube(), sphere(), cylinder()] },
     );
   });
 });
