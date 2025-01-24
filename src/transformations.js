@@ -136,4 +136,4 @@ const transformations = {
   rotate_extrude,
 };
 
-export default transformations
+export default transformations;

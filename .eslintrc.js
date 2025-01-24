@@ -2,13 +2,13 @@ module.exports = {
   'env': {
     'mocha': true,
     'browser': true,
-    'commonjs': false,
     'node': true,
     'es2021': true,
   },
   'extends': 'eslint:recommended',
   'parserOptions': {
-    'ecmaVersion': 12,
+    'ecmaVersion': 2021,
+    "sourceType": "module",
   },
   'rules': {
     'indent': [

@@ -22,4 +22,4 @@ const modifiers = {
   },
 };
 
-export default modifiers
+export default modifiers;
