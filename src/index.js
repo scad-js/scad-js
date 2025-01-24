@@ -1,4 +1,2 @@
-import operations from './operations.js';
-import objects from './objects.js';
-
-export default { ...objects, ...operations };
+export * from "./operations.js"
+export * from "./objects.js"

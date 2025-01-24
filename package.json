@@ -3,6 +3,7 @@
   "version": "0.5.0",
   "description": "Generate OpenSCAD solid models with javascript",
   "main": "./src/index.js",
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/20lives/scad-js.git"
