@@ -1,17 +1,18 @@
-const transformations = require('./transformations.js');
-const modifiers = require('./modifiers.js');
-const serialize = require('./serialize.js');
-const { create } = require('./utils.js');
+import transformations from './transformations.js';
+import modifiers from './modifiers.js';
+import serialize from './serialize.js';
+import { create } from './utils.js';
 
 const operation = type => (...children) => create({ ...transformations, ...modifiers, serialize }, { type, children });
-const union = operation('union');
-const difference = operation('difference');
-const intersection = operation('intersection');
-const hull = operation('hull');
-const minkowski = operation('minkowski');
-const chain_hull = (...items) => union(...items.map((cur, i, arr) => hull(cur, arr[i + 1])).slice(0, -1));
 
-module.exports = {
+export const union = operation('union');
+export const difference = operation('difference');
+export const intersection = operation('intersection');
+export const hull = operation('hull');
+export const minkowski = operation('minkowski');
+export const chain_hull = (...items) => union(...items.map((cur, i, arr) => hull(cur, arr[i + 1])).slice(0, -1));
+
+export default {
   union,
   difference,
   intersection,

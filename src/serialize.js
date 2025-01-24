@@ -7,8 +7,8 @@ const stringify = x => (typeof x == 'string')
 const paramsStr = params => Object.entries(params).map(x => `${x[0]} = ${stringify(x[1])}`).join(', ');
 
 const serialize = function (vars = {}, depth = 0) {
-  const {type, params = {}, children} = this;
-  let output = Object.entries(vars).map(([a,b]) => `${a} = ${b};\n`).join('');
+  const { type, params = {}, children } = this;
+  let output = Object.entries(vars).map(([a, b]) => `${a} = ${b};\n`).join('');
   output += `${indent(depth)}${type}(${paramsStr(params)})`;
   if (children) {
     output += `\n${indent(depth)}{\n`
@@ -21,4 +21,4 @@ const serialize = function (vars = {}, depth = 0) {
   return output;
 };
 
-module.exports = serialize;
+export default serialize;

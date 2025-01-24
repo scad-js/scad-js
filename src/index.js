@@ -1,4 +1,4 @@
-const operations = require('./operations.js');
-const objects = require('./objects.js');
+import operations from './operations.js'
+import objects from './objects.js'
 
-module.exports = { ...objects, ...operations };
+export default { ...objects, ...operations };

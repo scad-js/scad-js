@@ -1,12 +1,12 @@
 
-const assert = require('assert');
+import assert from 'assert';
 
-const S = require('../src/index.js');
+import S from '../src/index.js';
 
 const rounded_square = (size = 1, r = 0.125) => ({
-  type:'translate',
-  params:{
-    v: [ -size / 2, -size / 2 ],
+  type: 'translate',
+  params: {
+    v: [-size / 2, -size / 2],
   },
   children: [
     {
@@ -15,19 +15,7 @@ const rounded_square = (size = 1, r = 0.125) => ({
         {
           type: 'translate',
           params: {
-            v: [ r, r ],
-          },
-          children: [
-            {
-              type: 'circle',
-              params: { r },
-            },
-          ],
-        },
-        { type: 'translate',
-          params: 
-          {
-            v: [ size - r, r ],
+            v: [r, r],
           },
           children: [
             {
@@ -37,11 +25,14 @@ const rounded_square = (size = 1, r = 0.125) => ({
           ],
         },
         {
-          type:'translate',
-          params: {
-            v: [ size -r, size -r ],
-          }, children: [
-            { type: 'circle',
+          type: 'translate',
+          params:
+          {
+            v: [size - r, r],
+          },
+          children: [
+            {
+              type: 'circle',
               params: { r },
             },
           ],
@@ -49,12 +40,23 @@ const rounded_square = (size = 1, r = 0.125) => ({
         {
           type: 'translate',
           params: {
-            v: [ r, size - r],
+            v: [size - r, size - r],
+          }, children: [
+            {
+              type: 'circle',
+              params: { r },
+            },
+          ],
+        },
+        {
+          type: 'translate',
+          params: {
+            v: [r, size - r],
           },
           children: [
             {
               type: 'circle',
-              params:{ r },
+              params: { r },
             },
           ],
         },
@@ -66,7 +68,7 @@ const rounded_square = (size = 1, r = 0.125) => ({
 const rounded_cube = (size = 1, r = 0.125) => ({
   type: 'translate',
   params: {
-    v: [ -size / 2, -size / 2, -size / 2 ],
+    v: [-size / 2, -size / 2, -size / 2],
   },
   children: [
     {
@@ -75,7 +77,7 @@ const rounded_cube = (size = 1, r = 0.125) => ({
         {
           type: 'translate',
           params: {
-            v: [ r, r, r ],
+            v: [r, r, r],
           },
           children: [
             {
@@ -87,7 +89,7 @@ const rounded_cube = (size = 1, r = 0.125) => ({
         {
           type: 'translate',
           params: {
-            v: [ size - r, r, r ],
+            v: [size - r, r, r],
           },
           children: [
             {
@@ -99,7 +101,7 @@ const rounded_cube = (size = 1, r = 0.125) => ({
         {
           type: 'translate',
           params: {
-            v: [ size - r, size - r, r ],
+            v: [size - r, size - r, r],
           },
           children: [
             {
@@ -111,7 +113,7 @@ const rounded_cube = (size = 1, r = 0.125) => ({
         {
           type: 'translate',
           params: {
-            v: [ r, size - r, r ],
+            v: [r, size - r, r],
           },
           children: [
             {
@@ -123,7 +125,7 @@ const rounded_cube = (size = 1, r = 0.125) => ({
         {
           type: 'translate',
           params: {
-            v: [ r, r, size - r ],
+            v: [r, r, size - r],
           },
           children: [
             {
@@ -135,7 +137,7 @@ const rounded_cube = (size = 1, r = 0.125) => ({
         {
           type: 'translate',
           params: {
-            v: [ size - r, r, size - r ],
+            v: [size - r, r, size - r],
           },
           children: [
             {
@@ -147,7 +149,7 @@ const rounded_cube = (size = 1, r = 0.125) => ({
         {
           type: 'translate',
           params: {
-            v: [ size - r, size - r, size - r ],
+            v: [size - r, size - r, size - r],
           },
           children: [
             {
@@ -159,7 +161,7 @@ const rounded_cube = (size = 1, r = 0.125) => ({
         {
           type: 'translate',
           params: {
-            v: [ r, size - r, size - r ],
+            v: [r, size - r, size - r],
           },
           children: [
             {

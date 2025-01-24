@@ -1,5 +1,5 @@
-const assert = require('assert');
-const S = require('../src/index.js');
+import assert from 'assert';
+import S from '../src/index.js';
 
 describe('Serialize', () => {
   it('should serialize an object number value', () => {

@@ -1,5 +1,5 @@
-const assert = require('assert');
-const S = require('../src/index.js');
+import assert from 'assert';
+import S from '../src/index.js';
 
 describe('disable', () => {
   it('should add disable modifier existing object', () => {
@@ -7,7 +7,7 @@ describe('disable', () => {
       S.square().disable(),
       {
         type: '*union',
-        children: [ S.square() ],
+        children: [S.square()],
       },
     );
   });
@@ -16,7 +16,7 @@ describe('disable', () => {
       S.square().show_only(),
       {
         type: '!union',
-        children: [ S.square() ],
+        children: [S.square()],
       },
     );
   });
@@ -25,7 +25,7 @@ describe('disable', () => {
       S.square().debug(),
       {
         type: '#union',
-        children: [ S.square() ],
+        children: [S.square()],
       },
     );
   });
@@ -34,7 +34,7 @@ describe('disable', () => {
       S.square().background(),
       {
         type: '%union',
-        children: [ S.square() ],
+        children: [S.square()],
       },
     );
   });
