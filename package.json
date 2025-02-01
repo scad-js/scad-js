@@ -18,9 +18,9 @@
   "scripts": {
     "test": "node --test",
     "coverage": "node --test --experimental-test-coverage",
-    "lint": "eslint src/."
+    "lint": "biome check --write --unsafe"
   },
   "devDependencies": {
-    "eslint": "^7.25.0"
+    "@biomejs/biome": "1.9.4"
   }
 }
