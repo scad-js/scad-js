@@ -1,6 +1,6 @@
 
-import assert from 'assert';
-
+import assert from 'node:assert';
+import { describe, it } from 'node:test';
 import { rounded_square, rounded_cube } from '../src/index.js';
 
 const expected_rounded_square = (size = 1, r = 0.125) => ({

@@ -1,5 +1,5 @@
-import assert from 'assert';
-
+import assert from 'node:assert';
+import { describe, it } from 'node:test';
 import { cube, cylinder, intersection, sphere, union, hull, minkowski, difference, chain_hull } from '../src/index.js';
 
 describe('Union', () => {

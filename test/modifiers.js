@@ -1,4 +1,5 @@
-import assert from 'assert';
+import assert from 'node:assert';
+import { describe, it } from 'node:test';
 import { square } from '../src/index.js';
 
 describe('disable', () => {
