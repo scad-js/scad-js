@@ -1,7 +1,7 @@
 import assert from 'node:assert';
 import { describe, it } from 'node:test';
 
-import { circle, square, sphere, polygon, polyhedron, cylinder, cube } from '../src/index.js';
+import { circle, square, sphere, polygon, polyhedron, cylinder, cube, rounded_square } from '../src/index.js';
 
 describe('Circle', () => {
   it('should create circle with default radius', () => {
@@ -53,6 +53,33 @@ describe('Square', () => {
     assert.deepEqual(
       square(8, { center: false }),
       { type: 'square', params: { size: 8, center: false } },
+    );
+  });
+});
+
+describe('Rounded Square', () => {
+  it('should create a rounded square with default size', () => {
+    assert.deepEqual(
+      rounded_square(),
+      { "type": "translate", "params": { "v": [-0.5, -0.5] }, "children": [{ "type": "hull", "children": [{ "type": "translate", "params": { "v": [0.125, 0.125] }, "children": [{ "type": "circle", "params": { "r": 0.125 } }] }, { "type": "translate", "params": { "v": [0.875, 0.125] }, "children": [{ "type": "circle", "params": { "r": 0.125 } }] }, { "type": "translate", "params": { "v": [0.875, 0.875] }, "children": [{ "type": "circle", "params": { "r": 0.125 } }] }, { "type": "translate", "params": { "v": [0.125, 0.875] }, "children": [{ "type": "circle", "params": { "r": 0.125 } }] }] }] },
+    );
+  });
+  it('should create a square with defined size', () => {
+    assert.deepEqual(
+      rounded_square(4),
+      { "type": "translate", "params": { "v": [-2, -2] }, "children": [{ "type": "hull", "children": [{ "type": "translate", "params": { "v": [0.125, 0.125] }, "children": [{ "type": "circle", "params": { "r": 0.125 } }] }, { "type": "translate", "params": { "v": [3.875, 0.125] }, "children": [{ "type": "circle", "params": { "r": 0.125 } }] }, { "type": "translate", "params": { "v": [3.875, 3.875] }, "children": [{ "type": "circle", "params": { "r": 0.125 } }] }, { "type": "translate", "params": { "v": [0.125, 3.875] }, "children": [{ "type": "circle", "params": { "r": 0.125 } }] }] }] },
+    );
+    assert.deepEqual(
+      rounded_square([8, 3]),
+      { "type": "translate", "params": { "v": [-4, -1.5] }, "children": [{ "type": "hull", "children": [{ "type": "translate", "params": { "v": [0.125, 0.125] }, "children": [{ "type": "circle", "params": { "r": 0.125 } }] }, { "type": "translate", "params": { "v": [7.875, 0.125] }, "children": [{ "type": "circle", "params": { "r": 0.125 } }] }, { "type": "translate", "params": { "v": [7.875, 2.875] }, "children": [{ "type": "circle", "params": { "r": 0.125 } }] }, { "type": "translate", "params": { "v": [0.125, 2.875] }, "children": [{ "type": "circle", "params": { "r": 0.125 } }] }] }] }
+      ,
+    );
+  });
+  it('should create a square with defined size and not centered', () => {
+    assert.deepEqual(
+      rounded_square(8, { center: false }),
+      { "type": "translate", "params": { "v": [-4, -4] }, "children": [{ "type": "hull", "children": [{ "type": "translate", "params": { "v": [0.5, 0.5] }, "children": [{ "type": "circle", "params": { "r": 0.5 } }] }, { "type": "translate", "params": { "v": [7.5, 0.5] }, "children": [{ "type": "circle", "params": { "r": 0.5 } }] }, { "type": "translate", "params": { "v": [7.5, 7.5] }, "children": [{ "type": "circle", "params": { "r": 0.5 } }] }, { "type": "translate", "params": { "v": [0.5, 7.5] }, "children": [{ "type": "circle", "params": { "r": 0.5 } }] }] }] }
+      ,
     );
   });
 });
