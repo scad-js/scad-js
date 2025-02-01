@@ -1,7 +1,7 @@
 import assert from 'node:assert';
 import { describe, it } from 'node:test';
 
-import { circle, square, sphere, polygon, polyhedron, cylinder, cube, rounded_square } from '../src/index.js';
+import { circle, square, sphere, polygon, polyhedron, cylinder, cube, rounded_square, rounded_cube } from '../src/index.js';
 
 describe('Circle', () => {
   it('should create circle with default radius', () => {
@@ -233,6 +233,31 @@ describe('Polyhedron', () => {
     assert.deepEqual(
       polyhedron([[0, 0, 0], [4, 5, 0], [6, 8, 0]], [0, 2, 1, 2, 0], 4),
       { type: 'polyhedron', params: { points: [[0, 0, 0], [4, 5, 0], [6, 8, 0]], paths: [0, 2, 1, 2, 0], convexity: 4 } },
+    );
+  });
+});
+
+describe('Rounded Cube', () => {
+  it('should create a cube with default size', () => {
+    assert.deepEqual(
+      rounded_cube(),
+      { "type": "translate", "params": { "v": [-0.5, -0.5, -0.5] }, "children": [{ "type": "hull", "children": [{ "type": "translate", "params": { "v": [0.125, 0.125, 0.125] }, "children": [{ "type": "sphere", "params": { "r": 0.125 } }] }, { "type": "translate", "params": { "v": [0.875, 0.125, 0.125] }, "children": [{ "type": "sphere", "params": { "r": 0.125 } }] }, { "type": "translate", "params": { "v": [0.875, 0.875, 0.125] }, "children": [{ "type": "sphere", "params": { "r": 0.125 } }] }, { "type": "translate", "params": { "v": [0.125, 0.875, 0.125] }, "children": [{ "type": "sphere", "params": { "r": 0.125 } }] }, { "type": "translate", "params": { "v": [0.125, 0.125, 0.875] }, "children": [{ "type": "sphere", "params": { "r": 0.125 } }] }, { "type": "translate", "params": { "v": [0.875, 0.125, 0.875] }, "children": [{ "type": "sphere", "params": { "r": 0.125 } }] }, { "type": "translate", "params": { "v": [0.875, 0.875, 0.875] }, "children": [{ "type": "sphere", "params": { "r": 0.125 } }] }, { "type": "translate", "params": { "v": [0.125, 0.875, 0.875] }, "children": [{ "type": "sphere", "params": { "r": 0.125 } }] }] }] },
+    );
+  });
+  it('should create a cube with defined size', () => {
+    assert.deepEqual(
+      rounded_cube(4),
+      { "type": "translate", "params": { "v": [-2, -2, -2] }, "children": [{ "type": "hull", "children": [{ "type": "translate", "params": { "v": [0.125, 0.125, 0.125] }, "children": [{ "type": "sphere", "params": { "r": 0.125 } }] }, { "type": "translate", "params": { "v": [3.875, 0.125, 0.125] }, "children": [{ "type": "sphere", "params": { "r": 0.125 } }] }, { "type": "translate", "params": { "v": [3.875, 3.875, 0.125] }, "children": [{ "type": "sphere", "params": { "r": 0.125 } }] }, { "type": "translate", "params": { "v": [0.125, 3.875, 0.125] }, "children": [{ "type": "sphere", "params": { "r": 0.125 } }] }, { "type": "translate", "params": { "v": [0.125, 0.125, 3.875] }, "children": [{ "type": "sphere", "params": { "r": 0.125 } }] }, { "type": "translate", "params": { "v": [3.875, 0.125, 3.875] }, "children": [{ "type": "sphere", "params": { "r": 0.125 } }] }, { "type": "translate", "params": { "v": [3.875, 3.875, 3.875] }, "children": [{ "type": "sphere", "params": { "r": 0.125 } }] }, { "type": "translate", "params": { "v": [0.125, 3.875, 3.875] }, "children": [{ "type": "sphere", "params": { "r": 0.125 } }] }] }] },
+    );
+    assert.deepEqual(
+      rounded_cube([4, 5, 6]),
+      { "type": "translate", "params": { "v": [-2, -2.5, -3] }, "children": [{ "type": "hull", "children": [{ "type": "translate", "params": { "v": [0.125, 0.125, 0.125] }, "children": [{ "type": "sphere", "params": { "r": 0.125 } }] }, { "type": "translate", "params": { "v": [3.875, 0.125, 0.125] }, "children": [{ "type": "sphere", "params": { "r": 0.125 } }] }, { "type": "translate", "params": { "v": [3.875, 4.875, 0.125] }, "children": [{ "type": "sphere", "params": { "r": 0.125 } }] }, { "type": "translate", "params": { "v": [0.125, 4.875, 0.125] }, "children": [{ "type": "sphere", "params": { "r": 0.125 } }] }, { "type": "translate", "params": { "v": [0.125, 0.125, 5.875] }, "children": [{ "type": "sphere", "params": { "r": 0.125 } }] }, { "type": "translate", "params": { "v": [3.875, 0.125, 5.875] }, "children": [{ "type": "sphere", "params": { "r": 0.125 } }] }, { "type": "translate", "params": { "v": [3.875, 4.875, 5.875] }, "children": [{ "type": "sphere", "params": { "r": 0.125 } }] }, { "type": "translate", "params": { "v": [0.125, 4.875, 5.875] }, "children": [{ "type": "sphere", "params": { "r": 0.125 } }] }] }] },
+    );
+  });
+  it('should create a cube with defined size not centered', () => {
+    assert.deepEqual(
+      rounded_cube(4, { center: false }),
+      { "type": "translate", "params": { "v": [-2, -2, -2] }, "children": [{ "type": "hull", "children": [{ "type": "translate", "params": { "v": [0.25, 0.25, 0.25] }, "children": [{ "type": "sphere", "params": { "r": 0.25 } }] }, { "type": "translate", "params": { "v": [3.75, 0.25, 0.25] }, "children": [{ "type": "sphere", "params": { "r": 0.25 } }] }, { "type": "translate", "params": { "v": [3.75, 3.75, 0.25] }, "children": [{ "type": "sphere", "params": { "r": 0.25 } }] }, { "type": "translate", "params": { "v": [0.25, 3.75, 0.25] }, "children": [{ "type": "sphere", "params": { "r": 0.25 } }] }, { "type": "translate", "params": { "v": [0.25, 0.25, 3.75] }, "children": [{ "type": "sphere", "params": { "r": 0.25 } }] }, { "type": "translate", "params": { "v": [3.75, 0.25, 3.75] }, "children": [{ "type": "sphere", "params": { "r": 0.25 } }] }, { "type": "translate", "params": { "v": [3.75, 3.75, 3.75] }, "children": [{ "type": "sphere", "params": { "r": 0.25 } }] }, { "type": "translate", "params": { "v": [0.25, 3.75, 3.75] }, "children": [{ "type": "sphere", "params": { "r": 0.25 } }] }] }] },
     );
   });
 });
