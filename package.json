@@ -8,8 +8,8 @@
     "type": "git",
     "url": "git+ssh://git@github.com/daltonrowe/scad-js-esm.git"
   },
-  "author": "20lives",
-  "license": "MIT",
+  "author": "daltonrowe",
+  "license": "GPLv3",
   "private": false,
   "bugs": {
     "url": "https://github.com/daltonrowe/scad-js/issues"
@@ -19,8 +19,5 @@
     "test": "node --test",
     "coverage": "node --test --experimental-test-coverage",
     "lint": "biome check --write --unsafe"
-  },
-  "devDependencies": {
-    "@biomejs/biome": "1.9.4"
   }
 }
