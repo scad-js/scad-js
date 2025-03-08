@@ -1,5 +1,5 @@
 {
-  "name": "scad-js",
+  "name": "scad-js-esm",
   "version": "0.5.0",
   "description": "Generate OpenSCAD solid models with javascript",
   "main": "./src/index.js",
