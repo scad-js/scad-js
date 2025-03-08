@@ -1,5 +1,5 @@
 import modifiers from "./modifiers.js";
-import { hull } from "./operations.js";
+import { hull, union } from "./operations.js";
 import serialize from "./serialize.js";
 import transformations from "./transformations.js";
 import { create } from "./utils.js";
@@ -38,6 +38,24 @@ export const rounded_square = (size = 1, radius = 0.125, _params = {}) => {
   return (_center === undefined ? center : _center)
     ? square.translate([-x / 2, -y / 2])
     : square;
+};
+
+export const capsule = (size = 1, _params = {}) => {
+  const { center: _center, ...params } = _params;
+  const [x, y] = typeof size === "number" ? [size, size] : size;
+
+  if (x === y) return circle(x / 2);
+
+  const [w, h] = x >= y ? [x, y] : [y, x];
+
+  const edge = w / 2 - h / 2;
+  const capsule = union(
+    square([w - h, h]),
+    circle(h / 2, params).translate_x(edge),
+    circle(h / 2, params).translate_x(-edge),
+  );
+
+  return x >= y ? capsule : capsule.rotate_z(90);
 };
 
 export const polygon = (points = undef, paths = undef, convexity = 1) =>
@@ -105,4 +123,5 @@ export default {
   sphere,
   rounded_cube,
   rounded_square,
+  capsule,
 };

@@ -2,6 +2,7 @@ import assert from "node:assert";
 import { describe, it } from "node:test";
 
 import {
+  capsule,
   circle,
   cube,
   cylinder,
@@ -190,6 +191,72 @@ describe("Rounded Square", () => {
           ],
         },
       ],
+    });
+  });
+});
+
+describe("Capsule", () => {
+  it("should create a capsule with default size", () => {
+    assert.deepEqual(capsule(), {
+      type: "circle",
+      params: { r: 0.5 },
+    });
+  });
+
+  const expectedCapsule = {
+    type: "union",
+    children: [
+      { type: "square", params: { center: true, size: [4, 4] } },
+      {
+        type: "translate",
+        children: [
+          {
+            params: {
+              r: 2,
+            },
+            type: "circle",
+          },
+        ],
+        params: {
+          v: [2, 0, 0],
+        },
+      },
+      {
+        type: "translate",
+        children: [
+          {
+            params: {
+              r: 2,
+            },
+            type: "circle",
+          },
+        ],
+        params: {
+          v: [-2, 0, 0],
+        },
+      },
+    ],
+  };
+
+  it("should create a circle if one size is provided", () => {
+    assert.deepEqual(capsule(8), {
+      type: "circle",
+      params: { r: 4 },
+    });
+  });
+
+  it("should create a capsule with in the x direction", () => {
+    assert.deepEqual(capsule([8, 4]), expectedCapsule);
+  });
+
+  it("should create a capsule with in the y direction", () => {
+    assert.deepEqual(capsule([4, 8]), {
+      type: "rotate",
+      params: {
+        a: 90,
+        v: [0, 0, 1],
+      },
+      children: [expectedCapsule],
     });
   });
 });
