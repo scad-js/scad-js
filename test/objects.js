@@ -135,6 +135,30 @@ describe("Triangle", () => {
       type: 'polygon'
     });
   });
+
+  it("should create a triangle with provided convexity", () => {
+    assert.deepEqual(triangle([5, 3], 0), {
+      params: {
+        convexity: 0,
+        paths: 'undef',
+        points: [
+          [
+            -2.5,
+            -1.5
+          ],
+          [
+            2.5,
+            -1.5
+          ],
+          [
+            0,
+            1.5
+          ]
+        ]
+      },
+      type: 'polygon'
+    });
+  });
 });
 
 describe("Rounded Square", () => {
