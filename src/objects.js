@@ -65,6 +65,16 @@ export const polygon = (points = undef, paths = undef, convexity = 1) =>
     convexity,
   });
 
+export const triangle = (size = 1) => {
+  const [x, y] = typeof size === "number" ? [size, size] : size;
+
+  return polygon([
+    [-x / 2, -y / 2],
+    [x / 2, -y / 2],
+    [0, y / 2],
+  ]);
+};
+
 export const sphere = (r = 1, params = {}) =>
   object("sphere")({
     r,

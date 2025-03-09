@@ -2,16 +2,17 @@ import assert from "node:assert";
 import { describe, it } from "node:test";
 
 import {
-  pill,
   circle,
   cube,
   cylinder,
+  pill,
   polygon,
   polyhedron,
   rounded_cube,
   rounded_square,
   sphere,
   square,
+  triangle,
 } from "../src/index.js";
 
 describe("Circle", () => {
@@ -58,6 +59,80 @@ describe("Square", () => {
     assert.deepEqual(square(8, { center: false }), {
       type: "square",
       params: { size: 8, center: false },
+    });
+  });
+});
+
+describe("Triangle", () => {
+  it("should create a triangle with default size", () => {
+    assert.deepEqual(triangle(), {
+      params: {
+        convexity: 1,
+        paths: 'undef',
+        points: [
+          [
+            -0.5,
+            -0.5
+          ],
+          [
+            0.5,
+            -0.5
+          ],
+          [
+            0,
+            0.5
+          ]
+        ]
+      },
+      type: 'polygon'
+    });
+  });
+
+  it("should create a triangle with same width and height", () => {
+    assert.deepEqual(triangle(5), {
+      params: {
+        convexity: 1,
+        paths: 'undef',
+        points: [
+          [
+            -2.5,
+            -2.5
+          ],
+          [
+            2.5,
+            -2.5
+          ],
+          [
+            0,
+            2.5
+          ]
+        ]
+      },
+      type: 'polygon'
+    });
+  });
+
+  it("should create a triangle with provided height and width", () => {
+    assert.deepEqual(triangle([5, 3]), {
+      params: {
+        convexity: 1,
+        paths: 'undef',
+        points: [
+          [
+            -2.5,
+            -1.5
+          ],
+          [
+            2.5,
+            -1.5
+          ],
+          [
+            0,
+            1.5
+          ]
+        ]
+      },
+      type: 'polygon'
     });
   });
 });
@@ -160,6 +235,7 @@ describe("Rounded Square", () => {
       ],
     });
   });
+
   it("should create a square with defined size and not centered", () => {
     assert.deepEqual(rounded_square(8, { center: false }), {
       type: "translate",
