@@ -104,6 +104,15 @@ export const polyhedron = (points = undef, paths = undef, convexity = 1) =>
     convexity,
   });
 
+export const cone = (h = 1, r = 1, _params = {}) => {
+  const { convexity = 1, ...params } = _params
+  return polygon([
+    [0, -h / 2],
+    [r / 2, -h / 2],
+    [0, h / 2],
+  ], undefined, convexity).rotate_extrude(360, { ...params });
+}
+
 export const rounded_cube = (size = 1, radius = 0.125, _params = {}) => {
   const { center: _center, ...params } = _params;
   const [x, y, z] = typeof size === "number" ? [size, size, size] : size;

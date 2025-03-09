@@ -3,6 +3,7 @@ import { describe, it } from "node:test";
 
 import {
   circle,
+  cone,
   cube,
   cylinder,
   pill,
@@ -157,6 +158,116 @@ describe("Triangle", () => {
         ]
       },
       type: 'polygon'
+    });
+  });
+});
+
+describe("Cone", () => {
+  it("should create a cone with default size", () => {
+    assert.deepEqual(cone(),
+      {
+        children: [
+          {
+            params: {
+              convexity: 1,
+              paths: 'undef',
+              points: [
+                [
+                  0,
+                  -0.5
+                ],
+                [
+                  0.5,
+                  -0.5
+                ],
+                [
+                  0,
+                  0.5
+                ]
+              ]
+            },
+            type: 'polygon'
+          }
+        ],
+        params: {
+          '$fn': 10,
+          angle: 360,
+          convexity: 2
+        },
+        type: 'rotate_extrude'
+      }
+    );
+  });
+
+  it("should create a cone with provided height and radius", () => {
+    assert.deepEqual(cone(10, 20),
+      {
+        children: [
+          {
+            params: {
+              convexity: 1,
+              paths: 'undef',
+              points: [
+                [
+                  0,
+                  -5
+                ],
+                [
+                  10,
+                  -5
+                ],
+                [
+                  0,
+                  5
+                ]
+              ]
+            },
+            type: 'polygon'
+          }
+        ],
+        params: {
+          '$fn': 10,
+          angle: 360,
+          convexity: 2
+        },
+        type: 'rotate_extrude'
+      }
+    );
+
+    it("should create a cone with provided convexity and params", () => {
+      assert.deepEqual(cone(10, 20, { $fn: 25, convexity: 5 }),
+        {
+          children: [
+            {
+              params: {
+                convexity: 5,
+                paths: 'undef',
+                points: [
+                  [
+                    0,
+                    -5
+                  ],
+                  [
+                    10,
+                    -5
+                  ],
+                  [
+                    0,
+                    5
+                  ]
+                ]
+              },
+              type: 'polygon'
+            }
+          ],
+          params: {
+            '$fn': 25,
+            angle: 360,
+            convexity: 2
+          },
+          type: 'rotate_extrude'
+        }
+      );
     });
   });
 });
