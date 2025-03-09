@@ -25,6 +25,24 @@ describe("Translate", () => {
       children: [cube()],
     });
   });
+
+  it("should add translate transformation with multiplier to existing object", () => {
+    assert.deepEqual(square().translate_x(8, -1), {
+      type: "translate",
+      params: { v: [-8, 0, 0] },
+      children: [square()],
+    });
+    assert.deepEqual(square().translate_y(4, -1), {
+      type: "translate",
+      params: { v: [0, -4, 0] },
+      children: [square()],
+    });
+    assert.deepEqual(cube().translate_z(6, -1), {
+      type: "translate",
+      params: { v: [0, 0, -6] },
+      children: [cube()],
+    });
+  });
 });
 
 describe("Scale", () => {

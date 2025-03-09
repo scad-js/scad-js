@@ -14,16 +14,16 @@ export const translate = function (v) {
   return transformation("translate")(this, { v });
 };
 
-export const translate_x = function (x) {
-  return transformation("translate")(this, { v: [x, 0, 0] });
+export const translate_x = function (x, multiplier = 1) {
+  return transformation("translate")(this, { v: [x * multiplier, 0, 0] });
 };
 
-export const translate_y = function (y) {
-  return transformation("translate")(this, { v: [0, y, 0] });
+export const translate_y = function (y, multiplier = 1) {
+  return transformation("translate")(this, { v: [0, y * multiplier, 0] });
 };
 
-export const translate_z = function (z) {
-  return transformation("translate")(this, { v: [0, 0, z] });
+export const translate_z = function (z, multiplier = 1) {
+  return transformation("translate")(this, { v: [0, 0, z * multiplier] });
 };
 
 export const scale = function (v) {
