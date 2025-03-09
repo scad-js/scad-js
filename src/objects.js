@@ -40,7 +40,7 @@ export const rounded_square = (size = 1, radius = 0.125, _params = {}) => {
     : square;
 };
 
-export const capsule = (size = 1, _params = {}) => {
+export const pill = (size = 1, _params = {}) => {
   const { center: _center, ...params } = _params;
   const [x, y] = typeof size === "number" ? [size, size] : size;
 
@@ -49,13 +49,13 @@ export const capsule = (size = 1, _params = {}) => {
   const [w, h] = x >= y ? [x, y] : [y, x];
 
   const edge = w / 2 - h / 2;
-  const capsule = union(
+  const pill = union(
     square([w - h, h]),
     circle(h / 2, params).translate_x(edge),
     circle(h / 2, params).translate_x(-edge),
   );
 
-  return x >= y ? capsule : capsule.rotate_z(90);
+  return x >= y ? pill : pill.rotate_z(90);
 };
 
 export const polygon = (points = undef, paths = undef, convexity = 1) =>
@@ -123,5 +123,5 @@ export default {
   sphere,
   rounded_cube,
   rounded_square,
-  capsule,
+  pill,
 };

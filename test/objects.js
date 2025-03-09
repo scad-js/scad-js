@@ -2,7 +2,7 @@ import assert from "node:assert";
 import { describe, it } from "node:test";
 
 import {
-  capsule,
+  pill,
   circle,
   cube,
   cylinder,
@@ -195,15 +195,15 @@ describe("Rounded Square", () => {
   });
 });
 
-describe("Capsule", () => {
-  it("should create a capsule with default size", () => {
-    assert.deepEqual(capsule(), {
+describe("Pill", () => {
+  it("should create a pill with default size", () => {
+    assert.deepEqual(pill(), {
       type: "circle",
       params: { r: 0.5 },
     });
   });
 
-  const expectedCapsule = {
+  const expectedpill = {
     type: "union",
     children: [
       { type: "square", params: { center: true, size: [4, 4] } },
@@ -239,24 +239,24 @@ describe("Capsule", () => {
   };
 
   it("should create a circle if one size is provided", () => {
-    assert.deepEqual(capsule(8), {
+    assert.deepEqual(pill(8), {
       type: "circle",
       params: { r: 4 },
     });
   });
 
-  it("should create a capsule with in the x direction", () => {
-    assert.deepEqual(capsule([8, 4]), expectedCapsule);
+  it("should create a pill with in the x direction", () => {
+    assert.deepEqual(pill([8, 4]), expectedpill);
   });
 
-  it("should create a capsule with in the y direction", () => {
-    assert.deepEqual(capsule([4, 8]), {
+  it("should create a pill with in the y direction", () => {
+    assert.deepEqual(pill([4, 8]), {
       type: "rotate",
       params: {
         a: 90,
         v: [0, 0, 1],
       },
-      children: [expectedCapsule],
+      children: [expectedpill],
     });
   });
 });
