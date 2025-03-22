@@ -16,6 +16,7 @@ import {
   square,
   triangle,
 } from "../src/index.js";
+import { expectedArcDefault, expectedArcWithNegativeAngles, expectedArcWithPositiveAngles, expectedArcWithRadius, expectedArcWithSingleAngle } from "./fixtures.js";
 
 describe("Circle", () => {
   it("should create circle with default radius", () => {
@@ -62,6 +63,43 @@ describe("Square", () => {
       type: "square",
       params: { size: 8, center: false },
     });
+  });
+});
+
+describe("Arc", () => {
+  it("should create an arc with default size", () => {
+    assert.deepEqual(arc(), expectedArcDefault);
+  });
+
+  it("should create an arc with a given radius", () => {
+    assert.deepEqual(arc(20), expectedArcWithRadius);
+  });
+
+  it("should create an arc with a single, centered angle", () => {
+    assert.deepEqual(arc(undefined, 20), expectedArcWithSingleAngle);
+  });
+
+  it("should create an arc with a positive angles", () => {
+    assert.deepEqual(arc(undefined, [0, 20]), expectedArcWithPositiveAngles);
+  });
+
+  it("should create an arc with a negative angles", () => {
+    assert.deepEqual(arc(undefined, [320, 0]), expectedArcWithNegativeAngles);
+  });
+
+  it("should default to a point every 2 degrees", () => {
+    const result = arc(undefined, 20);
+    assert.equal(result.params.points.length, 12)
+  });
+
+  it("should create a fixed number of faces", () => {
+    const result = arc(undefined, undefined, { $fn: 4 });
+    assert.equal(result.params.points.length, 6)
+  });
+
+  it("should allow setting the polygon convexity", () => {
+    const result = arc(undefined, undefined, { convexity: 2 });
+    assert.equal(result.params.convexity, 2)
   });
 });
 

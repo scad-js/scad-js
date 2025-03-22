@@ -75,7 +75,7 @@ export const triangle = (size = 1, convexity = 1) => {
   ], undefined, convexity);
 };
 
-export const arc = (r, angles, _params = {}) => {
+export const arc = (r = 1, angles = 45, _params = {}) => {
   let [start, end] = typeof angles === "number" ? [angles / 2 * -1, angles / 2] : angles;
   if (end < start) end = 360 + end
 
@@ -88,8 +88,11 @@ export const arc = (r, angles, _params = {}) => {
 
   for (let a = start; a < end; a += step) {
     const rads = a * Math.PI / 180;
-    points.push([r * Math.cos(rads), r * Math.sin(rads)]);
+    points.push([r * Math.cos(rads), r * Math.sin(rads), a]);
   }
+
+  const endRads = end * Math.PI / 180;
+  points.push([r * Math.cos(endRads), r * Math.sin(endRads)]);
 
   return polygon(points, undefined, convexity);
 }
