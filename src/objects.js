@@ -75,6 +75,25 @@ export const triangle = (size = 1, convexity = 1) => {
   ], undefined, convexity);
 };
 
+export const arc = (r, angles, _params = {}) => {
+  let [start, end] = typeof angles === "number" ? [angles / 2 * -1, angles / 2] : angles;
+
+  const angle = end - start;
+  if (angle < 0) end = 360 + end
+
+  const points = [[0, 0]];
+
+  const { $fn = angle / 2, convexity = 1 } = _params
+  const step = angle / $fn;
+
+  for (let a = start; a < end; a += step) {
+    const rads = a * Math.PI / 180;
+    points.push([r * Math.cos(rads), r * Math.sin(rads)]);
+  }
+
+  return polygon(points, undefined, convexity);
+}
+
 export const sphere = (r = 1, params = {}) =>
   object("sphere")({
     r,
@@ -137,6 +156,8 @@ export default {
   circle,
   square,
   polygon,
+  triangle,
+  arc,
   cube,
   cylinder,
   polyhedron,
