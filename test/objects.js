@@ -2,10 +2,10 @@ import assert from "node:assert";
 import { describe, it } from "node:test";
 
 import {
+  arc,
   circle,
   cone,
   cube,
-  arc,
   cylinder,
   pill,
   polygon,
@@ -16,7 +16,13 @@ import {
   square,
   triangle,
 } from "../src/index.js";
-import { expectedArcDefault, expectedArcWithNegativeAngles, expectedArcWithPositiveAngles, expectedArcWithRadius, expectedArcWithSingleAngle } from "./fixtures.js";
+import {
+  expectedArcDefault,
+  expectedArcWithNegativeAngles,
+  expectedArcWithPositiveAngles,
+  expectedArcWithRadius,
+  expectedArcWithSingleAngle,
+} from "./fixtures.js";
 
 describe("Circle", () => {
   it("should create circle with default radius", () => {
@@ -89,17 +95,17 @@ describe("Arc", () => {
 
   it("should default to a point every 2 degrees", () => {
     const result = arc(undefined, 20);
-    assert.equal(result.params.points.length, 12)
+    assert.equal(result.params.points.length, 12);
   });
 
   it("should create a fixed number of faces", () => {
     const result = arc(undefined, undefined, { $fn: 4 });
-    assert.equal(result.params.points.length, 6)
+    assert.equal(result.params.points.length, 6);
   });
 
   it("should allow setting the polygon convexity", () => {
     const result = arc(undefined, undefined, { convexity: 2 });
-    assert.equal(result.params.convexity, 2)
+    assert.equal(result.params.convexity, 2);
   });
 });
 
@@ -108,23 +114,14 @@ describe("Triangle", () => {
     assert.deepEqual(triangle(), {
       params: {
         convexity: 1,
-        paths: 'undef',
+        paths: "undef",
         points: [
-          [
-            -0.5,
-            -0.5
-          ],
-          [
-            0.5,
-            -0.5
-          ],
-          [
-            0,
-            0.5
-          ]
-        ]
+          [-0.5, -0.5],
+          [0.5, -0.5],
+          [0, 0.5],
+        ],
       },
-      type: 'polygon'
+      type: "polygon",
     });
   });
 
@@ -132,23 +129,14 @@ describe("Triangle", () => {
     assert.deepEqual(triangle(5), {
       params: {
         convexity: 1,
-        paths: 'undef',
+        paths: "undef",
         points: [
-          [
-            -2.5,
-            -2.5
-          ],
-          [
-            2.5,
-            -2.5
-          ],
-          [
-            0,
-            2.5
-          ]
-        ]
+          [-2.5, -2.5],
+          [2.5, -2.5],
+          [0, 2.5],
+        ],
       },
-      type: 'polygon'
+      type: "polygon",
     });
   });
 
@@ -156,23 +144,14 @@ describe("Triangle", () => {
     assert.deepEqual(triangle([5, 3]), {
       params: {
         convexity: 1,
-        paths: 'undef',
+        paths: "undef",
         points: [
-          [
-            -2.5,
-            -1.5
-          ],
-          [
-            2.5,
-            -1.5
-          ],
-          [
-            0,
-            1.5
-          ]
-        ]
+          [-2.5, -1.5],
+          [2.5, -1.5],
+          [0, 1.5],
+        ],
       },
-      type: 'polygon'
+      type: "polygon",
     });
   });
 
@@ -180,133 +159,91 @@ describe("Triangle", () => {
     assert.deepEqual(triangle([5, 3], 0), {
       params: {
         convexity: 0,
-        paths: 'undef',
+        paths: "undef",
         points: [
-          [
-            -2.5,
-            -1.5
-          ],
-          [
-            2.5,
-            -1.5
-          ],
-          [
-            0,
-            1.5
-          ]
-        ]
+          [-2.5, -1.5],
+          [2.5, -1.5],
+          [0, 1.5],
+        ],
       },
-      type: 'polygon'
+      type: "polygon",
     });
   });
 });
 
 describe("Cone", () => {
   it("should create a cone with default size", () => {
-    assert.deepEqual(cone(),
-      {
-        children: [
-          {
-            params: {
-              convexity: 1,
-              paths: 'undef',
-              points: [
-                [
-                  0,
-                  -0.5
-                ],
-                [
-                  0.5,
-                  -0.5
-                ],
-                [
-                  0,
-                  0.5
-                ]
-              ]
-            },
-            type: 'polygon'
-          }
-        ],
-        params: {
-          '$fn': 10,
-          angle: 360,
-          convexity: 2
+    assert.deepEqual(cone(), {
+      children: [
+        {
+          params: {
+            convexity: 1,
+            paths: "undef",
+            points: [
+              [0, -0.5],
+              [0.5, -0.5],
+              [0, 0.5],
+            ],
+          },
+          type: "polygon",
         },
-        type: 'rotate_extrude'
-      }
-    );
+      ],
+      params: {
+        $fn: 10,
+        angle: 360,
+        convexity: 2,
+      },
+      type: "rotate_extrude",
+    });
   });
 
   it("should create a cone with provided height and radius", () => {
-    assert.deepEqual(cone(10, 20),
-      {
+    assert.deepEqual(cone(10, 20), {
+      children: [
+        {
+          params: {
+            convexity: 1,
+            paths: "undef",
+            points: [
+              [0, -5],
+              [10, -5],
+              [0, 5],
+            ],
+          },
+          type: "polygon",
+        },
+      ],
+      params: {
+        $fn: 10,
+        angle: 360,
+        convexity: 2,
+      },
+      type: "rotate_extrude",
+    });
+
+    it("should create a cone with provided convexity and params", () => {
+      assert.deepEqual(cone(10, 20, { $fn: 25, convexity: 5 }), {
         children: [
           {
             params: {
-              convexity: 1,
-              paths: 'undef',
+              convexity: 5,
+              paths: "undef",
               points: [
-                [
-                  0,
-                  -5
-                ],
-                [
-                  10,
-                  -5
-                ],
-                [
-                  0,
-                  5
-                ]
-              ]
+                [0, -5],
+                [10, -5],
+                [0, 5],
+              ],
             },
-            type: 'polygon'
-          }
+            type: "polygon",
+          },
         ],
         params: {
-          '$fn': 10,
+          $fn: 25,
           angle: 360,
-          convexity: 2
+          convexity: 2,
         },
-        type: 'rotate_extrude'
-      }
-    );
-
-    it("should create a cone with provided convexity and params", () => {
-      assert.deepEqual(cone(10, 20, { $fn: 25, convexity: 5 }),
-        {
-          children: [
-            {
-              params: {
-                convexity: 5,
-                paths: 'undef',
-                points: [
-                  [
-                    0,
-                    -5
-                  ],
-                  [
-                    10,
-                    -5
-                  ],
-                  [
-                    0,
-                    5
-                  ]
-                ]
-              },
-              type: 'polygon'
-            }
-          ],
-          params: {
-            '$fn': 25,
-            angle: 360,
-            convexity: 2
-          },
-          type: 'rotate_extrude'
-        }
-      );
+        type: "rotate_extrude",
+      });
     });
   });
 });

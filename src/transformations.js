@@ -1,7 +1,7 @@
 import modifiers from "./modifiers.js";
 import serialize from "./serialize.js";
-import { create } from "./utils.js";
 import * as transformations from "./transformations.js";
+import { create } from "./utils.js";
 
 const undef = "undef";
 

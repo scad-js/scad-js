@@ -5,8 +5,8 @@ import { create } from "./utils.js";
 
 const operation =
   (type) =>
-    (...children) =>
-      create({ ...transformations, ...modifiers, serialize }, { type, children });
+  (...children) =>
+    create({ ...transformations, ...modifiers, serialize }, { type, children });
 
 export const union = operation("union");
 export const difference = operation("difference");

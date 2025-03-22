@@ -68,34 +68,39 @@ export const polygon = (points = undef, paths = undef, convexity = 1) =>
 export const triangle = (size = 1, convexity = 1) => {
   const [x, y] = typeof size === "number" ? [size, size] : size;
 
-  return polygon([
-    [-x / 2, -y / 2],
-    [x / 2, -y / 2],
-    [0, y / 2],
-  ], undefined, convexity);
+  return polygon(
+    [
+      [-x / 2, -y / 2],
+      [x / 2, -y / 2],
+      [0, y / 2],
+    ],
+    undefined,
+    convexity,
+  );
 };
 
 export const arc = (r = 1, angles = 45, _params = {}) => {
-  let [start, end] = typeof angles === "number" ? [angles / 2 * -1, angles / 2] : angles;
-  if (end < start) end = 360 + end
+  let [start, end] =
+    typeof angles === "number" ? [(angles / 2) * -1, angles / 2] : angles;
+  if (end < start) end = 360 + end;
 
   const angle = end - start;
 
   const points = [[0, 0]];
 
-  const { $fn = angle / 2, convexity = 1 } = _params
+  const { $fn = angle / 2, convexity = 1 } = _params;
   const step = angle / $fn;
 
   for (let a = start; a < end; a += step) {
-    const rads = a * Math.PI / 180;
+    const rads = (a * Math.PI) / 180;
     points.push([r * Math.cos(rads), r * Math.sin(rads), a]);
   }
 
-  const endRads = end * Math.PI / 180;
+  const endRads = (end * Math.PI) / 180;
   points.push([r * Math.cos(endRads), r * Math.sin(endRads)]);
 
   return polygon(points, undefined, convexity);
-}
+};
 
 export const sphere = (r = 1, params = {}) =>
   object("sphere")({
@@ -118,7 +123,6 @@ export const cylinder = (h = 1, r = 1, params = {}) =>
     ...params,
   });
 
-
 export const polyhedron = (points = undef, paths = undef, convexity = 1) =>
   object("polyhedron")({
     points,
@@ -127,13 +131,17 @@ export const polyhedron = (points = undef, paths = undef, convexity = 1) =>
   });
 
 export const cone = (h = 1, r = 1, _params = {}) => {
-  const { convexity = 1, ...params } = _params
-  return polygon([
-    [0, -h / 2],
-    [r / 2, -h / 2],
-    [0, h / 2],
-  ], undefined, convexity).rotate_extrude(360, { ...params });
-}
+  const { convexity = 1, ...params } = _params;
+  return polygon(
+    [
+      [0, -h / 2],
+      [r / 2, -h / 2],
+      [0, h / 2],
+    ],
+    undefined,
+    convexity,
+  ).rotate_extrude(360, { ...params });
+};
 
 export const rounded_cube = (size = 1, radius = 0.125, _params = {}) => {
   const { center: _center, ...params } = _params;
