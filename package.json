@@ -1,29 +1,23 @@
 {
-  "name": "scad-js",
+  "name": "scad-js-esm",
   "version": "0.5.0",
   "description": "Generate OpenSCAD solid models with javascript",
   "main": "./src/index.js",
+  "type": "module",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/20lives/scad-js.git"
+    "url": "git+ssh://git@github.com/daltonrowe/scad-js-esm.git"
   },
-  "author": "20lives",
-  "license": "MIT",
+  "author": "daltonrowe",
+  "license": "GPLv3",
   "private": false,
   "bugs": {
-    "url": "https://github.com/20lives/scad-js/issues"
+    "url": "https://github.com/daltonrowe/scad-js/issues"
   },
-  "homepage": "https://github.com/20lives/scad-js#readme",
+  "homepage": "https://github.com/daltonrowe/scad-js#readme",
   "scripts": {
-    "test": "nyc mocha",
-    "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
-    "lint": "eslint src/."
-  },
-  "devDependencies": {
-    "chai": "^4.3.4",
-    "codecov": "^3.8.2",
-    "eslint": "^7.25.0",
-    "mocha": "^8.3.2",
-    "nyc": "^15.1.0"
+    "test": "node --test",
+    "coverage": "node --test --experimental-test-coverage",
+    "lint": "biome check --write --unsafe"
   }
 }
