@@ -1,5 +1,5 @@
 import serialize from "./serialize.js";
-import transformations from "./transformations.js";
+import * as transformations from "./transformations.js";
 import { create } from "./utils.js";
 
 const modifier = (type, ...children) =>

@@ -1,7 +1,7 @@
 import modifiers from "./modifiers.js";
 import { hull, union } from "./operations.js";
 import serialize from "./serialize.js";
-import transformations from "./transformations.js";
+import * as transformations from "./transformations.js";
 import { create } from "./utils.js";
 
 const undef = "undef";
@@ -77,9 +77,9 @@ export const triangle = (size = 1, convexity = 1) => {
 
 export const arc = (r, angles, _params = {}) => {
   let [start, end] = typeof angles === "number" ? [angles / 2 * -1, angles / 2] : angles;
+  if (end < start) end = 360 + end
 
   const angle = end - start;
-  if (angle < 0) end = 360 + end
 
   const points = [[0, 0]];
 
@@ -150,19 +150,4 @@ export const rounded_cube = (size = 1, radius = 0.125, _params = {}) => {
   return (_center === undefined ? center : _center)
     ? cube.translate([-x / 2, -y / 2, -z / 2])
     : cube;
-};
-
-export default {
-  circle,
-  square,
-  polygon,
-  triangle,
-  arc,
-  cube,
-  cylinder,
-  polyhedron,
-  sphere,
-  rounded_cube,
-  rounded_square,
-  pill,
 };

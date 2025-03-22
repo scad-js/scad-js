@@ -5,6 +5,7 @@ import {
   circle,
   cone,
   cube,
+  arc,
   cylinder,
   pill,
   polygon,

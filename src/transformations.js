@@ -1,6 +1,7 @@
 import modifiers from "./modifiers.js";
 import serialize from "./serialize.js";
 import { create } from "./utils.js";
+import * as transformations from "./transformations.js";
 
 const undef = "undef";
 
@@ -113,31 +114,3 @@ export const rotate_extrude = function (angle = 360, params = {}) {
     $fn: params.$fn || 10,
   });
 };
-
-const transformations = {
-  translate,
-  translate_x,
-  translate_y,
-  translate_z,
-  scale,
-  scale_x,
-  scale_y,
-  scale_z,
-  resize,
-  mirror,
-  mirror_x,
-  mirror_y,
-  mirror_z,
-  rotate,
-  rotate_x,
-  rotate_y,
-  rotate_z,
-  color,
-  radius_offset,
-  delta_offset,
-  projection,
-  linear_extrude,
-  rotate_extrude,
-};
-
-export default transformations;
