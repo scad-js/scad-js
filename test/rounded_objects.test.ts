@@ -1,12 +1,11 @@
+import { describe, it, expect } from 'vitest';
+import * as S from '../src';
 
-const assert = require('assert');
-
-const S = require('../src/index.js');
-
+// Helper function to create expected rounded square object
 const rounded_square = (size = 1, r = 0.125) => ({
-  type:'translate',
-  params:{
-    v: [ -size / 2, -size / 2 ],
+  type: 'translate',
+  params: {
+    v: [-size / 2, -size / 2, 0],
   },
   children: [
     {
@@ -15,33 +14,11 @@ const rounded_square = (size = 1, r = 0.125) => ({
         {
           type: 'translate',
           params: {
-            v: [ r, r ],
+            v: [r, r, 0],
           },
           children: [
             {
               type: 'circle',
-              params: { r },
-            },
-          ],
-        },
-        { type: 'translate',
-          params: 
-          {
-            v: [ size - r, r ],
-          },
-          children: [
-            {
-              type: 'circle',
-              params: { r },
-            },
-          ],
-        },
-        {
-          type:'translate',
-          params: {
-            v: [ size -r, size -r ],
-          }, children: [
-            { type: 'circle',
               params: { r },
             },
           ],
@@ -49,12 +26,36 @@ const rounded_square = (size = 1, r = 0.125) => ({
         {
           type: 'translate',
           params: {
-            v: [ r, size - r],
+            v: [size - r, r, 0],
           },
           children: [
             {
               type: 'circle',
-              params:{ r },
+              params: { r },
+            },
+          ],
+        },
+        {
+          type: 'translate',
+          params: {
+            v: [size - r, size - r, 0],
+          },
+          children: [
+            {
+              type: 'circle',
+              params: { r },
+            },
+          ],
+        },
+        {
+          type: 'translate',
+          params: {
+            v: [r, size - r, 0],
+          },
+          children: [
+            {
+              type: 'circle',
+              params: { r },
             },
           ],
         },
@@ -63,10 +64,11 @@ const rounded_square = (size = 1, r = 0.125) => ({
   ],
 });
 
+// Helper function to create expected rounded cube object
 const rounded_cube = (size = 1, r = 0.125) => ({
   type: 'translate',
   params: {
-    v: [ -size / 2, -size / 2, -size / 2 ],
+    v: [-size / 2, -size / 2, -size / 2],
   },
   children: [
     {
@@ -75,7 +77,7 @@ const rounded_cube = (size = 1, r = 0.125) => ({
         {
           type: 'translate',
           params: {
-            v: [ r, r, r ],
+            v: [r, r, r],
           },
           children: [
             {
@@ -87,7 +89,7 @@ const rounded_cube = (size = 1, r = 0.125) => ({
         {
           type: 'translate',
           params: {
-            v: [ size - r, r, r ],
+            v: [size - r, r, r],
           },
           children: [
             {
@@ -99,7 +101,7 @@ const rounded_cube = (size = 1, r = 0.125) => ({
         {
           type: 'translate',
           params: {
-            v: [ size - r, size - r, r ],
+            v: [size - r, size - r, r],
           },
           children: [
             {
@@ -111,7 +113,7 @@ const rounded_cube = (size = 1, r = 0.125) => ({
         {
           type: 'translate',
           params: {
-            v: [ r, size - r, r ],
+            v: [r, size - r, r],
           },
           children: [
             {
@@ -123,7 +125,7 @@ const rounded_cube = (size = 1, r = 0.125) => ({
         {
           type: 'translate',
           params: {
-            v: [ r, r, size - r ],
+            v: [r, r, size - r],
           },
           children: [
             {
@@ -135,19 +137,7 @@ const rounded_cube = (size = 1, r = 0.125) => ({
         {
           type: 'translate',
           params: {
-            v: [ size - r, r, size - r ],
-          },
-          children: [
-            {
-              type: 'sphere',
-              'params': { r },
-            },
-          ],
-        },
-        {
-          type: 'translate',
-          params: {
-            v: [ size - r, size - r, size - r ],
+            v: [size - r, r, size - r],
           },
           children: [
             {
@@ -159,7 +149,19 @@ const rounded_cube = (size = 1, r = 0.125) => ({
         {
           type: 'translate',
           params: {
-            v: [ r, size - r, size - r ],
+            v: [size - r, size - r, size - r],
+          },
+          children: [
+            {
+              type: 'sphere',
+              params: { r },
+            },
+          ],
+        },
+        {
+          type: 'translate',
+          params: {
+            v: [r, size - r, size - r],
           },
           children: [
             {
@@ -175,60 +177,40 @@ const rounded_cube = (size = 1, r = 0.125) => ({
 
 describe('Rounded Cube', () => {
   it('should create a rounded cube with default size', () => {
-    assert.deepEqual(
-      S.rounded_cube(),
-      rounded_cube(),
-    );
+    expect((S as any).rounded_cube()).toEqual(rounded_cube());
   });
+  
   it('should create a rounded cube with defined size', () => {
-    assert.deepEqual(
-      S.rounded_cube(12),
-      rounded_cube(12),
-    );
+    expect((S as any).rounded_cube(12)).toEqual(rounded_cube(12));
   });
+  
   it('should create a rounded cube with defined size and radius', () => {
-    assert.deepEqual(
-      S.rounded_cube(12, 0.25),
-      rounded_cube(12, 0.25),
-    );
+    expect((S as any).rounded_cube(12, 0.25)).toEqual(rounded_cube(12, 0.25));
   });
+  
   it('should create a rounded cube with defined size and oversized radius', () => {
-    assert.deepEqual(
-      S.rounded_cube(8, 12),
-      rounded_cube(8, 0.5),
-    );
+    expect((S as any).rounded_cube(8, 12)).toEqual(rounded_cube(8, 0.5));
   });
+  
   it('should create a rounded cube with defined size and undersized radius', () => {
-    assert.deepEqual(
-      S.rounded_cube(8, -1),
-      rounded_cube(8, 0.5),
-    );
+    expect((S as any).rounded_cube(8, -1)).toEqual(rounded_cube(8, 0.5));
   });
 });
 
 describe('Rounded Square', () => {
   it('should create a rounded square with default size', () => {
-    assert.deepEqual(
-      S.rounded_square(),
-      rounded_square(),
-    );
+    expect((S as any).rounded_square()).toEqual(rounded_square());
   });
+  
   it('should create a rounded square with defined size and radius', () => {
-    assert.deepEqual(
-      S.rounded_square(4, 0.2),
-      rounded_square(4, 0.2),
-    );
+    expect((S as any).rounded_square(4, 0.2)).toEqual(rounded_square(4, 0.2));
   });
+  
   it('should create a rounded square with defined size and oversized radius', () => {
-    assert.deepEqual(
-      S.rounded_square(10, 20),
-      rounded_square(10, 0.625),
-    );
+    expect((S as any).rounded_square(10, 20)).toEqual(rounded_square(10, 0.625));
   });
+  
   it('should create a rounded square with defined size and undersized radius', () => {
-    assert.deepEqual(
-      S.rounded_square(10, 0),
-      rounded_square(10, 0.625),
-    );
+    expect((S as any).rounded_square(10, 0)).toEqual(rounded_square(10, 0.625));
   });
-});
+}); 

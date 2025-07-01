@@ -1,12 +1,25 @@
 {
   "name": "scad-js",
   "version": "0.5.0",
-  "description": "Generate OpenSCAD solid models with javascript",
-  "main": "./src/index.js",
+  "description": "Generate OpenSCAD solid models with typescript",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md"
+  ],
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/20lives/scad-js.git"
   },
+  "keywords": [
+    "cad",
+    "openscad",
+    "3d",
+    "modeling",
+    "typescript"
+  ],
   "author": "20lives",
   "license": "MIT",
   "private": false,
@@ -15,15 +28,24 @@
   },
   "homepage": "https://github.com/20lives/scad-js#readme",
   "scripts": {
-    "test": "nyc mocha",
-    "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
-    "lint": "eslint src/."
+    "build": "tsc",
+    "prepublishOnly": "npm run build",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "coverage": "vitest run --coverage",
+    "lint": "biome lint src",
+    "format": "biome format --write src",
+    "check": "biome check src",
+    "ci": "biome ci src"
   },
   "devDependencies": {
-    "chai": "^4.3.4",
-    "codecov": "^3.8.2",
-    "eslint": "^7.25.0",
-    "mocha": "^8.3.2",
-    "nyc": "^15.1.0"
+    "@biomejs/biome": "^1.9.4",
+    "@types/node": "^20.17.30",
+    "@vitest/coverage-v8": "^3.1.1",
+    "typescript": "^5.8.3",
+    "vitest": "^3.1.1"
+  },
+  "dependencies": {
+    "openscad-wasm": "^0.0.3"
   }
 }
