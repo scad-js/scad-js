@@ -8,7 +8,6 @@
   <a href="https://www.npmjs.com/package/scad-js">
     <img alt="Latest release" src="https://img.shields.io/npm/v/scad-js?style=for-the-badge">
     <img alt="Codecov coverage" src="https://img.shields.io/codecov/c/github/scad-js/scad-js?style=for-the-badge">
-    <img alt="Build passing" src="https://img.shields.io/travis/scad-js/scad-js?style=for-the-badge">
   </a>
   <a href="https://www.npmjs.com/package/scad-js">
     <img alt="scad-js demo" src="https://i.imgur.com/GhjNUxM.gif">

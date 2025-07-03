@@ -36,7 +36,8 @@
     "lint": "biome lint src",
     "format": "biome format --write src",
     "check": "biome check src",
-    "ci": "biome ci src"
+    "ci": "biome ci src",
+    "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
