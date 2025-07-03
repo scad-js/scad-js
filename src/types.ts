@@ -1,17 +1,7 @@
-/**
- * Types for scad-js: Generate OpenSCAD solid models with TypeScript
- */
-
-/**
- * Represents a 2D or 3D vector
- */
 export type Vector2D = [number, number];
 export type Vector3D = [number, number, number];
 export type Vector = number | Vector2D | Vector3D;
 
-/**
- * OpenSCAD primitives and operations
- */
 export type ScadPrimitiveType = 'circle' | 'square' | 'polygon' | 'sphere' | 'cube' | 'cylinder' | 'polyhedron';
 
 export type ScadOperationType = 'union' | 'difference' | 'intersection' | 'hull' | 'minkowski';
@@ -28,7 +18,6 @@ export type ScadTransformationType =
   | 'projection'
   | 'linear_extrude'
   | 'rotate_extrude'
-  // Modifier types with prefixes
   | '*union'
   | '!union'
   | '#union'
@@ -36,9 +25,6 @@ export type ScadTransformationType =
 
 export type ScadType = ScadPrimitiveType | ScadOperationType | ScadTransformationType;
 
-/**
- * Parameters for primitive objects
- */
 export interface CircleParams {
   r: number;
   [key: string]: any;
@@ -116,15 +102,11 @@ export interface ColorParams {
   alpha?: number;
 }
 
-/**
- * Scad object and operations
- */
 export interface ScadObject {
   type: ScadType;
   params?: ScadParams;
   children?: ScadObject[];
 
-  // Transformations
   translate: (v: Vector3D) => ScadObject;
   rotate: (a: Vector3D | number) => ScadObject;
   scale: (v: Vector3D) => ScadObject;
@@ -133,12 +115,10 @@ export interface ScadObject {
   multmatrix: (m: number[][]) => ScadObject;
   color: (c: string | Vector3D | Vector2D, alpha?: number) => ScadObject;
 
-  // Modifiers
   debug: () => ScadObject;
   background: () => ScadObject;
   root: () => ScadObject;
   disable: () => ScadObject;
 
-  // Serialize
   serialize: () => string;
 }

@@ -5,31 +5,19 @@ import * as transformations from './transformations';
 import type { ScadObject, ScadPrimitiveType, Vector2D, Vector3D } from './types';
 import { create, undef } from './utils';
 
-/**
- * Default parameter for centered objects
- */
 const center = true;
 
-/**
- * Creates a primitive object of the specified type
- */
 const object =
   (type: ScadPrimitiveType) =>
   (params: Record<string, any>): ScadObject =>
     create({ ...transformations, ...modifiers, serialize }, { type, params });
 
-/**
- * Creates a circle with the specified radius
- */
 export const circle = (r = 1, params: Record<string, any> = {}): ScadObject =>
   object('circle')({
     r,
     ...params,
   });
 
-/**
- * Creates a square with the specified size
- */
 export const square = (size: Vector2D | number = [1, 1], params: Record<string, any> = {}): ScadObject =>
   object('square')({
     size,
@@ -37,9 +25,6 @@ export const square = (size: Vector2D | number = [1, 1], params: Record<string, 
     ...params,
   });
 
-/**
- * Creates a rounded square with the specified size and corner radius
- */
 export const rounded_square = (size: Vector2D | number = 1, radius = 0.125, _params: Record<string, any> = {}): ScadObject => {
   const { center: _center, ...params } = _params;
   const [x, y] = typeof size === 'number' ? [size, size] : size;
@@ -54,9 +39,6 @@ export const rounded_square = (size: Vector2D | number = 1, radius = 0.125, _par
   return (_center === undefined ? center : _center) ? square.translate([-x / 2, -y / 2, 0]) : square;
 };
 
-/**
- * Creates a polygon with the specified points
- */
 export const polygon = (points: Vector2D[] = [], paths: number[][] | typeof undef = undef, convexity = 1): ScadObject =>
   object('polygon')({
     points,
@@ -64,18 +46,12 @@ export const polygon = (points: Vector2D[] = [], paths: number[][] | typeof unde
     convexity,
   });
 
-/**
- * Creates a sphere with the specified radius
- */
 export const sphere = (r = 1, params: Record<string, any> = {}): ScadObject =>
   object('sphere')({
     r,
     ...params,
   });
 
-/**
- * Creates a cube with the specified size
- */
 export const cube = (size: Vector3D | number = [1, 1, 1], params: Record<string, any> = {}): ScadObject =>
   object('cube')({
     size,
@@ -83,9 +59,6 @@ export const cube = (size: Vector3D | number = [1, 1, 1], params: Record<string,
     ...params,
   });
 
-/**
- * Creates a cylinder with the specified height and radius
- */
 export const cylinder = (h = 1, r: number | [number, number] = 1, params: Record<string, any> = {}): ScadObject =>
   object('cylinder')({
     h,
@@ -94,9 +67,6 @@ export const cylinder = (h = 1, r: number | [number, number] = 1, params: Record
     ...params,
   });
 
-/**
- * Creates a polyhedron with the specified points
- */
 export const polyhedron = (points: Vector3D[] = [], paths: number[][] | typeof undef = undef, convexity = 1): ScadObject =>
   object('polyhedron')({
     points,
@@ -104,9 +74,6 @@ export const polyhedron = (points: Vector3D[] = [], paths: number[][] | typeof u
     convexity,
   });
 
-/**
- * Creates a rounded cube with the specified size and corner radius
- */
 export const rounded_cube = (size: Vector3D | number = 1, radius = 0.125, _params: Record<string, any> = {}): ScadObject => {
   const { center: _center, ...params } = _params;
   const [x, y, z] = typeof size === 'number' ? [size, size, size] : size;

@@ -1,6 +1,6 @@
 {
   "name": "scad-js",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Generate OpenSCAD solid models with typescript",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -44,8 +44,5 @@
     "@vitest/coverage-v8": "^3.1.1",
     "typescript": "^5.8.3",
     "vitest": "^3.1.1"
-  },
-  "dependencies": {
-    "openscad-wasm": "^0.0.3"
   }
 }
