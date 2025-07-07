@@ -2,6 +2,33 @@ export type Vector2D = [number, number];
 export type Vector3D = [number, number, number];
 export type Vector = number | Vector2D | Vector3D;
 
+/**
+ * OpenSCAD special variables
+ * These are the built-in variables that control various aspects of OpenSCAD rendering
+ */
+export interface ScadSpecialVariables {
+  /** Minimum angle (degrees) - controls the minimum angle for curved surfaces */
+  $fa?: number;
+  /** Minimum size (mm) - controls the minimum size of fragments */
+  $fs?: number;
+  /** Number of fragments - controls the number of fragments for curved surfaces */
+  $fn?: number;
+  /** Animation step (0-1) - used for animation, varies from 0 to 1 */
+  $t?: number;
+  /** Viewport rotation angles in degrees [x, y, z] */
+  $vpr?: Vector3D;
+  /** Viewport translation [x, y, z] */
+  $vpt?: Vector3D;
+  /** Viewport camera distance */
+  $vpd?: number;
+  /** Viewport camera field of view */
+  $vpf?: number;
+  /** Number of module children */
+  $children?: number;
+  /** True in F5 preview, false for F6 render */
+  $preview?: boolean;
+}
+
 export type ScadPrimitiveType = 'circle' | 'square' | 'polygon' | 'sphere' | 'cube' | 'cylinder' | 'polyhedron';
 
 export type ScadOperationType = 'union' | 'difference' | 'intersection' | 'hull' | 'minkowski';
@@ -120,5 +147,5 @@ export interface ScadObject {
   root: () => ScadObject;
   disable: () => ScadObject;
 
-  serialize: () => string;
+  serialize: (vars?: ScadSpecialVariables & Record<string, any>) => string;
 }
