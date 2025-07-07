@@ -70,4 +70,42 @@ describe('Serialize', () => {
       '}\n'
     );
   });
-}); 
+
+  it('should handle serialize arguments', () => {
+    expect(S.square(5).serialize({ $fn: 10, $fa: 10, $fs: 10 })).toBe(
+      '$fn = 10;\n' +
+      '$fa = 10;\n' +
+      '$fs = 10;\n' +
+      'square(size = 5, center = true);\n'
+    );
+  });
+
+  it('should handle all OpenSCAD special variables', () => {
+    const vars = {
+      $fa: 12,
+      $fs: 2,
+      $fn: 50,
+      $t: 0.5,
+      $vpr: [30, 45, 60] as [number, number, number],
+      $vpt: [10, 20, 30] as [number, number, number],
+      $vpd: 140,
+      $vpf: 22.5,
+      $children: 3,
+      $preview: true
+    };
+
+    expect(S.cube(10).serialize(vars)).toBe(
+      '$fa = 12;\n' +
+      '$fs = 2;\n' +
+      '$fn = 50;\n' +
+      '$t = 0.5;\n' +
+      '$vpr = [30, 45, 60];\n' +
+      '$vpt = [10, 20, 30];\n' +
+      '$vpd = 140;\n' +
+      '$vpf = 22.5;\n' +
+      '$children = 3;\n' +
+      '$preview = true;\n' +
+      'cube(size = 10, center = true);\n'
+    );
+  });
+});
