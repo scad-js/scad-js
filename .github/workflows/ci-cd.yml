@@ -83,17 +83,21 @@ jobs:
         
         # Validate version format (semver)
         if ! echo "$CURRENT_VERSION" | grep -E '^[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*)?(\+[0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*)?$' > /dev/null; then
-          echo "Invalid version format: $CURRENT_VERSION"
+          echo "❌ Invalid version format: $CURRENT_VERSION"
+          echo "Version must follow semantic versioning format (e.g., 1.0.0, 2.1.0-beta.1)"
           exit 1
         fi
         
         # Compare versions using sort -V (version sort)
-        if printf '%s\n' "$PREVIOUS_VERSION" "$CURRENT_VERSION" | sort -V | head -n1 | grep -q "$CURRENT_VERSION"; then
-          echo "New version ($CURRENT_VERSION) is not higher than previous version ($PREVIOUS_VERSION)"
+        # If current version sorts before previous version, it's lower
+        if [ "$(printf '%s\n' "$CURRENT_VERSION" "$PREVIOUS_VERSION" | sort -V | head -n1)" = "$CURRENT_VERSION" ] && [ "$CURRENT_VERSION" != "$PREVIOUS_VERSION" ]; then
+          echo "❌ Version downgrade detected!"
+          echo "Current version ($CURRENT_VERSION) is lower than previous version ($PREVIOUS_VERSION)"
+          echo "Version must be incremented, not decremented."
           exit 1
         fi
         
-        echo "Version bump is valid: $PREVIOUS_VERSION -> $CURRENT_VERSION"
+        echo "✅ Version bump is valid: $PREVIOUS_VERSION -> $CURRENT_VERSION"
         echo "should_release=true" >> $GITHUB_OUTPUT
         echo "current_version=$CURRENT_VERSION" >> $GITHUB_OUTPUT
         echo "previous_version=$PREVIOUS_VERSION" >> $GITHUB_OUTPUT
