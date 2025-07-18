@@ -33,7 +33,7 @@ bun add scad-js typescript
 Or clone the starter template:
 
 ```bash
-git clone https://github.com/20lives/scad-js-starter.git my-scad-js-project
+git clone https://github.com/scad-js/scad-js-starter.git my-scad-js-project
 cd my-scad-js-project
 bun install
 ```

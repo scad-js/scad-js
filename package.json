@@ -1,6 +1,6 @@
 {
   "name": "scad-js",
-  "version": "0.6.3",
+  "version": "0.6.4",
   "description": "Generate OpenSCAD solid models with typescript",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -11,7 +11,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/20lives/scad-js.git"
+    "url": "https://github.com/scad-js/scad-js"
   },
   "keywords": [
     "cad",
@@ -24,9 +24,9 @@
   "license": "MIT",
   "private": false,
   "bugs": {
-    "url": "https://github.com/20lives/scad-js/issues"
+    "url": "https://github.com/scad-js/scad-js/issues"
   },
-  "homepage": "https://github.com/20lives/scad-js#readme",
+  "homepage": "https://github.com/scad-js/scad-js#readme",
   "scripts": {
     "build": "tsc",
     "prepublishOnly": "npm run build",
