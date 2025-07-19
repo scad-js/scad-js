@@ -175,151 +175,128 @@ const scadCode = createHollowedCubeSimple();
 fs.writeFileSync('hollowed-cube-simple.scad', scadCode);
 ```
 
-### Hollowed Cube (Advanced Version)
 
-A cube with circular holes on each face, created by removing six cylinders:
+### Parametric Tower Generator (Advanced)
 
-```typescript
-import { cube, cylinder, difference } from 'scad-js';
-import * as fs from 'fs';
-
-// Create a hollowed cube model with circular holes on each face
-const createHollowedCube = (): string => {
-  // Size parameters
-  const cubeSize = 20;
-  const holeRadius = 7;
-  const holeDepth = cubeSize / 2 + 1; // Make sure holes go through the cube
-  
-  // Create the main cube
-  const mainCube = cube(cubeSize);
-  
-  // Create holes for each face
-  // X-axis holes
-  const holeX1 = (cylinder(holeDepth, holeRadius) as any)
-    .rotate(90, [0, 1, 0]) // Rotate around Y axis
-    .translate([-holeDepth/2, 0, 0]);
-  
-  const holeX2 = (cylinder(holeDepth, holeRadius) as any)
-    .rotate(90, [0, 1, 0]) // Rotate around Y axis
-    .translate([cubeSize-holeDepth/2, 0, 0]);
-  
-  // Y-axis holes
-  const holeY1 = (cylinder(holeDepth, holeRadius) as any)
-    .rotate(90, [1, 0, 0]) // Rotate around X axis
-    .translate([0, -holeDepth/2, 0]);
-  
-  const holeY2 = (cylinder(holeDepth, holeRadius) as any)
-    .rotate(90, [1, 0, 0]) // Rotate around X axis
-    .translate([0, cubeSize-holeDepth/2, 0]);
-  
-  // Z-axis holes
-  const holeZ1 = cylinder(holeDepth, holeRadius)
-    .translate([0, 0, -holeDepth/2]);
-  
-  const holeZ2 = cylinder(holeDepth, holeRadius)
-    .translate([0, 0, cubeSize-holeDepth/2]);
-  
-  // Combine everything using difference operation to cut out the holes
-  const model = difference(
-    mainCube,
-    holeX1, holeX2,
-    holeY1, holeY2,
-    holeZ1, holeZ2
-  )
-  .translate([-cubeSize/2, -cubeSize/2, -cubeSize/2]); // Center the model
-  
-  // Set color to yellow/gold
-  const coloredModel = (model as any).color([1, 0.8, 0]);
-  
-  // Serialize to OpenSCAD code
-  return coloredModel.serialize();
-};
-
-// Generate the OpenSCAD code
-const scadCode = createHollowedCube();
-fs.writeFileSync('hollowed-cube.scad', scadCode);
-```
-
-### Gear Example
-
-A more complex example showing how to create a gear with teeth and mounting holes:
+This example showcases the true power of JavaScript for generative 3D modeling by creating complex architectural structures:
 
 ```typescript
-import { cube, cylinder, union, difference, rotate, translate } from 'scad-js';
+import { cube, cylinder, sphere, union, difference, hull, type ScadObject } from 'scad-js';
 import { writeFileSync } from 'fs';
 
-// Gear parameters
-const teeth = 20;
-const toothWidth = 5;
-const toothHeight = 4;
-const innerRadius = 20;
-const outerRadius = innerRadius + toothHeight;
-const gearThickness = 8;
-
-// Helper: create one tooth
-function createTooth(angle) {
-  const tooth = cube([toothWidth, toothHeight, gearThickness]);
-  return tooth.translate([-(toothWidth / 2), innerRadius, 0]).rotate([0, 0, angle]);
+// Tower configuration - easily customizable parameters
+interface TowerConfig {
+  floors: number;
+  floorHeight: number;
+  baseWidth: number;
+  topWidth: number;
+  windowsPerFloor: number;
+  curveIntensity: number; // Creates organic curves
+  balconyEveryNFloors: number;
 }
 
-// Generate all teeth
-function createTeeth() {
-  const angleStep = 360 / teeth;
-  const teethArray = [];
-  for (let i = 0; i < teeth; i++) {
-    teethArray.push(createTooth(i * angleStep));
-  }
-  return union(...teethArray);
+const config: TowerConfig = {
+  floors: 12,
+  floorHeight: 4,
+  baseWidth: 20,
+  topWidth: 12,
+  windowsPerFloor: 8,
+  curveIntensity: 0.3,
+  balconyEveryNFloors: 3
+};
+
+// Mathematical curve calculation for organic shapes
+function calculateFloorWidth(floorIndex: number, totalFloors: number, baseWidth: number, topWidth: number, curveIntensity: number): number {
+  const linearRatio = floorIndex / (totalFloors - 1);
+  const curveOffset = Math.sin(linearRatio * Math.PI) * curveIntensity * (baseWidth - topWidth) * 0.3;
+  const width = baseWidth + (topWidth - baseWidth) * linearRatio + curveOffset;
+  return Math.max(width, topWidth * 0.8);
 }
 
-// Create main gear body
-const gearBody = cylinder(gearThickness, innerRadius , { center: true });
+// Generate multiple tower variations from the same codebase
+const towers = [
+  { name: 'classic_tower', config: { ...config } },
+  { name: 'curved_tower', config: { ...config, curveIntensity: 0.8, floors: 15 } },
+  { name: 'modern_tower', config: { ...config, windowsPerFloor: 12, floors: 18 } }
+];
 
-// Create decorative ring
-const decorativeRing = difference(
-  cylinder(gearThickness, outerRadius + 4, { center: true }),
-  cylinder(gearThickness, outerRadius + 2, { center: true })
-);
-
-// Create mounting holes
-function createMountingHoles() {
-  const holes = [];
-  const holeRadius = 2;
-  const holeDistance = innerRadius / 2;
-  const holeCount = 6;
-  const angleStep = 360 / holeCount;
-
-  for (let i = 0; i < holeCount; i++) {
-    const angleRad = (i * angleStep * Math.PI) / 180;
-    const x = Math.cos(angleRad) * holeDistance;
-    const y = Math.sin(angleRad) * holeDistance;
-    const hole = cylinder(gearThickness * 2, holeRadius, { center: true }).translate([x, y, 0]);
-    holes.push(hole);
-  }
-
-  return union(holes);
-}
-
-// Final assembly
-const gear = difference(
-  union(gearBody, createTeeth(), decorativeRing),
-  createMountingHoles()
-);
-
-// Export to SCAD
-const scadData = gear.serialize();
-writeFileSync('gear.scad', scadData);
+// Generate all variations using JavaScript loops and math
+towers.forEach(({ name, config }) => {
+  const tower = generateParametricTower(config);
+  writeFileSync(`${name}.scad`, tower.serialize({ $fn: 50 }));
+});
 ```
+
+**This example demonstrates:**
+- 🔄 **Loops** for generating repetitive elements (floors, windows)
+- 📐 **Mathematical calculations** for organic curves and precise positioning  
+- 🎛️ **Conditional logic** for feature placement (balconies, decorative elements)
+- 🧩 **Modular functions** for reusable components
+- 📊 **Data structures** for managing complex geometry collections
+- ⚙️ **Parameterization** for instant design variations
+- 🎨 **Multiple outputs** from a single codebase
+
+*This level of parametric modeling would be extremely difficult to achieve in pure OpenSCAD!*
+
+### Functional Design Examples
+
+**scad-js** excels at creating practical, real-world objects with complex engineering requirements:
+
+#### 📱 Parametric Phone Stand
+
+```typescript
+// Customizable for any device size and viewing angle
+const phoneStand = generatePhoneStand({
+  phoneWidth: 75,
+  standAngle: 60,          // Perfect viewing angle
+  cableSlot: true,         // Charging cable management
+  weightingHoles: true,    // Add coins for stability
+  rubberGrips: true        // Non-slip base pads
+});
+
+// Generate multiple variations for different use cases
+const variations = [
+  { name: 'desk_work', angle: 45, depth: 60 },
+  { name: 'video_calls', angle: 75, height: 70 },
+  { name: 'bedside', angle: 55, compact: true }
+];
+```
+
+#### 🖊️ Modular Pen Holder
+
+```typescript
+// Smart compartment arrangement with automatic layout
+const penHolder = generatePenHolder({
+  compartments: [
+    { type: 'pen', quantity: 3 },
+    { type: 'marker', quantity: 2 },
+    { type: 'business_cards', quantity: 1 },
+    { type: 'scissors', quantity: 1 }
+  ],
+  phoneSlot: true,         // Built-in phone stand
+  drawerSlot: true,        // Hidden storage drawer
+  cableManagement: true,   // Wire routing holes
+  labelAreas: true         // Raised text areas
+});
+```
+
+**Engineering features demonstrated:**
+- 📐 **Precise angle calculations** for optimal viewing/ergonomics
+- 🔧 **Engineering tolerances** for 3D printing requirements  
+- 📱 **Multi-device compatibility** through parameterization
+- 🎯 **Functional features** like cable management and stability
+- 🏗️ **Modular design** with reusable components
+- 📊 **Automatic layout algorithms** for optimal space usage
 
 ### Running Examples
 
 To run any of these examples:
 
 ```bash
-bun run ./your-example.ts
+bun run ./examples/your-example.ts
 ```
 
-This will generate an OpenSCAD file that you can open and render in OpenSCAD.
+This will generate OpenSCAD files that you can open and render in OpenSCAD, plus STL files ready for 3D printing.
 
 ## Acknowledgements
 
