@@ -1,5 +1,6 @@
 import modifiers from './modifiers';
 import { hull } from './operations';
+import render from './render';
 import serialize from './serialize';
 import * as transformations from './transformations';
 import type { ScadObject, ScadPrimitiveType, Vector2D, Vector3D } from './types';
@@ -10,7 +11,7 @@ const center = true;
 const object =
   (type: ScadPrimitiveType) =>
   (params: Record<string, any>): ScadObject =>
-    create({ ...transformations, ...modifiers, serialize }, { type, params });
+    create({ ...transformations, ...modifiers, serialize, render }, { type, params });
 
 export const circle = (r = 1, params: Record<string, any> = {}): ScadObject =>
   object('circle')({

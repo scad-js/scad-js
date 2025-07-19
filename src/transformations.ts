@@ -1,4 +1,5 @@
 import modifiers from './modifiers';
+import render from './render';
 import serialize from './serialize';
 import type { ScadObject, ScadType, Vector2D, Vector3D } from './types';
 import { create, undef } from './utils';
@@ -7,7 +8,7 @@ const transformation =
   (type: string) =>
   (obj: ScadObject, params: Record<string, any>): ScadObject => {
     const scadType = type as ScadType;
-    return create({ ...transformations, ...modifiers, serialize }, { type: scadType, params, children: [obj] });
+    return create({ ...transformations, ...modifiers, serialize, render }, { type: scadType, params, children: [obj] });
   };
 
 function translate(this: ScadObject, v: Vector3D): ScadObject {
@@ -143,6 +144,8 @@ export const transformations = {
   projection,
   linear_extrude,
   rotate_extrude,
+  serialize,
+  render,
 };
 
 export {
