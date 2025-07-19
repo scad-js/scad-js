@@ -69,6 +69,10 @@ const scadCode = model.serialize();
 
 // Save the result to a file
 fs.writeFileSync('model.scad', scadCode);
+
+// Or render directly to STL (requires openscad-wasm)
+const stlData = await model.render();
+fs.writeFileSync('model.stl', stlData);
 ```
 
 Then run:
@@ -77,7 +81,7 @@ Then run:
 bun run your-model.ts
 ```
 
-This will generate an OpenSCAD file that you can open and render.
+This will generate an OpenSCAD file that you can open and render, or directly generate an STL file.
 
 ## Documentation
 

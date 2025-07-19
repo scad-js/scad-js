@@ -148,4 +148,5 @@ export interface ScadObject {
   disable: () => ScadObject;
 
   serialize: (vars?: ScadSpecialVariables & Record<string, any>) => string;
+  render: (vars?: ScadSpecialVariables & Record<string, any>) => Promise<string>;
 }

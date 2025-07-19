@@ -4,7 +4,7 @@
     "": {
       "name": "scad-js",
       "dependencies": {
-        "openscad-wasm": "^0.0.3",
+        "openscad-wasm": "^0.0.4",
       },
       "devDependencies": {
         "@biomejs/biome": "^1.9.4",
@@ -252,7 +252,7 @@
 
     "nanoid": ["nanoid@3.3.11", "", { "bin": { "nanoid": "bin/nanoid.cjs" } }, "sha512-N8SpfPUnUp1bK+PMYW8qSWdl9U+wwNWI4QKxOYDy9JAro3WMX7p2OeVRF9v+347pnakNevPmiHhNmZ2HbFA76w=="],
 
-    "openscad-wasm": ["openscad-wasm@0.0.3", "", {}, "sha512-Dxreq5htg16CSScBDMU5FSIGPxJj8FnMR8i1sw3ZRz0FKrX1xAGDsgxs76GunLfBIGYvUtcaiPDQ8PCTeZiN8g=="],
+    "openscad-wasm": ["openscad-wasm@0.0.4", "", {}, "sha512-ChYe3cgL4JBstRVrR6XnhvF/4E9EsFR1kmGks7eTIT2awSMYVkoeYmFLt80h4V4J/DPIJw106MhIiIv6V9XpLA=="],
 
     "package-json-from-dist": ["package-json-from-dist@1.0.1", "", {}, "sha512-UEZIS3/by4OC8vL3P2dTXRETpebLI2NiI5vIrjaD/5UtrkFX/tNbwjTSRAGC/+7CAo2pIcBaRgWmcBBHcsaCIw=="],
 

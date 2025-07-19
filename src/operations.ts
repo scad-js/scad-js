@@ -1,4 +1,5 @@
 import modifiers from './modifiers';
+import render from './render';
 import serialize from './serialize';
 import * as transformations from './transformations';
 import type { ScadObject, ScadOperationType } from './types';
@@ -7,7 +8,7 @@ import { create } from './utils';
 const operation =
   (type: ScadOperationType) =>
   (...children: ScadObject[]): ScadObject =>
-    create({ ...transformations, ...modifiers, serialize }, { type, children });
+    create({ ...transformations, ...modifiers, serialize, render }, { type, children });
 
 export const union = operation('union');
 export const difference = operation('difference');
