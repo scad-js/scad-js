@@ -149,24 +149,20 @@ jobs:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_ACCESS_TOKEN }}
         
     - name: Create GitHub Release
-      uses: actions/create-release@v1
+      run: |
+        gh release create v${{ steps.version.outputs.version }} \
+          --title "Release v${{ steps.version.outputs.version }}" \
+          --notes "## What's Changed
+
+        This is an automated release for version ${{ steps.version.outputs.version }}.
+
+        ### Version Bump
+        - Previous version: ${{ needs.test.outputs.previous_version }}
+        - New version: ${{ steps.version.outputs.version }}
+
+        ### Build Info
+        - Commit: ${{ github.sha }}
+        - Branch: ${{ github.ref_name }}
+        - Triggered by: ${{ github.actor }}"
       env:
-        GITHUB_TOKEN: ${{ secrets.GH_ACCESS_TOKEN }}
-      with:
-        tag_name: v${{ steps.version.outputs.version }}
-        release_name: Release v${{ steps.version.outputs.version }}
-        body: |
-          ## What's Changed
-          
-          This is an automated release for version ${{ steps.version.outputs.version }}.
-          
-          ### Version Bump
-          - Previous version: ${{ needs.check-version.outputs.previous_version }}
-          - New version: ${{ steps.version.outputs.version }}
-          
-          ### Build Info
-          - Commit: ${{ github.sha }}
-          - Branch: ${{ github.ref_name }}
-          - Triggered by: ${{ github.actor }}
-        draft: false
-        prerelease: false
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
