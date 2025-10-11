@@ -13,7 +13,7 @@ describe('Transformations', () => {
 
     it('should translate along x-axis', () => {
       const square = S.square();
-      expect((square as any).translate_x(8)).toMatchObject({
+      expect(square.translate_x(8)).toMatchObject({
         type: 'translate',
         params: { v: [8, 0, 0] },
         children: [S.square()],
@@ -22,7 +22,7 @@ describe('Transformations', () => {
 
     it('should translate along y-axis', () => {
       const square = S.square();
-      expect((square as any).translate_y(4)).toMatchObject({
+      expect(square.translate_y(4)).toMatchObject({
         type: 'translate',
         params: { v: [0, 4, 0] },
         children: [S.square()],
@@ -31,7 +31,7 @@ describe('Transformations', () => {
 
     it('should translate along z-axis', () => {
       const cube = S.cube();
-      expect((cube as any).translate_z(6)).toMatchObject({
+      expect(cube.translate_z(6)).toMatchObject({
         type: 'translate',
         params: { v: [0, 0, 6] },
         children: [S.cube()],
@@ -50,7 +50,7 @@ describe('Transformations', () => {
 
     it('should scale along x-axis', () => {
       const square = S.square();
-      expect((square as any).scale_x(1.5)).toMatchObject({
+      expect(square.scale_x(1.5)).toMatchObject({
         type: 'scale',
         params: { v: [1.5, 1, 1] },
         children: [S.square()],
@@ -59,7 +59,7 @@ describe('Transformations', () => {
 
     it('should scale along y-axis', () => {
       const square = S.square();
-      expect((square as any).scale_y(2)).toMatchObject({
+      expect(square.scale_y(2)).toMatchObject({
         type: 'scale',
         params: { v: [1, 2, 1] },
         children: [S.square()],
@@ -68,7 +68,7 @@ describe('Transformations', () => {
 
     it('should scale along z-axis', () => {
       const square = S.square();
-      expect((square as any).scale_z(0.5)).toMatchObject({
+      expect(square.scale_z(0.5)).toMatchObject({
         type: 'scale',
         params: { v: [1, 1, 0.5] },
         children: [S.square()],
@@ -87,7 +87,7 @@ describe('Transformations', () => {
 
     it('should resize with auto parameter', () => {
       const square = S.square();
-      expect((square as any).resize([5, 2, 3], true)).toMatchObject({
+      expect(square.resize([5, 2, 3], true)).toMatchObject({
         type: 'resize',
         params: { newsize: [5, 2, 3], auto: true },
         children: [S.square()],
@@ -106,7 +106,7 @@ describe('Transformations', () => {
 
     it('should mirror along x-axis', () => {
       const square = S.square();
-      expect((square as any).mirror_x()).toMatchObject({
+      expect(square.mirror_x()).toMatchObject({
         type: 'mirror',
         params: { v: [1, 0, 0] },
         children: [S.square()],
@@ -115,7 +115,7 @@ describe('Transformations', () => {
 
     it('should mirror along y-axis', () => {
       const square = S.square();
-      expect((square as any).mirror_y()).toMatchObject({
+      expect(square.mirror_y()).toMatchObject({
         type: 'mirror',
         params: { v: [0, 1, 0] },
         children: [S.square()],
@@ -124,7 +124,7 @@ describe('Transformations', () => {
 
     it('should mirror along z-axis', () => {
       const square = S.square();
-      expect((square as any).mirror_z()).toMatchObject({
+      expect(square.mirror_z()).toMatchObject({
         type: 'mirror',
         params: { v: [0, 0, 1] },
         children: [S.square()],
@@ -161,7 +161,7 @@ describe('Transformations', () => {
 
     it('should add rotate transformation with angle and vector', () => {
       const square = S.square();
-      expect((square as any).rotate(90, [1, 0, 0])).toMatchObject({
+      expect(square.rotate(90, [1, 0, 0])).toMatchObject({
         type: 'rotate',
         params: { a: 90, v: [1, 0, 0] },
         children: [S.square()],
@@ -170,7 +170,7 @@ describe('Transformations', () => {
 
     it('should rotate around x-axis', () => {
       const square = S.square();
-      expect((square as any).rotate_x(45)).toMatchObject({
+      expect(square.rotate_x(45)).toMatchObject({
         type: 'rotate',
         params: { a: 45, v: [1, 0, 0] },
         children: [S.square()],
@@ -179,7 +179,7 @@ describe('Transformations', () => {
 
     it('should rotate around y-axis', () => {
       const square = S.square();
-      expect((square as any).rotate_y(90)).toMatchObject({
+      expect(square.rotate_y(90)).toMatchObject({
         type: 'rotate',
         params: { a: 90, v: [0, 1, 0] },
         children: [S.square()],
@@ -188,7 +188,7 @@ describe('Transformations', () => {
 
     it('should rotate around z-axis', () => {
       const square = S.square();
-      expect((square as any).rotate_z(180)).toMatchObject({
+      expect(square.rotate_z(180)).toMatchObject({
         type: 'rotate',
         params: { a: 180, v: [0, 0, 1] },
         children: [S.square()],
@@ -196,40 +196,37 @@ describe('Transformations', () => {
     });
   });
 
-  // Note: We're using any type casting for the following transformations
-  // that aren't fully typed in our types.ts file
-  
   describe('offset transformations', () => {
     it('should add radius_offset transformation with default values', () => {
       const square = S.square();
-      expect((square as any).radius_offset()).toMatchObject({
+      expect(square.radius_offset()).toMatchObject({
         type: 'offset',
         params: { r: 'undef', delta: 'undef', chamfer: 'undef' },
         children: [S.square()],
       });
     });
-    
+
     it('should add radius_offset transformation with specific radius', () => {
       const square = S.square();
-      expect((square as any).radius_offset(5)).toMatchObject({
+      expect(square.radius_offset(5)).toMatchObject({
         type: 'offset',
         params: { r: 5, delta: 'undef', chamfer: 'undef' },
         children: [S.square()],
       });
     });
-    
+
     it('should add delta_offset transformation with default chamfer', () => {
       const square = S.square();
-      expect((square as any).delta_offset(8)).toMatchObject({
+      expect(square.delta_offset(8)).toMatchObject({
         type: 'offset',
         params: { r: 'undef', delta: 8, chamfer: false },
         children: [S.square()],
       });
     });
-    
+
     it('should add delta_offset transformation with true chamfer', () => {
       const square = S.square();
-      expect((square as any).delta_offset(8, true)).toMatchObject({
+      expect(square.delta_offset(8, true)).toMatchObject({
         type: 'offset',
         params: { r: 'undef', delta: 8, chamfer: true },
         children: [S.square()],
@@ -240,16 +237,16 @@ describe('Transformations', () => {
   describe('projection', () => {
     it('should add projection transformation with default cut', () => {
       const square = S.square();
-      expect((square as any).projection()).toMatchObject({
+      expect(square.projection()).toMatchObject({
         type: 'projection',
         params: { cut: false },
         children: [S.square()],
       });
     });
-    
+
     it('should add projection transformation with cut=true', () => {
       const square = S.square();
-      expect((square as any).projection(true)).toMatchObject({
+      expect(square.projection(true)).toMatchObject({
         type: 'projection',
         params: { cut: true },
         children: [S.square()],
@@ -260,7 +257,7 @@ describe('Transformations', () => {
   describe('extrusions', () => {
     it('should add linear_extrude transformation with default values', () => {
       const square = S.square();
-      expect((square as any).linear_extrude()).toMatchObject({
+      expect(square.linear_extrude()).toMatchObject({
         type: 'linear_extrude',
         params: {
           height: 'undef',
@@ -274,10 +271,10 @@ describe('Transformations', () => {
         children: [S.square()],
       });
     });
-    
+
     it('should add linear_extrude transformation with height', () => {
       const square = S.square();
-      expect((square as any).linear_extrude(5)).toMatchObject({
+      expect(square.linear_extrude(5)).toMatchObject({
         type: 'linear_extrude',
         params: {
           height: 5,
@@ -291,10 +288,10 @@ describe('Transformations', () => {
         children: [S.square()],
       });
     });
-    
+
     it('should add linear_extrude transformation with additional parameters', () => {
       const square = S.square();
-      expect((square as any).linear_extrude(5, { center: true, scale: 2 })).toMatchObject({
+      expect(square.linear_extrude(5, { center: true, scale: 2 })).toMatchObject({
         type: 'linear_extrude',
         params: {
           height: 5,
@@ -308,19 +305,19 @@ describe('Transformations', () => {
         children: [S.square()],
       });
     });
-    
+
     it('should add rotate_extrude transformation with default values', () => {
       const square = S.square();
-      expect((square as any).rotate_extrude()).toMatchObject({
+      expect(square.rotate_extrude()).toMatchObject({
         type: 'rotate_extrude',
         params: { angle: 360, convexity: 2, $fn: 10 },
         children: [S.square()],
       });
     });
-    
+
     it('should add rotate_extrude transformation with angle and parameters', () => {
       const square = S.square();
-      expect((square as any).rotate_extrude(180, { convexity: 4, $fn: 20 })).toMatchObject({
+      expect(square.rotate_extrude(180, { convexity: 4, $fn: 20 })).toMatchObject({
         type: 'rotate_extrude',
         params: { angle: 180, convexity: 4, $fn: 20 },
         children: [S.square()],
