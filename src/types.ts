@@ -135,12 +135,29 @@ export interface ScadObject {
   children?: ScadObject[];
 
   translate: (v: Vector3D) => ScadObject;
-  rotate: (a: Vector3D | number) => ScadObject;
+  translate_x: (x: number) => ScadObject;
+  translate_y: (y: number) => ScadObject;
+  translate_z: (z: number) => ScadObject;
+  rotate: (a: Vector3D | number, v?: Vector3D) => ScadObject;
+  rotate_x: (a: number) => ScadObject;
+  rotate_y: (a: number) => ScadObject;
+  rotate_z: (a: number) => ScadObject;
   scale: (v: Vector3D) => ScadObject;
-  resize: (newsize: Vector3D) => ScadObject;
+  scale_x: (x: number) => ScadObject;
+  scale_y: (y: number) => ScadObject;
+  scale_z: (z: number) => ScadObject;
+  resize: (v: Vector3D, auto?: boolean) => ScadObject;
   mirror: (v: Vector3D) => ScadObject;
+  mirror_x: () => ScadObject;
+  mirror_y: () => ScadObject;
+  mirror_z: () => ScadObject;
   multmatrix: (m: number[][]) => ScadObject;
   color: (c: string | Vector3D | Vector2D, alpha?: number) => ScadObject;
+  radius_offset: (r?: number) => ScadObject;
+  delta_offset: (delta: number, chamfer?: boolean) => ScadObject;
+  projection: (cut?: boolean) => ScadObject;
+  linear_extrude: (height?: number, params?: Record<string, any>) => ScadObject;
+  rotate_extrude: (angle?: number, params?: Record<string, any>) => ScadObject;
 
   debug: () => ScadObject;
   background: () => ScadObject;
