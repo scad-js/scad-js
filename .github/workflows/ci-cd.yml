@@ -46,27 +46,21 @@ jobs:
         verbose: true
 
         
-    - name: Get current version
-      id: current-version
+    - name: Get versions
+      id: versions
       run: |
-        CURRENT_VERSION=$(node -p "require('./package.json').version")
-        echo "current_version=$CURRENT_VERSION" >> $GITHUB_OUTPUT
-        echo "Current version: $CURRENT_VERSION"
-        
-    - name: Get previous version
-      id: previous-version
-      run: |
-        # Get the version from master branch
-        git fetch origin master
-        PREVIOUS_VERSION=$(git show origin/master:package.json | node -p "JSON.parse(require('fs').readFileSync('/dev/stdin', 'utf8')).version")
+        PREVIOUS_VERSION=$(git show HEAD^:package.json | jq -r .version)
+        CURRENT_VERSION=$(git show HEAD:package.json | jq -r .version)
         echo "previous_version=$PREVIOUS_VERSION" >> $GITHUB_OUTPUT
-        echo "Previous version (from master): $PREVIOUS_VERSION"
+        echo "current_version=$CURRENT_VERSION" >> $GITHUB_OUTPUT
+        echo "Previous version: $PREVIOUS_VERSION"
+        echo "Current version: $CURRENT_VERSION"
         
     - name: Check if version was bumped
       id: version-check
       run: |
-        CURRENT_VERSION="${{ steps.current-version.outputs.current_version }}"
-        PREVIOUS_VERSION="${{ steps.previous-version.outputs.previous_version }}"
+        CURRENT_VERSION="${{ steps.versions.outputs.current_version }}"
+        PREVIOUS_VERSION="${{ steps.versions.outputs.previous_version }}"
         
         echo "Comparing versions: $PREVIOUS_VERSION -> $CURRENT_VERSION"
         
@@ -102,8 +96,8 @@ jobs:
 
     outputs:
       should_release: ${{ steps.version-check.outputs.should_release }}
-      current_version: ${{ steps.current-version.outputs.current_version }}
-      previous_version: ${{ steps.previous-version.outputs.previous_version }}
+      current_version: ${{ steps.versions.outputs.current_version }}
+      previous_version: ${{ steps.versions.outputs.previous_version }}
     
 
   release:
