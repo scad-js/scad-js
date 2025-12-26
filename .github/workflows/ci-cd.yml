@@ -49,12 +49,16 @@ jobs:
     - name: Get versions
       id: versions
       run: |
-        PREVIOUS_VERSION=$(git show HEAD^:package.json | jq -r .version)
-        CURRENT_VERSION=$(git show HEAD:package.json | jq -r .version)
+        CURRENT_VERSION=$(jq -r .version package.json)
+        PACKAGE_NAME=$(jq -r .name package.json)
+
+        # Get latest published version from npm registry
+        PREVIOUS_VERSION=$(npm view "$PACKAGE_NAME" version 2>/dev/null || echo "0.0.0")
+
         echo "previous_version=$PREVIOUS_VERSION" >> $GITHUB_OUTPUT
         echo "current_version=$CURRENT_VERSION" >> $GITHUB_OUTPUT
-        echo "Previous version: $PREVIOUS_VERSION"
-        echo "Current version: $CURRENT_VERSION"
+        echo "NPM registry version: $PREVIOUS_VERSION"
+        echo "Current package.json version: $CURRENT_VERSION"
         
     - name: Check if version was bumped
       id: version-check
