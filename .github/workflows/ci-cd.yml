@@ -56,13 +56,11 @@ jobs:
     - name: Get previous version
       id: previous-version
       run: |
-        # Get the previous commit on master
-        PREVIOUS_COMMIT=$(git rev-parse HEAD~1)
-        git checkout $PREVIOUS_COMMIT
-        PREVIOUS_VERSION=$(node -p "require('./package.json').version")
+        # Get the version from master branch
+        git fetch origin master
+        PREVIOUS_VERSION=$(git show origin/master:package.json | node -p "JSON.parse(require('fs').readFileSync('/dev/stdin', 'utf8')).version")
         echo "previous_version=$PREVIOUS_VERSION" >> $GITHUB_OUTPUT
-        echo "Previous version: $PREVIOUS_VERSION"
-        git checkout HEAD
+        echo "Previous version (from master): $PREVIOUS_VERSION"
         
     - name: Check if version was bumped
       id: version-check
