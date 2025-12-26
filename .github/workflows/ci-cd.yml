@@ -108,7 +108,10 @@ jobs:
     runs-on: ubuntu-latest
     needs: [test]
     if: github.event_name == 'push' && github.ref == 'refs/heads/master' && needs.test.outputs.should_release == 'true'
-    
+    permissions:
+      contents: write
+      id-token: write  # Required for provenance and trusted publishing
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
@@ -140,9 +143,7 @@ jobs:
         echo "Publishing version: $VERSION"
         
     - name: Publish to NPM
-      run: npm publish
-      env:
-        NODE_AUTH_TOKEN: ${{ secrets.NPM_ACCESS_TOKEN }}
+      run: npm publish --provenance --access public
         
     - name: Create GitHub Release
       run: |
