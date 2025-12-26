@@ -306,6 +306,23 @@ describe('Transformations', () => {
       });
     });
 
+    it('should allow $fn to be set to 0 on linear_extrude', () => {
+      const square = S.square();
+      expect(square.linear_extrude(5, { $fn: 0 })).toMatchObject({
+        type: 'linear_extrude',
+        params: {
+          height: 5,
+          center: false,
+          convexity: 'undef',
+          twist: 'undef',
+          slices: 'undef',
+          scale: 1,
+          $fn: 0,
+        },
+        children: [S.square()],
+      });
+    });
+
     it('should add rotate_extrude transformation with default values', () => {
       const square = S.square();
       expect(square.rotate_extrude()).toMatchObject({
@@ -320,6 +337,15 @@ describe('Transformations', () => {
       expect(square.rotate_extrude(180, { convexity: 4, $fn: 20 })).toMatchObject({
         type: 'rotate_extrude',
         params: { angle: 180, convexity: 4, $fn: 20 },
+        children: [S.square()],
+      });
+    });
+
+    it('should allow $fn to be set to 0', () => {
+      const square = S.square();
+      expect(square.rotate_extrude(180, { $fn: 0 })).toMatchObject({
+        type: 'rotate_extrude',
+        params: { angle: 180, convexity: 2, $fn: 0 },
         children: [S.square()],
       });
     });
