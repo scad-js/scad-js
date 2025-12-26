@@ -102,20 +102,20 @@ function projection(this: ScadObject, cut = false): ScadObject {
 function linear_extrude(this: ScadObject, height: number | typeof undef = undef, params: Record<string, any> = {}): ScadObject {
   return transformation('linear_extrude')(this, {
     height,
-    center: params.center || false,
-    convexity: params.convexity || undef,
-    twist: params.twist || undef,
-    slices: params.slices || undef,
-    scale: params.scale || 1,
-    $fn: params.$fn || 20,
+    center: params.center ?? false,
+    convexity: params.convexity ?? undef,
+    twist: params.twist ?? undef,
+    slices: params.slices ?? undef,
+    scale: params.scale ?? 1,
+    $fn: params.$fn ?? 20,
   });
 }
 
 function rotate_extrude(this: ScadObject, angle = 360, params: Record<string, any> = {}): ScadObject {
   return transformation('rotate_extrude')(this, {
     angle,
-    convexity: params.convexity || 2,
-    $fn: params.$fn || 10,
+    convexity: params.convexity ?? 2,
+    $fn: params.$fn ?? 10,
   });
 }
 
