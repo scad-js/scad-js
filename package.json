@@ -40,11 +40,11 @@
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
-    "@biomejs/biome": "^1.9.4",
-    "@types/node": "^20.17.30",
-    "@vitest/coverage-v8": "^3.1.1",
-    "typescript": "^5.8.3",
-    "vitest": "^3.1.1"
+    "@biomejs/biome": "^2.3.10",
+    "@types/node": "^20.19.27",
+    "@vitest/coverage-v8": "^3.2.4",
+    "typescript": "^5.9.3",
+    "vitest": "^3.2.4"
   },
   "dependencies": {
     "openscad-wasm": "^0.0.4"

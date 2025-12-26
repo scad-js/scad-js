@@ -1,23 +1,20 @@
 {
-  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
-  "organizeImports": {
-    "enabled": true
-  },
+  "$schema": "https://biomejs.dev/schemas/2.3.10/schema.json",
+  "assist": { "actions": { "source": { "organizeImports": "on" } } },
   "linter": {
     "enabled": true,
     "rules": {
       "recommended": true,
       "correctness": {
-        "all": true,
         "useExhaustiveDependencies": "off",
         "useImportExtensions": "off"
       },
       "style": {
         "noNonNullAssertion": "off",
         "useBlockStatements": "error",
-        "useShorthandArrayType": "error",
         "useTemplate": "error",
-        "noShoutyConstants": "off"
+        "noShoutyConstants": "off",
+        "useConsistentArrayType": { "level": "error", "options": { "syntax": "shorthand" } }
       },
       "suspicious": {
         "noExplicitAny": "off",
@@ -26,12 +23,8 @@
       "complexity": {
         "noStaticOnlyClass": "off"
       },
-      "a11y": {
-        "all": false
-      },
-      "nursery": {
-        "all": false
-      }
+      "a11y": {},
+      "nursery": {}
     }
   },
   "formatter": {
@@ -48,11 +41,6 @@
     }
   },
   "files": {
-    "ignore": [
-      "dist/**/*",
-      "node_modules/**/*",
-      "coverage/**/*",
-      "test/*.js"
-    ]
+    "includes": ["**", "!**/dist/**/*", "!**/node_modules/**/*", "!**/coverage/**/*", "!**/test/**/*.js"]
   }
-} 
+}
