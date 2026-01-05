@@ -1,4 +1,4 @@
-import { cube, cylinder, difference, type ScadObject } from '../src';
+import { cube, cylinder, difference, type ScadObject } from 'scad-js';
 import { writeFileSync } from 'fs'; 
 
 // Create a hollowed cube model with circular holes on each face

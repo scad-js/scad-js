@@ -15,12 +15,12 @@ jobs:
       uses: actions/checkout@v4
       with:
         fetch-depth: 0
-        
+
     - name: Setup Bun
       uses: oven-sh/setup-bun@v1
       with:
         bun-version: latest
-        
+
     - name: Install dependencies
       run: bun install
 
@@ -29,28 +29,28 @@ jobs:
 
     - name: Run linting
       run: bun run lint
-      
+
     - name: Run formatting check
       run: bun run check
-      
+
     - name: Run tests with coverage
       run: bun run coverage
-      
+
     - name: Upload coverage reports to Codecov
       uses: codecov/codecov-action@v3
       with:
-        file: ./coverage/coverage-final.json
+        file: ./packages/scad-js/coverage/coverage-final.json
         flags: unittests
         name: codecov-umbrella
         fail_ci_if_error: false
         verbose: true
 
-        
+
     - name: Get versions
       id: versions
       run: |
-        CURRENT_VERSION=$(jq -r .version package.json)
-        PACKAGE_NAME=$(jq -r .name package.json)
+        CURRENT_VERSION=$(jq -r .version packages/scad-js/package.json)
+        PACKAGE_NAME=$(jq -r .name packages/scad-js/package.json)
 
         # Get latest published version from npm registry
         PREVIOUS_VERSION=$(npm view "$PACKAGE_NAME" version 2>/dev/null || echo "0.0.0")
@@ -59,15 +59,15 @@ jobs:
         echo "current_version=$CURRENT_VERSION" >> $GITHUB_OUTPUT
         echo "NPM registry version: $PREVIOUS_VERSION"
         echo "Current package.json version: $CURRENT_VERSION"
-        
+
     - name: Check if version was bumped
       id: version-check
       run: |
         CURRENT_VERSION="${{ steps.versions.outputs.current_version }}"
         PREVIOUS_VERSION="${{ steps.versions.outputs.previous_version }}"
-        
+
         echo "Comparing versions: $PREVIOUS_VERSION -> $CURRENT_VERSION"
-        
+
         # Check if version was actually changed
         if [ "$CURRENT_VERSION" = "$PREVIOUS_VERSION" ]; then
           echo "Version was not changed. Skipping release."
@@ -76,14 +76,14 @@ jobs:
           echo "previous_version=$PREVIOUS_VERSION" >> $GITHUB_OUTPUT
           exit 0
         fi
-        
+
         # Validate version format (semver)
         if ! echo "$CURRENT_VERSION" | grep -E '^[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*)?(\+[0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*)?$' > /dev/null; then
           echo "❌ Invalid version format: $CURRENT_VERSION"
           echo "Version must follow semantic versioning format (e.g., 1.0.0, 2.1.0-beta.1)"
           exit 1
         fi
-        
+
         # Compare versions using sort -V (version sort)
         # If current version sorts before previous version, it's lower
         if [ "$(printf '%s\n' "$CURRENT_VERSION" "$PREVIOUS_VERSION" | sort -V | head -n1)" = "$CURRENT_VERSION" ] && [ "$CURRENT_VERSION" != "$PREVIOUS_VERSION" ]; then
@@ -92,7 +92,7 @@ jobs:
           echo "Version must be incremented, not decremented."
           exit 1
         fi
-        
+
         echo "✅ Version bump is valid: $PREVIOUS_VERSION -> $CURRENT_VERSION"
         echo "should_release=true" >> $GITHUB_OUTPUT
         echo "current_version=$CURRENT_VERSION" >> $GITHUB_OUTPUT
@@ -102,7 +102,7 @@ jobs:
       should_release: ${{ steps.version-check.outputs.should_release }}
       current_version: ${{ steps.versions.outputs.current_version }}
       previous_version: ${{ steps.versions.outputs.previous_version }}
-    
+
 
   release:
     runs-on: ubuntu-latest
@@ -117,34 +117,35 @@ jobs:
       uses: actions/checkout@v4
       with:
         fetch-depth: 0
-        
+
     - name: Setup Bun
       uses: oven-sh/setup-bun@v1
       with:
         bun-version: latest
-        
+
     - name: Install dependencies
       run: bun install
-      
+
     - name: Build project
       run: bun run build
-      
+
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
         node-version: '24'
         registry-url: 'https://registry.npmjs.org'
-        
+
     - name: Get version
       id: version
       run: |
-        VERSION=$(node -p "require('./package.json').version")
+        VERSION=$(node -p "require('./packages/scad-js/package.json').version")
         echo "version=$VERSION" >> $GITHUB_OUTPUT
         echo "Publishing version: $VERSION"
-        
+
     - name: Publish to NPM
       run: npm publish --provenance --access public
-        
+      working-directory: packages/scad-js
+
     - name: Create GitHub Release
       run: |
         gh release create v${{ steps.version.outputs.version }} \

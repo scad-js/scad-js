@@ -1,0 +1,13 @@
+{
+  "name": "@scad-js/examples",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Example projects using scad-js",
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "scad-js": "workspace:*"
+  }
+}

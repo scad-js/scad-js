@@ -1,4 +1,4 @@
-import { cylinder, cube, difference, union } from '../src';
+import { cylinder, cube, difference, union } from 'scad-js';
 import { writeFileSync } from 'fs';
 
 const cylinder1 = (x: number) => cylinder(12, x / 2);

@@ -1,4 +1,4 @@
-import { cube, sphere, cylinder, hull, difference, union } from '../src';
+import { cube, sphere, cylinder, hull, difference, union } from 'scad-js';
 import { writeFileSync } from 'fs';
 
 const dsa_base = 15.4;
