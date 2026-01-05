@@ -8,10 +8,10 @@
     "build": "bun run --filter '*' build",
     "test": "bun run --filter '*' test",
     "coverage": "bun run --filter '*' coverage",
-    "lint": "biome lint packages",
-    "format": "biome format --write packages",
-    "check": "biome check packages",
-    "ci": "biome ci packages",
+    "lint": "biome lint packages/scad-js",
+    "format": "biome format --write packages/scad-js",
+    "check": "biome check packages/scad-js",
+    "ci": "biome ci packages/scad-js",
     "typecheck": "bun run --filter '*' typecheck"
   },
   "devDependencies": {

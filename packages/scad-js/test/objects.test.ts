@@ -1,5 +1,5 @@
-import { describe, it, expect } from 'vitest';
-import { circle, square, cube, sphere } from '../src/objects';
+import { describe, expect, it } from 'vitest';
+import { circle, cube, sphere, square } from '../src/objects';
 
 describe('Primitive Objects', () => {
   describe('circle', () => {
@@ -89,4 +89,4 @@ describe('Primitive Objects', () => {
       expect(result.params?.$fn).toBe(100);
     });
   });
-}); 
+});

@@ -41,6 +41,6 @@
     }
   },
   "files": {
-    "includes": ["packages/**/*", "!**/dist/**/*", "!**/node_modules/**/*", "!**/coverage/**/*", "!**/test/**/*.js"]
+    "includes": ["packages/scad-js/**/*", "!**/dist/**/*", "!**/node_modules/**/*", "!**/coverage/**/*", "!**/test/**/*.js"]
   }
 }
