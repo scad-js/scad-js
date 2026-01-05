@@ -1,4 +1,4 @@
-import { cube, cylinder, union, difference, rotate, translate, type ScadObject } from '../src';
+import { cube, cylinder, union, difference, rotate, translate, type ScadObject } from 'scad-js';
 import { writeFileSync } from 'fs';
 
 // Gear parameters

@@ -1,43 +1,18 @@
 {
-  "name": "scad-js",
-  "version": "0.6.8",
-  "description": "Generate OpenSCAD solid models with typescript",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "files": [
-    "dist",
-    "LICENSE",
-    "README.md"
+  "name": "@scad-js/monorepo",
+  "private": true,
+  "workspaces": [
+    "packages/*"
   ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/scad-js/scad-js"
-  },
-  "keywords": [
-    "cad",
-    "openscad",
-    "3d",
-    "modeling",
-    "typescript"
-  ],
-  "author": "20lives",
-  "license": "MIT",
-  "private": false,
-  "bugs": {
-    "url": "https://github.com/scad-js/scad-js/issues"
-  },
-  "homepage": "https://github.com/scad-js/scad-js#readme",
   "scripts": {
-    "build": "tsc",
-    "prepublishOnly": "npm run build",
-    "test": "vitest run",
-    "test:watch": "vitest",
-    "coverage": "vitest run --coverage",
-    "lint": "biome lint src",
-    "format": "biome format --write src",
-    "check": "biome check src",
-    "ci": "biome ci src",
-    "typecheck": "tsc --noEmit"
+    "build": "bun run --filter '*' build",
+    "test": "bun run --filter '*' test",
+    "coverage": "bun run --filter '*' coverage",
+    "lint": "biome lint packages/scad-js",
+    "format": "biome format --write packages/scad-js",
+    "check": "biome check packages/scad-js",
+    "ci": "biome ci packages/scad-js",
+    "typecheck": "bun run --filter '*' typecheck"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.3.10",
@@ -45,8 +20,5 @@
     "@vitest/coverage-v8": "^3.2.4",
     "typescript": "^5.9.3",
     "vitest": "^3.2.4"
-  },
-  "dependencies": {
-    "openscad-wasm": "^0.0.4"
   }
 }

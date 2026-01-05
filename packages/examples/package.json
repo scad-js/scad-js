@@ -1,0 +1,9 @@
+{
+  "name": "@scad-js/examples",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Example projects using scad-js",
+  "dependencies": {
+    "scad-js": "workspace:*"
+  }
+}

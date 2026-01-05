@@ -1,4 +1,4 @@
-import { cylinder, hull, union, type ScadObject } from '../src';
+import { cylinder, hull, union, type ScadObject } from 'scad-js';
 import { writeFileSync } from 'fs';
 
 const wall = (p: number) => cylinder(20, 1)

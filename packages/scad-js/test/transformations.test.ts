@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import * as S from '../src';
 
 describe('Transformations', () => {
@@ -233,7 +233,7 @@ describe('Transformations', () => {
       });
     });
   });
-  
+
   describe('projection', () => {
     it('should add projection transformation with default cut', () => {
       const square = S.square();
@@ -253,7 +253,7 @@ describe('Transformations', () => {
       });
     });
   });
-  
+
   describe('extrusions', () => {
     it('should add linear_extrude transformation with default values', () => {
       const square = S.square();
@@ -350,4 +350,4 @@ describe('Transformations', () => {
       });
     });
   });
-}); 
+});
