@@ -7,7 +7,7 @@ const stringify = (x: string | string[]): string => {
     return x === 'undef' || x.includes('$t') ? x : `"${x}"`;
   }
   if (Array.isArray(x)) {
-    return `[${x.join(', ')}]`;
+    return `[${x.map((i) => stringify(i)).join(', ')}]`;
   }
   return String(x);
 };
