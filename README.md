@@ -1,307 +1,127 @@
 <h1 align="center">
-  <img src="https://i.imgur.com/IiI57LR.png" alt="scad-js" height="128"> SCAD-JS
+  <img src="https://i.imgur.com/IiI57LR.png" alt="scad-js" height="128"><br>
+  scad-js
 </h1>
 
-> **scad-js** transpile your TypeScript to **OpenSCAD** letting you create programmatic 3D solid models with the familiar TypeScript/JavaScript syntax.
-
 <p align="center">
-  <a href="https://www.npmjs.com/package/scad-js">
-    <img alt="Latest release" src="https://img.shields.io/npm/v/scad-js?style=for-the-badge">
-    <img alt="Codecov coverage" src="https://img.shields.io/codecov/c/github/scad-js/scad-js?style=for-the-badge">
-  </a>
-  <a href="https://www.npmjs.com/package/scad-js">
-    <img alt="scad-js demo" src="https://i.imgur.com/GhjNUxM.gif">
-  </a>
+  <strong>Write TypeScript. Get 3D models.</strong><br>
+  <sub>TypeScript → OpenSCAD compiler. Fluent API. Type safe. npm-powered.</sub>
 </p>
 
-**OpenSCAD** is an amazing software for creating solid 3D CAD objects, but modeling with the **OpenSCAD** language can be really cumbersome and limited.
+<p align="center">
+  <a href="https://www.npmjs.com/package/scad-js"><img src="https://img.shields.io/npm/v/scad-js?style=flat-square" alt="npm version"></a>
+  <a href="https://codecov.io/gh/scad-js/scad-js"><img src="https://img.shields.io/codecov/c/github/scad-js/scad-js?style=flat-square" alt="coverage"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/npm/l/scad-js?style=flat-square" alt="license"></a>
+</p>
 
-**scad-js** overcomes these limitations with the power of TypeScript, providing full type safety for your 3D models.
+<p align="center">
+  <img src="./demo.gif" alt="scad-js demo" width="800">
+</p>
 
-## Getting started
-First make sure you have [OpenSCAD](https://www.openscad.org/downloads.html) installed on your system, we will use it to visualize the model.
+---
 
-You can create a new project from scratch:
+OpenSCAD is great at 3D modeling. Its language — not so much. No real variables, barely usable loops, zero IDE support.
+
+**scad-js** lets you write TypeScript instead and compiles it to OpenSCAD.
+
+- **Fluent API** — `cube(10).rotate_z(45).color('tomato')`
+- **Real JavaScript** — loops, `Math.sin`, functions, the entire npm ecosystem
+- **Type-safe** — catch errors in your editor, not after a 10-minute render
+- **Two outputs** — `.serialize()` → `.scad` file, or `.render()` → STL directly via WASM
+
+## Quickstart
 
 ```bash
-mkdir my-scad-project
-cd my-scad-project
-bun init -y
-bun add scad-js typescript
+bun add scad-js
 ```
 
-Or clone the starter template:
-
-```bash
-git clone https://github.com/scad-js/scad-js-starter.git my-scad-js-project
-cd my-scad-js-project
-bun install
-```
-
-## Using with TypeScript
-
-Create a simple model with TypeScript:
+Create `model.ts`:
 
 ```typescript
-import { cube, sphere, cylinder, difference, union } from 'scad-js';
-import * as fs from 'fs';
+import { cube, sphere, difference } from 'scad-js'
+import { writeFileSync } from 'fs'
 
-// Create a base cube
-const base = cube(10).translate([0, 0, 0]);
-
-// Create a sphere for the top
-const top = sphere(3).translate([0, 0, 10]);
-
-// Create cylindrical holes
-const hole1 = cylinder(20, 1).translate([3, 3, -5]);
-const hole2 = cylinder(20, 1).translate([-3, 3, -5]);
-const hole3 = cylinder(20, 1).translate([3, -3, -5]);
-const hole4 = cylinder(20, 1).translate([-3, -3, -5]);
-
-// Combine everything using operations
-const model = difference(
-  union(base, top),
-  hole1, hole2, hole3, hole4
-);
-
-// Serialize to OpenSCAD code
-const scadCode = model.serialize();
-
-// Save the result to a file
-fs.writeFileSync('model.scad', scadCode);
-
-// Or render directly to STL (requires openscad-wasm)
-const stlData = await model.render();
-fs.writeFileSync('model.stl', stlData);
+const model = difference(cube(10), sphere(7))
+writeFileSync('model.scad', model.serialize())
 ```
-
-Then run:
 
 ```bash
-bun run your-model.ts
+bun model.ts
 ```
 
-This will generate an OpenSCAD file that you can open and render, or directly generate an STL file.
+Open `model.scad` in [OpenSCAD](https://www.openscad.org/downloads.html). Press **F5**. Done.
 
-## Documentation
+> **No OpenSCAD installed?** Render straight to STL:
+> ```typescript
+> const stl = await model.render()
+> writeFileSync('model.stl', stl)
+> ```
 
-For detailed documentation on how to use scad-js visit [scad-js-docs](https://github.com/scad-js/scad-js-docs), you can also look at the official [OpenSCAD Documentation](https://www.openscad.org/documentation.html) page.
+<details>
+<summary><strong>Full project setup</strong></summary>
 
-## Type Safety
+Start from scratch:
 
-scad-js provides TypeScript definitions that help you catch errors early:
+```bash
+mkdir my-project && cd my-project
+bun init -y
+bun add scad-js
+```
 
-- Vector dimensions ([2D] or [3D]) are type-checked
-- SCAD primitives and operations have correct parameter types
-- Transformation methods are properly typed
-- Intellisense support in most editors
+Or grab the [starter template](https://github.com/scad-js/scad-js-starter):
+
+```bash
+git clone https://github.com/scad-js/scad-js-starter.git my-project
+cd my-project && bun install
+```
+
+</details>
 
 ## Examples
 
-Here are some examples to help you get started with scad-js:
-
-### Simple Example
-
-This example demonstrates basic operations like union, difference, and combining primitive shapes:
+A Möbius strip — loops + `hull`, 8 lines of modeling:
 
 ```typescript
-import { cube, sphere, cylinder, difference, union } from 'scad-js';
-import * as fs from 'fs';
+import { cylinder, hull, union, type ScadObject } from 'scad-js'
 
-// Create a simple model with TypeScript
-const createModel = (): string => {
-  // Create a base cube
-  const base = cube(10).translate([0, 0, 0]);
-  
-  // Create a sphere for the top
-  const top = sphere(3).translate([0, 0, 10]);
-  
-  // Create cylindrical holes
-  const hole1 = cylinder(20, 1).translate([3, 3, -5]);
-  const hole2 = cylinder(20, 1).translate([-3, 3, -5]);
-  const hole3 = cylinder(20, 1).translate([3, -3, -5]);
-  const hole4 = cylinder(20, 1).translate([-3, -3, -5]);
-  
-  // Combine everything using operations
-  const model = difference(
-    union(base, top),
-    hole1, hole2, hole3, hole4
-  );
-  
-  // Serialize to OpenSCAD code
-  return model.serialize();
-};
+const wall = (p: number) => cylinder(20, 1)
+  .rotate([p, 0, 0])
+  .translate([0, 40, 0])
+  .rotate([0, 0, 2 * p])
 
-// Generate the OpenSCAD code
-const scadCode = createModel();
+const walls: ScadObject[] = []
+for (let i = 0; i <= 360; i += 5)
+  walls.push(hull(wall(i), wall(i + 5)))
 
-// Save the result to a file
-fs.writeFileSync('model.scad', scadCode);
+const mobiusStrip = union(...walls)
 ```
 
-### Hollowed Cube (Simple Version)
-
-A cube with a spherical cavity, created using a single sphere subtraction:
+Turner's cube — `.map()` + functional composition:
 
 ```typescript
-import { cube, sphere, difference } from 'scad-js';
-import * as fs from 'fs';
+import { cylinder, cube, difference, union } from 'scad-js'
 
-// Create a hollowed cube model using a simple sphere subtraction
-const createHollowedCubeSimple = (): string => {
-  // Size parameters
-  const cubeSize = 20;
-  const sphereRadius = 16; // Bigger than half the cube size to create large holes
-  
-  // Create the main cube
-  const mainCube = cube(cubeSize);
-  
-  // Create the sphere
-  const innerSphere = sphere(sphereRadius);
-  
-  // Combine using difference operation to cut out the sphere from the cube
-  const model = difference(mainCube, innerSphere)
-    .translate([-cubeSize/2, -cubeSize/2, -cubeSize/2]); // Center the model
-  
-  // Set color to yellow/gold
-  const coloredModel = (model as any).color([1, 0.8, 0]);
-  
-  // Serialize to OpenSCAD code
-  return coloredModel.serialize();
-};
-
-// Generate the OpenSCAD code
-const scadCode = createHollowedCubeSimple();
-fs.writeFileSync('hollowed-cube-simple.scad', scadCode);
+const cy3 = (x: number) => union(
+  cylinder(12, x / 2).rotate([90, 0, 0]),
+  cylinder(12, x / 2).rotate([0, 90, 0]),
+  cylinder(12, x / 2).rotate([0, 0, 90]),
+)
+const cutCube = (x: number) => difference(cube(x), cy3(x - 0.5))
+const turnersCube = union(...[4, 6, 8, 10].map(x => cutCube(x)))
 ```
 
+**[See all examples →](./examples)** — gears, DSA keycaps, hollowed cubes, and more.
 
-### Parametric Tower Generator (Advanced)
+---
 
-This example showcases the true power of JavaScript for generative 3D modeling by creating complex architectural structures:
+<p align="center">
+  <a href="https://github.com/scad-js/scad-js-docs"><strong>Documentation</strong></a> ·
+  <a href="./examples"><strong>Examples</strong></a> ·
+  <a href="https://github.com/scad-js/scad-js-starter"><strong>Starter Template</strong></a>
+</p>
 
-```typescript
-import { cube, cylinder, sphere, union, difference, hull, type ScadObject } from 'scad-js';
-import { writeFileSync } from 'fs';
+---
 
-// Tower configuration - easily customizable parameters
-interface TowerConfig {
-  floors: number;
-  floorHeight: number;
-  baseWidth: number;
-  topWidth: number;
-  windowsPerFloor: number;
-  curveIntensity: number; // Creates organic curves
-  balconyEveryNFloors: number;
-}
+Built on [OpenSCAD](https://www.openscad.org). Inspired by [scad-clj](https://github.com/farrellm/scad-clj), [OpenJSCAD](https://openjscad.org/), and [scadjs](https://github.com/tasn/scadjs).
 
-const config: TowerConfig = {
-  floors: 12,
-  floorHeight: 4,
-  baseWidth: 20,
-  topWidth: 12,
-  windowsPerFloor: 8,
-  curveIntensity: 0.3,
-  balconyEveryNFloors: 3
-};
-
-// Mathematical curve calculation for organic shapes
-function calculateFloorWidth(floorIndex: number, totalFloors: number, baseWidth: number, topWidth: number, curveIntensity: number): number {
-  const linearRatio = floorIndex / (totalFloors - 1);
-  const curveOffset = Math.sin(linearRatio * Math.PI) * curveIntensity * (baseWidth - topWidth) * 0.3;
-  const width = baseWidth + (topWidth - baseWidth) * linearRatio + curveOffset;
-  return Math.max(width, topWidth * 0.8);
-}
-
-// Generate multiple tower variations from the same codebase
-const towers = [
-  { name: 'classic_tower', config: { ...config } },
-  { name: 'curved_tower', config: { ...config, curveIntensity: 0.8, floors: 15 } },
-  { name: 'modern_tower', config: { ...config, windowsPerFloor: 12, floors: 18 } }
-];
-
-// Generate all variations using JavaScript loops and math
-towers.forEach(({ name, config }) => {
-  const tower = generateParametricTower(config);
-  writeFileSync(`${name}.scad`, tower.serialize({ $fn: 50 }));
-});
-```
-
-**This example demonstrates:**
-- 🔄 **Loops** for generating repetitive elements (floors, windows)
-- 📐 **Mathematical calculations** for organic curves and precise positioning  
-- 🎛️ **Conditional logic** for feature placement (balconies, decorative elements)
-- 🧩 **Modular functions** for reusable components
-- 📊 **Data structures** for managing complex geometry collections
-- ⚙️ **Parameterization** for instant design variations
-- 🎨 **Multiple outputs** from a single codebase
-
-*This level of parametric modeling would be extremely difficult to achieve in pure OpenSCAD!*
-
-### Functional Design Examples
-
-**scad-js** excels at creating practical, real-world objects with complex engineering requirements:
-
-#### 📱 Parametric Phone Stand
-
-```typescript
-// Customizable for any device size and viewing angle
-const phoneStand = generatePhoneStand({
-  phoneWidth: 75,
-  standAngle: 60,          // Perfect viewing angle
-  cableSlot: true,         // Charging cable management
-  weightingHoles: true,    // Add coins for stability
-  rubberGrips: true        // Non-slip base pads
-});
-
-// Generate multiple variations for different use cases
-const variations = [
-  { name: 'desk_work', angle: 45, depth: 60 },
-  { name: 'video_calls', angle: 75, height: 70 },
-  { name: 'bedside', angle: 55, compact: true }
-];
-```
-
-#### 🖊️ Modular Pen Holder
-
-```typescript
-// Smart compartment arrangement with automatic layout
-const penHolder = generatePenHolder({
-  compartments: [
-    { type: 'pen', quantity: 3 },
-    { type: 'marker', quantity: 2 },
-    { type: 'business_cards', quantity: 1 },
-    { type: 'scissors', quantity: 1 }
-  ],
-  phoneSlot: true,         // Built-in phone stand
-  drawerSlot: true,        // Hidden storage drawer
-  cableManagement: true,   // Wire routing holes
-  labelAreas: true         // Raised text areas
-});
-```
-
-**Engineering features demonstrated:**
-- 📐 **Precise angle calculations** for optimal viewing/ergonomics
-- 🔧 **Engineering tolerances** for 3D printing requirements  
-- 📱 **Multi-device compatibility** through parameterization
-- 🎯 **Functional features** like cable management and stability
-- 🏗️ **Modular design** with reusable components
-- 📊 **Automatic layout algorithms** for optimal space usage
-
-### Running Examples
-
-To run any of these examples:
-
-```bash
-bun run ./examples/your-example.ts
-```
-
-This will generate OpenSCAD files that you can open and render in OpenSCAD, plus STL files ready for 3D printing.
-
-## Acknowledgements
-
-This project was inspired by many other projects: [farrellm/scad-clj](https://github.com/farrellm/scad-clj), [OpenJSCAD.org](https://openjscad.org/), [tasn/scadjs](https://github.com/tasn/scadjs) and more... And of course it would not even exist without [OpenSCAD](https://www.openscad.org) itself.
-
-## License
-
-This project is open source and available under the [MIT License](LICENSE).
+[MIT License](LICENSE)
