@@ -49,6 +49,14 @@ writeFileSync('model.scad', model.serialize())
 bun model.ts
 ```
 
+For a faster edit loop, run with watch mode:
+
+```bash
+bun --watch model.ts
+```
+
+Then in OpenSCAD, enable `Design -> Automatic Reload and Preview` for near-live feedback while you code.
+
 Open `model.scad` in [OpenSCAD](https://www.openscad.org/downloads.html). Press **F5**. Done.
 
 > **No OpenSCAD installed?** Render straight to STL:
@@ -85,9 +93,9 @@ A Möbius strip — loops + `hull`, 8 lines of modeling:
 import { cylinder, hull, union, type ScadObject } from 'scad-js'
 
 const wall = (p: number) => cylinder(20, 1)
-  .rotate([p, 0, 0])
-  .translate([0, 40, 0])
-  .rotate([0, 0, 2 * p])
+  .rotate_x(p)
+  .translate_y(40)
+  .rotate_z(2 * p)
 
 const walls: ScadObject[] = []
 for (let i = 0; i <= 360; i += 5)
@@ -102,9 +110,9 @@ Turner's cube — `.map()` + functional composition:
 import { cylinder, cube, difference, union } from 'scad-js'
 
 const cy3 = (x: number) => union(
-  cylinder(12, x / 2).rotate([90, 0, 0]),
-  cylinder(12, x / 2).rotate([0, 90, 0]),
-  cylinder(12, x / 2).rotate([0, 0, 90]),
+  cylinder(12, x / 2).rotate_x(90),
+  cylinder(12, x / 2).rotate_y(90),
+  cylinder(12, x / 2).rotate_z(90),
 )
 const cutCube = (x: number) => difference(cube(x), cy3(x - 0.5))
 const turnersCube = union(...[4, 6, 8, 10].map(x => cutCube(x)))
